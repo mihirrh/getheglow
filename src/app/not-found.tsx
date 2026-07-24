@@ -1,55 +1,48 @@
 import Link from "next/link";
-import { BUSINESS } from "@/lib/constants";
+import { Home, ArrowLeft } from "lucide-react";
 
 export default function NotFound() {
   return (
     <div
-      className="min-h-[80vh] flex items-center justify-center text-center py-24"
-      style={{ background: "linear-gradient(135deg, #FFF8F8, #F7D6E3, #FFF8F8)" }}
+      className="min-h-screen flex items-center justify-center text-center px-4"
+      style={{ background: "linear-gradient(135deg, #2B2B2B 0%, #1a0a10 50%, #E84C8B 100%)" }}
     >
-      <div className="container-custom max-w-lg">
-        <div
-          className="text-8xl font-bold mb-4"
+      <div>
+        {/* Large 404 */}
+        <p
+          className="font-display font-bold text-[140px] sm:text-[200px] leading-none mb-0"
           style={{
-            fontFamily: "var(--font-heading)",
-            background: "linear-gradient(135deg, #E84C8B, #C93A76)",
+            background: "linear-gradient(135deg, rgba(247,214,227,0.2), rgba(232,76,139,0.4))",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
             backgroundClip: "text",
           }}
         >
           404
-        </div>
-        <h1
-          className="text-3xl font-bold text-[#2B2B2B] mb-4"
-          style={{ fontFamily: "var(--font-heading)" }}
-        >
+        </p>
+
+        <h1 className="font-display font-bold text-3xl sm:text-4xl text-white mb-4 -mt-4">
           Page Not Found
         </h1>
-        <p
-          className="text-[#7A7A7A] mb-8 text-[16px]"
-          style={{ fontFamily: "var(--font-body)" }}
-        >
-          The page you&apos;re looking for doesn&apos;t exist. Let&apos;s get you back to glowing.
+        <p className="text-white/65 text-base sm:text-lg max-w-md mx-auto mb-10">
+          The page you're looking for doesn't exist. Perhaps you'd like to browse our services or book an appointment?
         </p>
-        <div className="flex flex-col sm:flex-row gap-3 justify-center">
-          <Link href="/" className="btn-primary">
-            Back to Home
+
+        <div className="flex flex-wrap gap-4 justify-center">
+          <Link
+            href="/"
+            className="flex items-center gap-2 gradient-primary text-white font-medium px-8 py-4 rounded-full hover:opacity-90 transition-opacity shadow-xl text-sm"
+          >
+            <Home size={16} />
+            Return Home
           </Link>
-          <Link href="/services" className="btn-secondary">
+          <Link
+            href="/services"
+            className="flex items-center gap-2 glass border border-white/30 text-white font-medium px-8 py-4 rounded-full hover:bg-white/20 transition-all text-sm"
+          >
+            <ArrowLeft size={16} />
             View Services
           </Link>
-        </div>
-        <div className="mt-8">
-          <a
-            href={BUSINESS.whatsappHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[#E84C8B] text-[14px] hover:underline"
-            style={{ fontFamily: "var(--font-body)" }}
-          >
-            Or book via WhatsApp →
-          </a>
         </div>
       </div>
     </div>

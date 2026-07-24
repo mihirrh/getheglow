@@ -1,115 +1,115 @@
 import type { Metadata } from "next";
-import { BUSINESS } from "@/lib/constants";
+import { BUSINESS } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Get The Glow Leicester",
+  title: "Privacy Policy – Get The Glow Leicester",
   description: "Privacy policy for Get The Glow beauty salon, Leicester.",
-  robots: { index: false, follow: false },
+  alternates: { canonical: `${BUSINESS.url}/privacy` },
 };
 
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen py-24 bg-white">
-      <div className="container-custom max-w-2xl">
-        <h1
-          className="text-4xl font-bold text-[#2B2B2B] mb-8"
-          style={{ fontFamily: "var(--font-heading)" }}
-        >
-          Privacy Policy
-        </h1>
-        <div
-          className="prose prose-sm max-w-none text-[#5A5A5A]"
-          style={{ fontFamily: "var(--font-body)" }}
-        >
-          <p className="mb-4">
-            <strong>Last updated:</strong> {new Date().getFullYear()}
-          </p>
-          <p className="mb-4">
-            Get The Glow (&ldquo;we&rdquo;, &ldquo;us&rdquo;, &ldquo;our&rdquo;) is committed to protecting your personal
-            information and your right to privacy. This policy explains how we collect, use, and
-            safeguard your information.
-          </p>
-
-          <h2
-            className="text-2xl font-bold text-[#2B2B2B] mt-8 mb-3"
-            style={{ fontFamily: "var(--font-heading)" }}
-          >
-            Information We Collect
-          </h2>
-          <p className="mb-4">
-            We may collect your name, phone number, email address and service preferences when
-            you contact us to book an appointment or make an enquiry via our website, WhatsApp,
-            phone, or email.
-          </p>
-
-          <h2
-            className="text-2xl font-bold text-[#2B2B2B] mt-8 mb-3"
-            style={{ fontFamily: "var(--font-heading)" }}
-          >
-            How We Use Your Information
-          </h2>
-          <ul className="list-disc list-inside mb-4 space-y-1">
-            <li>To respond to your enquiries and confirm appointments</li>
-            <li>To provide the beauty services you have requested</li>
-            <li>To contact you regarding your appointments</li>
-            <li>To improve our services</li>
-          </ul>
-
-          <h2
-            className="text-2xl font-bold text-[#2B2B2B] mt-8 mb-3"
-            style={{ fontFamily: "var(--font-heading)" }}
-          >
-            Data Sharing
-          </h2>
-          <p className="mb-4">
-            We do not sell, trade, or share your personal information with third parties, except
-            where required by law.
-          </p>
-
-          <h2
-            className="text-2xl font-bold text-[#2B2B2B] mt-8 mb-3"
-            style={{ fontFamily: "var(--font-heading)" }}
-          >
-            Data Retention
-          </h2>
-          <p className="mb-4">
-            We retain your personal information only for as long as necessary to provide our
-            services. You may request deletion of your data at any time.
-          </p>
-
-          <h2
-            className="text-2xl font-bold text-[#2B2B2B] mt-8 mb-3"
-            style={{ fontFamily: "var(--font-heading)" }}
-          >
-            Your Rights
-          </h2>
-          <p className="mb-4">
-            Under GDPR, you have the right to access, correct, or delete your personal data.
-            Please contact us at{" "}
-            <a href={BUSINESS.emailHref} className="text-[#E84C8B]">
-              {BUSINESS.email}
-            </a>{" "}
-            to exercise these rights.
-          </p>
-
-          <h2
-            className="text-2xl font-bold text-[#2B2B2B] mt-8 mb-3"
-            style={{ fontFamily: "var(--font-heading)" }}
-          >
-            Contact
-          </h2>
-          <p>
-            Get The Glow, 5 Woodgate, Leicester LE3 5GH
-            <br />
-            Email:{" "}
-            <a href={BUSINESS.emailHref} className="text-[#E84C8B]">
-              {BUSINESS.email}
-            </a>
-            <br />
-            Phone: <a href={BUSINESS.phoneHref} className="text-[#E84C8B]">{BUSINESS.phone}</a>
-          </p>
+    <>
+      <div
+        className="pt-36 pb-20 text-center"
+        style={{ background: "linear-gradient(135deg, #2B2B2B 0%, #1a0a10 100%)" }}
+      >
+        <div className="max-w-3xl mx-auto px-4">
+          <h1 className="font-display font-bold text-4xl sm:text-5xl text-white">Privacy Policy</h1>
+          <p className="text-white/60 mt-3 text-sm">Last updated: January 2025</p>
         </div>
       </div>
-    </div>
+
+      <section className="section-padding bg-cream">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 prose prose-sm max-w-none">
+          <div className="card-luxury border border-border/50 p-8 sm:p-12 space-y-8 text-dark">
+            <div>
+              <h2 className="font-display font-bold text-2xl text-dark mb-3">1. Who We Are</h2>
+              <p className="text-muted">
+                Get The Glow is a beauty salon located at {BUSINESS.address.full}. We are the data controller for any personal data you provide to us. Contact:{" "}
+                <a href={`mailto:${BUSINESS.email}`} className="text-primary hover:underline">{BUSINESS.email}</a>
+              </p>
+            </div>
+            <div className="divider-pink" />
+            <div>
+              <h2 className="font-display font-bold text-2xl text-dark mb-3">2. Information We Collect</h2>
+              <p className="text-muted">
+                We may collect and process the following personal data:
+              </p>
+              <ul className="list-disc list-inside text-muted space-y-1 mt-3 text-sm">
+                <li>Name, phone number and email address (via contact/booking forms)</li>
+                <li>Service preferences and appointment details</li>
+                <li>Communications via WhatsApp, email, or phone</li>
+                <li>Technical data (IP address, browser type) via analytics</li>
+              </ul>
+            </div>
+            <div className="divider-pink" />
+            <div>
+              <h2 className="font-display font-bold text-2xl text-dark mb-3">3. How We Use Your Data</h2>
+              <p className="text-muted">We use your personal data to:</p>
+              <ul className="list-disc list-inside text-muted space-y-1 mt-3 text-sm">
+                <li>Manage and confirm bookings and appointments</li>
+                <li>Respond to enquiries and provide customer support</li>
+                <li>Send appointment reminders (where consented)</li>
+                <li>Improve our website and services</li>
+                <li>Comply with legal obligations</li>
+              </ul>
+            </div>
+            <div className="divider-pink" />
+            <div>
+              <h2 className="font-display font-bold text-2xl text-dark mb-3">4. Legal Basis</h2>
+              <p className="text-muted">
+                We process your data based on: (a) your consent; (b) our legitimate interests in running our business; or (c) compliance with legal obligations. You may withdraw consent at any time.
+              </p>
+            </div>
+            <div className="divider-pink" />
+            <div>
+              <h2 className="font-display font-bold text-2xl text-dark mb-3">5. Data Sharing</h2>
+              <p className="text-muted">
+                We do not sell your personal data. We may share it with service providers (email delivery, analytics) under appropriate data processing agreements. We do not share data with third parties for marketing.
+              </p>
+            </div>
+            <div className="divider-pink" />
+            <div>
+              <h2 className="font-display font-bold text-2xl text-dark mb-3">6. Data Retention</h2>
+              <p className="text-muted">
+                We retain personal data only as long as necessary for the purpose it was collected, or as required by law. Appointment and contact data is typically retained for up to 3 years.
+              </p>
+            </div>
+            <div className="divider-pink" />
+            <div>
+              <h2 className="font-display font-bold text-2xl text-dark mb-3">7. Your Rights</h2>
+              <p className="text-muted">Under UK GDPR, you have the right to:</p>
+              <ul className="list-disc list-inside text-muted space-y-1 mt-3 text-sm">
+                <li>Access your personal data</li>
+                <li>Rectification of inaccurate data</li>
+                <li>Erasure of your data</li>
+                <li>Object to or restrict processing</li>
+                <li>Data portability</li>
+                <li>Lodge a complaint with the ICO (ico.org.uk)</li>
+              </ul>
+              <p className="text-muted mt-3">
+                To exercise these rights, contact:{" "}
+                <a href={`mailto:${BUSINESS.email}`} className="text-primary hover:underline">{BUSINESS.email}</a>
+              </p>
+            </div>
+            <div className="divider-pink" />
+            <div>
+              <h2 className="font-display font-bold text-2xl text-dark mb-3">8. Cookies</h2>
+              <p className="text-muted">
+                This website uses essential cookies required for functionality. We do not use advertising or tracking cookies without your explicit consent. You can manage cookies through your browser settings.
+              </p>
+            </div>
+            <div className="divider-pink" />
+            <div>
+              <h2 className="font-display font-bold text-2xl text-dark mb-3">9. Changes to This Policy</h2>
+              <p className="text-muted">
+                We may update this policy from time to time. Any changes will be posted on this page with an updated date.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }

@@ -1,179 +1,165 @@
 import type { Metadata } from "next";
-import { BUSINESS } from "@/lib/constants";
-import { Phone, Mail, MapPin, Clock, MessageCircle } from "lucide-react";
-import { HOURS } from "@/lib/constants";
+import { MapPin, Phone, Mail, Clock, MessageCircle, Camera } from "lucide-react";
+import { BUSINESS, HOURS } from "@/lib/data";
+import { ContactForm } from "@/components/contact/ContactForm";
 
 export const metadata: Metadata = {
-  title: "Contact Us | Get The Glow Beauty Salon Leicester",
+  title: "Contact Get The Glow – Book a Beauty Appointment in Leicester",
   description:
-    "Contact Get The Glow beauty salon in Leicester. 5 Woodgate, Leicester LE3 5GH. Call, WhatsApp, or email us to book your appointment.",
+    "Contact Get The Glow beauty salon in Leicester. Book an appointment, ask about services, or find us at 5 Woodgate, Leicester LE3 5GH. Call 07778 698550.",
   alternates: { canonical: `${BUSINESS.url}/contact` },
 };
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen">
+    <>
       {/* Hero */}
-      <section
-        className="py-24 text-center"
-        style={{ background: "linear-gradient(135deg, #FFF8F8, #F7D6E3, #FFF8F8)" }}
+      <div
+        className="relative pt-36 pb-24 overflow-hidden text-center"
+        style={{ background: "linear-gradient(135deg, #2B2B2B 0%, #1a0a10 50%, #D96A98 100%)" }}
       >
-        <div className="container-custom">
-          <span className="section-label mb-3 block">Get In Touch</span>
-          <h1
-            className="text-5xl md:text-6xl font-bold text-[#2B2B2B] mb-5"
-            style={{ fontFamily: "var(--font-heading)" }}
-          >
+        <div className="max-w-3xl mx-auto px-4 relative z-10">
+          <p className="text-xs uppercase tracking-[0.3em] text-soft-pink font-sans font-medium mb-4">
+            Get In Touch
+          </p>
+          <h1 className="font-display font-bold text-5xl sm:text-6xl text-white mb-6">
             Contact Us
           </h1>
-          <p
-            className="text-[#7A7A7A] text-lg max-w-xl mx-auto"
-            style={{ fontFamily: "var(--font-body)" }}
-          >
-            We&apos;d love to hear from you. Book an appointment, ask a question, or just say hello.
+          <p className="text-white/75 text-lg">
+            We'd love to hear from you. Book an appointment, ask a question, or just say hello.
           </p>
         </div>
-      </section>
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-rose/20 blur-[120px] pointer-events-none" />
+      </div>
 
-      {/* Content */}
-      <section className="section-padding bg-white">
-        <div className="container-custom">
+      <section className="section-padding bg-cream">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Contact Info */}
-            <div className="space-y-5">
-              <div className="card-premium p-7">
-                <h2
-                  className="font-bold text-[20px] text-[#2B2B2B] mb-5"
-                  style={{ fontFamily: "var(--font-heading)" }}
+            {/* Left: contact info */}
+            <div className="space-y-6">
+              {/* Quick contacts */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <a
+                  href={BUSINESS.phoneHref}
+                  className="card-luxury flex items-center gap-4 p-6 border border-border/50 hover:border-primary/30 transition-colors group"
                 >
-                  Contact Information
-                </h2>
-                <ul className="space-y-4">
-                  <li>
-                    <a
-                      href={BUSINESS.googleMaps}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-start gap-3 group"
-                    >
-                      <MapPin size={18} className="text-[#E84C8B] mt-0.5 flex-shrink-0" />
-                      <div>
-                        <div
-                          className="text-[15px] text-[#2B2B2B] group-hover:text-[#E84C8B] transition-colors"
-                          style={{ fontFamily: "var(--font-body)" }}
-                        >
-                          5 Woodgate, Leicester LE3 5GH
-                        </div>
-                        <div
-                          className="text-[12px] text-[#7A7A7A] mt-0.5"
-                          style={{ fontFamily: "var(--font-body)" }}
-                        >
-                          Click for directions
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <li>
-                    <a href={BUSINESS.phoneHref} className="flex items-center gap-3 group">
-                      <Phone size={18} className="text-[#E84C8B] flex-shrink-0" />
-                      <span
-                        className="text-[15px] text-[#2B2B2B] group-hover:text-[#E84C8B] transition-colors"
-                        style={{ fontFamily: "var(--font-body)" }}
-                      >
-                        {BUSINESS.phone}
-                      </span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href={BUSINESS.emailHref} className="flex items-center gap-3 group">
-                      <Mail size={18} className="text-[#E84C8B] flex-shrink-0" />
-                      <span
-                        className="text-[15px] text-[#2B2B2B] group-hover:text-[#E84C8B] transition-colors"
-                        style={{ fontFamily: "var(--font-body)" }}
-                      >
-                        {BUSINESS.email}
-                      </span>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-
-              {/* Hours */}
-              <div className="card-premium p-7">
-                <h2
-                  className="font-bold text-[20px] text-[#2B2B2B] mb-5 flex items-center gap-2"
-                  style={{ fontFamily: "var(--font-heading)" }}
-                >
-                  <Clock size={18} className="text-[#E84C8B]" />
-                  Opening Hours
-                </h2>
-                <ul className="space-y-2">
-                  {HOURS.map((h) => (
-                    <li key={h.day} className="flex justify-between">
-                      <span
-                        className="text-[14px] text-[#7A7A7A]"
-                        style={{ fontFamily: "var(--font-body)" }}
-                      >
-                        {h.day}
-                      </span>
-                      <span
-                        className={`text-[14px] font-medium ${
-                          h.open ? "text-[#2B2B2B]" : "text-[#B0B0B0]"
-                        }`}
-                        style={{ fontFamily: "var(--font-body)" }}
-                      >
-                        {h.hours}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Quick Actions */}
-              <div className="flex flex-col gap-3">
+                  <div className="w-12 h-12 rounded-2xl bg-soft-pink/60 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/15 transition-colors">
+                    <Phone size={20} className="text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted uppercase tracking-widest mb-0.5">Call</p>
+                    <p className="font-display font-semibold text-dark text-sm">{BUSINESS.phone}</p>
+                  </div>
+                </a>
                 <a
                   href={BUSINESS.whatsappHref}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-primary justify-center"
+                  className="card-luxury flex items-center gap-4 p-6 border border-border/50 hover:border-[#25D366]/40 transition-colors group"
                 >
-                  <MessageCircle size={17} />
-                  WhatsApp Us Now
+                  <div className="w-12 h-12 rounded-2xl bg-[#25D366]/15 flex items-center justify-center flex-shrink-0">
+                    <MessageCircle size={20} className="text-[#25D366]" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted uppercase tracking-widest mb-0.5">WhatsApp</p>
+                    <p className="font-display font-semibold text-dark text-sm">Message Us</p>
+                  </div>
                 </a>
-                <a href={BUSINESS.phoneHref} className="btn-secondary justify-center">
-                  <Phone size={17} />
-                  Call {BUSINESS.phone}
+                <a
+                  href={`mailto:${BUSINESS.email}`}
+                  className="card-luxury flex items-center gap-4 p-6 border border-border/50 hover:border-primary/30 transition-colors group"
+                >
+                  <div className="w-12 h-12 rounded-2xl bg-soft-pink/60 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/15 transition-colors">
+                    <Mail size={20} className="text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted uppercase tracking-widest mb-0.5">Email</p>
+                    <p className="font-display font-semibold text-dark text-sm break-all text-xs leading-snug">
+                      {BUSINESS.email}
+                    </p>
+                  </div>
                 </a>
+                <a
+                  href={BUSINESS.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="card-luxury flex items-center gap-4 p-6 border border-border/50 hover:border-primary/30 transition-colors group"
+                >
+                  <div className="w-12 h-12 rounded-2xl bg-soft-pink/60 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/15 transition-colors">
+                    <Camera size={20} className="text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted uppercase tracking-widest mb-0.5">Instagram</p>
+                    <p className="font-display font-semibold text-dark text-sm">{BUSINESS.instagramHandle}</p>
+                  </div>
+                </a>
+              </div>
+
+              {/* Address */}
+              <div className="card-luxury p-6 border border-border/50">
+                <div className="flex gap-4 mb-3">
+                  <div className="w-12 h-12 rounded-2xl bg-soft-pink/60 flex items-center justify-center flex-shrink-0">
+                    <MapPin size={20} className="text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-display font-semibold text-dark">Find Us</h3>
+                    <p className="text-muted text-sm mt-1">{BUSINESS.address.full}</p>
+                    <a
+                      href={BUSINESS.googleMaps}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-primary text-sm font-medium mt-1 inline-flex items-center gap-1 hover:underline"
+                    >
+                      Open in Google Maps →
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Hours */}
+              <div className="card-luxury p-6 border border-border/50">
+                <div className="flex gap-4 mb-4">
+                  <div className="w-12 h-12 rounded-2xl bg-soft-pink/60 flex items-center justify-center flex-shrink-0">
+                    <Clock size={20} className="text-primary" />
+                  </div>
+                  <h3 className="font-display font-semibold text-dark self-center">Opening Hours</h3>
+                </div>
+                <div className="space-y-2">
+                  {HOURS.map((h) => (
+                    <div
+                      key={h.day}
+                      className={`flex justify-between text-sm py-1.5 border-b border-border/40 last:border-0 ${
+                        h.open ? "text-dark" : "text-muted/50"
+                      }`}
+                    >
+                      <span>{h.day}</span>
+                      <span className={h.open ? "text-primary font-medium" : ""}>{h.hours}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
 
-            {/* Map */}
+            {/* Right: form */}
             <div>
-              <div className="rounded-3xl overflow-hidden shadow-[0_4px_32px_rgba(232,76,139,0.1)] h-[500px] mb-5">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2421.0!2d-1.1398!3d52.6369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4877610a6d8ae5f7%3A0x7c88bbc3d48ba18b!2s5%20Woodgate%2C%20Leicester%20LE3%205GH!5e0!3m2!1sen!2suk!4v1700000000000"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title="Get The Glow - 5 Woodgate Leicester"
-                />
-              </div>
-              <a
-                href={BUSINESS.googleMaps}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-secondary w-full justify-center"
-              >
-                <MapPin size={17} />
-                Open in Google Maps
-              </a>
+              <ContactForm />
             </div>
           </div>
         </div>
       </section>
-    </div>
+
+      {/* Map */}
+      <div className="h-[400px] bg-soft-pink/20">
+        <iframe
+          title="Get The Glow Location"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2417.9568569580755!2d-1.147!3d52.634!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTLCsDM4JzAyLjQiTiAxwrAwOCc0OS4yIlc!5e0!3m2!1sen!2suk!4v1700000000000!5m2!1sen!2suk"
+          className="w-full h-full"
+          style={{ border: 0 }}
+          allowFullScreen
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+        />
+      </div>
+    </>
   );
 }

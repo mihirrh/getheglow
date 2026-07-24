@@ -1,46 +1,54 @@
 import type { Metadata } from "next";
-import { BUSINESS } from "@/lib/constants";
-import { GalleryClient } from "@/components/gallery/GalleryClient";
+import { BUSINESS } from "@/lib/data";
+import { GalleryGrid } from "@/components/gallery/GalleryGrid";
 
 export const metadata: Metadata = {
-  title: "Gallery | Get The Glow Beauty Salon Leicester",
+  title: "Gallery – Beauty Transformations in Leicester",
   description:
-    "View our gallery of beauty transformations — nails, hair, facials, lashes and more at Get The Glow, Leicester's premium beauty salon.",
+    "Browse our gallery of beauty transformations at Get The Glow Leicester: nails, hair, facials, brows, lashes, massage and more.",
   alternates: { canonical: `${BUSINESS.url}/gallery` },
 };
 
 export default function GalleryPage() {
   return (
-    <div className="min-h-screen">
-      {/* Hero */}
-      <section
-        className="py-24 text-center"
-        style={{ background: "linear-gradient(135deg, #FFF8F8, #F7D6E3, #FFF8F8)" }}
+    <>
+      <div
+        className="relative pt-36 pb-24 text-center overflow-hidden"
+        style={{ background: "linear-gradient(135deg, #2B2B2B 0%, #1a0a10 50%, #E84C8B 100%)" }}
       >
-        <div className="container-custom">
-          <span className="section-label mb-3 block">Our Work</span>
-          <h1
-            className="text-5xl md:text-6xl font-bold text-[#2B2B2B] mb-5"
-            style={{ fontFamily: "var(--font-heading)" }}
-          >
+        <div className="max-w-3xl mx-auto px-4 relative z-10">
+          <p className="text-xs uppercase tracking-[0.3em] text-soft-pink font-sans font-medium mb-4">
+            Our Work
+          </p>
+          <h1 className="font-display font-bold text-5xl sm:text-6xl text-white mb-6">
             Gallery
           </h1>
-          <p
-            className="text-[#7A7A7A] text-lg max-w-xl mx-auto"
-            style={{ fontFamily: "var(--font-body)" }}
-          >
-            Browse our portfolio of stunning beauty transformations from clients at Get The Glow,
-            Leicester.
+          <p className="text-white/75 text-lg">
+            Real results from real clients. Browse our portfolio of beauty transformations.
           </p>
         </div>
-      </section>
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-primary/20 blur-[120px] pointer-events-none" />
+      </div>
 
-      {/* Gallery */}
-      <section className="section-padding bg-white">
-        <div className="container-custom">
-          <GalleryClient />
+      <section className="section-padding bg-cream">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <GalleryGrid />
+
+          <div className="text-center mt-14">
+            <p className="text-sm text-muted mb-6">
+              Follow us on Instagram for daily inspiration and new work
+            </p>
+            <a
+              href={BUSINESS.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 gradient-primary text-white font-medium px-8 py-3.5 rounded-full hover:opacity-90 transition-opacity shadow-lg text-sm"
+            >
+              Follow @getheglow on Instagram
+            </a>
+          </div>
         </div>
       </section>
-    </div>
+    </>
   );
 }

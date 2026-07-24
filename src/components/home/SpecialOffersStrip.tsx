@@ -1,108 +1,88 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import Link from "next/link";
-import { Tag, ArrowRight } from "lucide-react";
-import { SPECIAL_OFFERS } from "@/lib/pricing";
+import { Tag, ArrowRight, Sparkles } from "lucide-react";
+import { SPECIAL_OFFERS } from "@/lib/data";
 
 export function SpecialOffersStrip() {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
   return (
-    <section className="section-padding-sm" style={{ background: "linear-gradient(135deg, #FFF8F8, #F7D6E3, #FFF8F8)" }}>
-      <div className="container-custom">
+    <section className="section-padding bg-white" ref={ref}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-10"
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7 }}
+          className="text-center mb-16"
         >
-          <span className="section-label mb-3 block">
-            <Tag size={12} />
-            Limited Offers
-          </span>
-          <h2
-            className="text-3xl md:text-4xl font-bold text-[#2B2B2B] mb-3"
-            style={{ fontFamily: "var(--font-heading)" }}
-          >
+          <p className="text-xs uppercase tracking-[0.3em] text-gold font-sans font-medium mb-3">
+            Limited Bundles
+          </p>
+          <h2 className="font-display font-bold text-4xl sm:text-5xl text-dark mb-4">
             Special Offers
           </h2>
-          <p
-            className="text-[#7A7A7A] max-w-md mx-auto"
-            style={{ fontFamily: "var(--font-body)" }}
-          >
-            Luxury treatments, exceptional value. Our exclusive packages save you money.
+          <p className="text-muted max-w-xl mx-auto">
+            Incredible value packages for the treatments you love most.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
           {SPECIAL_OFFERS.map((offer, i) => (
             <motion.div
-              key={offer.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
-              className="card-premium p-5 relative overflow-hidden group"
+              key={offer.slug}
+              initial={{ opacity: 0, y: 24 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: i * 0.1 }}
+              className="relative"
             >
-              {/* Badge */}
-              <div
-                className="absolute top-3 right-3 px-2 py-0.5 rounded-full text-[10px] font-bold text-white"
-                style={{ background: "linear-gradient(135deg, #E84C8B, #C93A76)" }}
-              >
-                {offer.badge}
-              </div>
-
-              <h3
-                className="font-semibold text-[15px] text-[#2B2B2B] mb-1.5 pr-14 leading-tight"
-                style={{ fontFamily: "var(--font-heading)" }}
-              >
-                {offer.title}
-              </h3>
-              <p
-                className="text-[12px] text-[#7A7A7A] mb-4 leading-relaxed"
-                style={{ fontFamily: "var(--font-body)" }}
-              >
-                {offer.description}
-              </p>
-
-              <div className="flex items-end justify-between">
-                <div>
-                  <div className="flex items-baseline gap-1.5">
-                    <span
-                      className="text-2xl font-bold text-[#E84C8B]"
-                      style={{ fontFamily: "var(--font-heading)" }}
-                    >
-                      {offer.price}
-                    </span>
-                    <span
-                      className="text-[12px] text-[#B0B0B0] line-through"
-                      style={{ fontFamily: "var(--font-body)" }}
-                    >
-                      {offer.originalPrice}
-                    </span>
-                  </div>
-                  <span
-                    className="text-[11px] text-[#D6B15A] font-semibold"
-                    style={{ fontFamily: "var(--font-body)" }}
-                  >
-                    {offer.saving}
+              {offer.popular && (
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-10">
+                  <span className="gradient-primary text-white text-[10px] font-medium px-3 py-1 rounded-full shadow-md uppercase tracking-wider flex items-center gap-1">
+                    <Sparkles size={9} />
+                    Popular
                   </span>
                 </div>
+              )}
+              <div
+                className={`card-luxury h-full p-6 text-center border ${
+                  offer.popular ? "border-primary/40 ring-1 ring-primary/20" : "border-border/50"
+                }`}
+              >
+                <div className="w-10 h-10 rounded-full bg-soft-pink/60 flex items-center justify-center mx-auto mb-4">
+                  <Tag size={18} className="text-primary" />
+                </div>
+                <h3 className="font-display font-semibold text-dark text-base mb-2">
+                  {offer.name}
+                </h3>
+                <p className="text-sm text-muted mb-4 leading-relaxed">
+                  {offer.description}
+                </p>
+                <div className="divider-pink mb-4" />
+                <div className="font-display font-bold text-3xl text-primary mb-1">
+                  {offer.price}
+                </div>
+                <div className="text-xs text-gold font-medium">{offer.saving}</div>
               </div>
             </motion.div>
           ))}
         </div>
 
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="text-center mt-8"
+          initial={{ opacity: 0, y: 16 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="text-center mt-10"
         >
-          <Link href="/offers" className="btn-secondary inline-flex items-center gap-2">
+          <Link
+            href="/offers"
+            className="inline-flex items-center gap-2 border border-primary text-primary font-medium px-8 py-3 rounded-full hover:bg-soft-pink/40 transition-colors text-sm"
+          >
             View All Offers
-            <ArrowRight size={16} />
+            <ArrowRight size={14} />
           </Link>
         </motion.div>
       </div>

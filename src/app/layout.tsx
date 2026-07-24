@@ -1,15 +1,9 @@
 import type { Metadata } from "next";
-import {
-  Playfair_Display,
-  Cormorant_Garamond,
-  Inter,
-  DM_Sans,
-} from "next/font/google";
+import { Playfair_Display, Cormorant_Garamond, Inter, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { StickyCtAs } from "@/components/layout/StickyCtAs";
-import { BUSINESS } from "@/lib/constants";
+import { StickyCTAs } from "@/components/layout/StickyCTAs";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -39,12 +33,13 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(BUSINESS.url),
+  metadataBase: new URL("https://gettheglow.co.uk"),
   title: {
-    default: "Get The Glow | Premium Beauty Salon Leicester",
+    default: "Get The Glow – Premium Beauty Salon in Leicester",
     template: "%s | Get The Glow Leicester",
   },
-  description: BUSINESS.description,
+  description:
+    "Leicester's premium beauty salon. Hair, nails, facials, massage, waxing, threading & more at 5 Woodgate, Leicester LE3 5GH. Book online or call 07778 698550.",
   keywords: [
     "beauty salon Leicester",
     "hair salon Leicester",
@@ -54,134 +49,57 @@ export const metadata: Metadata = {
     "waxing Leicester",
     "threading Leicester",
     "eyebrows Leicester",
-    "lash lift Leicester",
-    "brow lamination Leicester",
+    "lashes Leicester",
     "Get The Glow",
-    "beauty salon Woodgate Leicester",
-    "Leicestershire beauty",
-    "Midlands beauty salon",
-    "bridal makeup Leicester",
-    "bridal hair Leicester",
+    "luxury beauty Leicester",
   ],
   authors: [{ name: "Get The Glow" }],
   creator: "Get The Glow",
-  publisher: "Get The Glow",
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
   openGraph: {
     type: "website",
     locale: "en_GB",
-    url: BUSINESS.url,
-    siteName: BUSINESS.name,
-    title: "Get The Glow | Premium Beauty Salon Leicester",
-    description: BUSINESS.description,
+    url: "https://gettheglow.co.uk",
+    siteName: "Get The Glow",
+    title: "Get The Glow – Premium Beauty Salon in Leicester",
+    description:
+      "Leicester's premium beauty salon. Hair, nails, facials, massage, waxing, threading & more.",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Get The Glow — Premium Beauty Salon Leicester",
+        alt: "Get The Glow – Premium Beauty Salon Leicester",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Get The Glow | Premium Beauty Salon Leicester",
-    description: BUSINESS.description,
+    title: "Get The Glow – Premium Beauty Salon in Leicester",
+    description:
+      "Leicester's premium beauty salon. Hair, nails, facials, massage, waxing, threading & more.",
     images: ["/og-image.jpg"],
   },
-  verification: {
-    google: "REPLACE_WITH_GOOGLE_VERIFICATION_CODE",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
   },
-  alternates: {
-    canonical: BUSINESS.url,
-  },
+  alternates: { canonical: "https://gettheglow.co.uk" },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "BeautySalon",
-    name: BUSINESS.name,
-    description: BUSINESS.description,
-    url: BUSINESS.url,
-    telephone: BUSINESS.phone,
-    email: BUSINESS.email,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: BUSINESS.address.street,
-      addressLocality: BUSINESS.address.city,
-      addressRegion: BUSINESS.address.county,
-      postalCode: BUSINESS.address.postcode,
-      addressCountry: "GB",
-    },
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: 52.6369,
-      longitude: -1.1398,
-    },
-    openingHoursSpecification: [
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Tuesday"],
-        opens: "11:00",
-        closes: "17:00",
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Thursday", "Friday", "Saturday"],
-        opens: "11:00",
-        closes: "17:00",
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Sunday"],
-        opens: "11:00",
-        closes: "15:00",
-      },
-    ],
-    sameAs: [BUSINESS.instagramUrl],
-    priceRange: "£–££",
-    currenciesAccepted: "GBP",
-    paymentAccepted: "Cash, Card",
-    servesCuisine: null,
-    hasMap: BUSINESS.googleMaps,
-    image: `${BUSINESS.url}/og-image.jpg`,
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "5",
-      reviewCount: "47",
-    },
-  };
-
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html
       lang="en-GB"
       className={`${playfair.variable} ${cormorant.variable} ${inter.variable} ${dmSans.variable}`}
     >
-      <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-        />
-      </head>
-      <body className="antialiased">
+      <body className="font-body antialiased bg-white text-dark">
         <Navbar />
         <main>{children}</main>
         <Footer />
-        <StickyCtAs />
+        <StickyCTAs />
       </body>
     </html>
   );

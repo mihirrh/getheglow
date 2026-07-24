@@ -1,141 +1,95 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Plus, Minus } from "lucide-react";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/Accordion";
 
 const FAQS = [
   {
     q: "Do I need to book in advance?",
-    a: "We welcome walk-ins, but booking in advance is recommended, especially for colour services, bridal packages and weekend appointments. You can book via WhatsApp or by calling us.",
+    a: "We strongly recommend booking in advance, especially for weekends and popular treatments like hair colouring and lash lifts. You can book via WhatsApp, phone, or our contact form. Same-day appointments may be available depending on availability.",
   },
   {
     q: "Where are you located?",
-    a: "We are at 5 Woodgate, Leicester, LE3 5GH. We are easy to find with parking nearby. Click the directions button on our contact page for full Google Maps directions.",
+    a: "We are located at 5 Woodgate, Leicester, LE3 5GH. There is street parking nearby and we are easily accessible by public transport.",
   },
   {
     q: "What are your opening hours?",
-    a: "We are open Tuesday 11am–5pm, Thursday–Saturday 11am–5pm, and Sunday 11am–3pm. We are closed on Monday and Wednesday.",
+    a: "We are open Tuesday, Thursday, Friday and Saturday 11am–5pm, and Sunday 11am–3pm. We are closed Monday and Wednesday.",
   },
   {
-    q: "Do you offer bridal hair and makeup?",
-    a: "Yes! We offer bridal hair styling. For bridal makeup, please contact us directly as this is a separate service that we can discuss and tailour to your special day.",
+    q: "How do I book an appointment?",
+    a: "The easiest way to book is via WhatsApp on 07778 698550 — just send us a message with your desired service and preferred time. You can also call us directly or use the contact form on our website.",
+  },
+  {
+    q: "Do you offer bridal packages?",
+    a: "Yes! We offer bespoke bridal packages including hair styling, makeup, facials, nails and more. Please contact us well in advance to discuss your requirements for your special day.",
   },
   {
     q: "What payment methods do you accept?",
-    a: "We accept cash and card payments. Please let us know if you have any questions about payment when booking.",
+    a: "We accept cash and bank transfer. Please confirm payment methods when booking your appointment.",
   },
   {
-    q: "How far in advance should I book colour services?",
-    a: "For colour services such as balayage, highlights or full colour, we recommend booking at least one week in advance to secure your preferred appointment time.",
+    q: "Is there parking available?",
+    a: "Yes, there is street parking available near the salon on Woodgate. Please check local parking restrictions.",
   },
   {
-    q: "Do you offer group bookings?",
-    a: "Yes, we can accommodate groups for hen parties, bridesmaids and special occasions. Please contact us via WhatsApp or phone to discuss your group requirements.",
-  },
-  {
-    q: "What is your cancellation policy?",
-    a: "We kindly ask for at least 24 hours notice for cancellations. This allows us to offer the appointment to another client. Please contact us via WhatsApp or phone.",
+    q: "Do you offer treatments for sensitive skin?",
+    a: "Absolutely. We offer threading (a natural, chemical-free technique), tea tree wax for sensitive skin types, and tailor all treatments to your skin's needs. Please let us know about any allergies or sensitivities when booking.",
   },
 ];
 
 export function FAQ() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section className="section-padding bg-white">
-      <div className="container-custom">
-        <div className="max-w-3xl mx-auto">
-          {/* Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12"
-          >
-            <span className="section-label mb-3 block">Got Questions?</span>
-            <h2
-              className="text-4xl md:text-5xl font-bold text-[#2B2B2B]"
-              style={{ fontFamily: "var(--font-heading)" }}
-            >
-              Frequently Asked Questions
-            </h2>
-          </motion.div>
+    <section className="section-padding bg-cream" ref={ref}>
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7 }}
+          className="text-center mb-16"
+        >
+          <p className="text-xs uppercase tracking-[0.3em] text-primary font-sans font-medium mb-3">
+            FAQs
+          </p>
+          <h2 className="font-display font-bold text-4xl sm:text-5xl text-dark mb-4">
+            Questions Answered
+          </h2>
+          <p className="text-muted max-w-xl mx-auto">
+            Everything you need to know before your visit. Can't find the answer? Just ask us!
+          </p>
+        </motion.div>
 
-          {/* FAQ Items */}
-          <div className="space-y-3">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.2 }}
+        >
+          <Accordion type="single" collapsible className="space-y-3">
             {FAQS.map((faq, i) => (
-              <motion.div
+              <AccordionItem
                 key={i}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.06 }}
-                className="card-premium overflow-hidden"
+                value={`item-${i}`}
+                className="card-luxury border border-border/50 rounded-2xl px-6 data-[state=open]:border-primary/30"
               >
-                <button
-                  onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                  className="w-full flex items-center justify-between p-5 text-left"
-                >
-                  <span
-                    className="font-semibold text-[15px] text-[#2B2B2B] pr-4"
-                    style={{ fontFamily: "var(--font-body)" }}
-                  >
-                    {faq.q}
-                  </span>
-                  <div className="flex-shrink-0 w-7 h-7 rounded-full bg-[rgba(232,76,139,0.08)] flex items-center justify-center">
-                    {openIndex === i ? (
-                      <Minus size={14} className="text-[#E84C8B]" />
-                    ) : (
-                      <Plus size={14} className="text-[#E84C8B]" />
-                    )}
-                  </div>
-                </button>
-
-                <AnimatePresence>
-                  {openIndex === i && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.25 }}
-                    >
-                      <div className="px-5 pb-5">
-                        <div className="h-[1px] bg-[rgba(240,214,227,0.5)] mb-4" />
-                        <p
-                          className="text-[14px] text-[#7A7A7A] leading-relaxed"
-                          style={{ fontFamily: "var(--font-body)" }}
-                        >
-                          {faq.a}
-                        </p>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
+                <AccordionTrigger className="font-display font-semibold text-dark text-base py-5 hover:no-underline hover:text-primary transition-colors text-left">
+                  {faq.q}
+                </AccordionTrigger>
+                <AccordionContent className="text-muted text-sm leading-relaxed pb-5">
+                  {faq.a}
+                </AccordionContent>
+              </AccordionItem>
             ))}
-          </div>
-
-          {/* Schema */}
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify({
-                "@context": "https://schema.org",
-                "@type": "FAQPage",
-                mainEntity: FAQS.map((faq) => ({
-                  "@type": "Question",
-                  name: faq.q,
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: faq.a,
-                  },
-                })),
-              }),
-            }}
-          />
-        </div>
+          </Accordion>
+        </motion.div>
       </div>
     </section>
   );

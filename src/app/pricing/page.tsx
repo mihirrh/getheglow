@@ -1,120 +1,76 @@
 import type { Metadata } from "next";
-import { PRICING } from "@/lib/pricing";
-import { BUSINESS } from "@/lib/constants";
+import { PRICING, BUSINESS } from "@/lib/data";
+import { PriceTable } from "@/components/ui/PriceTable";
 
 export const metadata: Metadata = {
-  title: "Pricing | Beauty Treatment Prices Leicester",
+  title: "Full Price List – Beauty Salon Leicester",
   description:
-    "Full price list for Get The Glow Leicester. Threading, waxing, nails, facials, massage, hair colouring and more. Affordable luxury beauty.",
+    "Complete pricing for all services at Get The Glow Leicester: threading, waxing, nails, facials, massage, hair and more. Transparent, honest pricing.",
   alternates: { canonical: `${BUSINESS.url}/pricing` },
 };
 
 export default function PricingPage() {
   return (
-    <div className="min-h-screen">
+    <>
       {/* Hero */}
-      <section
-        className="py-24 text-center"
-        style={{ background: "linear-gradient(135deg, #FFF8F8, #F7D6E3, #FFF8F8)" }}
+      <div
+        className="relative pt-36 pb-24 text-center overflow-hidden"
+        style={{ background: "linear-gradient(135deg, #2B2B2B 0%, #1a0a10 50%, #D96A98 100%)" }}
       >
-        <div className="container-custom">
-          <span className="section-label mb-3 block">Transparent Pricing</span>
-          <h1
-            className="text-5xl md:text-6xl font-bold text-[#2B2B2B] mb-5"
-            style={{ fontFamily: "var(--font-heading)" }}
-          >
-            Treatment Price List
+        <div className="max-w-3xl mx-auto px-4 relative z-10">
+          <p className="text-xs uppercase tracking-[0.3em] text-soft-pink font-sans font-medium mb-4">
+            Transparent Pricing
+          </p>
+          <h1 className="font-display font-bold text-5xl sm:text-6xl text-white mb-6">
+            Price List
           </h1>
-          <p
-            className="text-[#7A7A7A] text-lg max-w-xl mx-auto"
-            style={{ fontFamily: "var(--font-body)" }}
-          >
-            Luxury beauty treatments at prices that won&apos;t break the bank. All prices include treatment
-            and professional consultation.
+          <p className="text-white/75 text-lg max-w-xl mx-auto">
+            Luxury treatments at honest, transparent prices. No hidden costs — just great value beauty in Leicester.
           </p>
         </div>
-      </section>
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-primary/20 blur-[120px] pointer-events-none" />
+      </div>
 
-      {/* Pricing Grid */}
-      <section className="section-padding bg-white">
-        <div className="container-custom">
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            {PRICING.map((category) => (
-              <div key={category.id} className="card-premium overflow-hidden">
-                {/* Category Header */}
-                <div
-                  className="px-6 py-4 border-b border-[rgba(240,214,227,0.4)]"
-                  style={{ background: "linear-gradient(135deg, #FFF8F8, #F7D6E3)" }}
-                >
-                  <h2
-                    className="font-bold text-[18px] text-[#2B2B2B] flex items-center gap-2"
-                    style={{ fontFamily: "var(--font-heading)" }}
-                  >
-                    <span className="text-[#E84C8B]">{category.icon}</span>
-                    {category.title}
-                  </h2>
-                </div>
-
-                {/* Items */}
-                <div className="divide-y divide-[rgba(240,214,227,0.3)]">
-                  {category.items.map((item) => (
-                    <div
-                      key={item.name}
-                      className="flex justify-between items-center px-6 py-3 hover:bg-[rgba(232,76,139,0.02)] transition-colors"
-                    >
-                      <span
-                        className="text-[13px] text-[#2B2B2B]"
-                        style={{ fontFamily: "var(--font-body)" }}
-                      >
-                        {item.name}
-                      </span>
-                      <span
-                        className="font-semibold text-[14px] text-[#E84C8B] ml-4 whitespace-nowrap"
-                        style={{ fontFamily: "var(--font-heading)" }}
-                      >
-                        {item.price}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+      {/* Prices */}
+      <section className="section-padding bg-cream">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <p className="text-center text-sm text-muted mb-12">
+            All prices are inclusive of VAT. Prices are subject to change — please confirm at time of booking.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {Object.values(PRICING).map((section) => (
+              <PriceTable
+                key={section.label}
+                label={section.label}
+                items={section.items}
+              />
             ))}
           </div>
 
-          {/* Disclaimer */}
-          <p
-            className="text-center text-[13px] text-[#7A7A7A] mt-10"
-            style={{ fontFamily: "var(--font-body)" }}
-          >
-            Prices are subject to change. Please contact us for the most up-to-date pricing and
-            any bespoke treatment queries.
-          </p>
+          {/* Book CTA */}
+          <div className="text-center mt-16">
+            <p className="font-display font-semibold text-dark text-xl mb-4">
+              Ready to Book?
+            </p>
+            <div className="flex flex-wrap gap-4 justify-center">
+              <a
+                href={BUSINESS.bookingUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="gradient-primary text-white font-medium px-8 py-3.5 rounded-full hover:opacity-90 transition-opacity shadow-lg text-sm"
+              >
+                Book via WhatsApp
+              </a>
+              <a
+                href={BUSINESS.phoneHref}
+                className="border border-primary text-primary font-medium px-8 py-3.5 rounded-full hover:bg-soft-pink/40 transition-colors text-sm"
+              >
+                {BUSINESS.phone}
+              </a>
+            </div>
+          </div>
         </div>
       </section>
-
-      {/* CTA */}
-      <section
-        className="py-14 text-center"
-        style={{ background: "linear-gradient(135deg, #E84C8B, #C93A76)" }}
-      >
-        <div className="container-custom">
-          <h2
-            className="text-3xl font-bold text-white mb-4"
-            style={{ fontFamily: "var(--font-heading)" }}
-          >
-            Ready to Book?
-          </h2>
-          <a
-            href={BUSINESS.whatsappHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-8 py-3.5 bg-white text-[#E84C8B] font-semibold rounded-full text-[15px] hover:bg-[#FFF8F8] transition-colors"
-            style={{ fontFamily: "var(--font-body)" }}
-          >
-            💬 Book via WhatsApp
-          </a>
-        </div>
-      </section>
-    </div>
+    </>
   );
 }

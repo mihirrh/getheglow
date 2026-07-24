@@ -1,229 +1,259 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X, Phone, ChevronDown } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { BUSINESS } from "@/lib/constants";
-
-const NAV_LINKS = [
-  { label: "Home", href: "/" },
-  {
-    label: "Services",
-    href: "/services",
-    children: [
-      { label: "Hair", href: "/services/hair" },
-      { label: "Nails", href: "/services/nails" },
-      { label: "Facials", href: "/services/facials" },
-      { label: "Massage", href: "/services/massage" },
-      { label: "Waxing", href: "/services/waxing" },
-      { label: "Threading", href: "/services/threading" },
-      { label: "Beauty", href: "/services/beauty" },
-    ],
-  },
-  { label: "Pricing", href: "/pricing" },
-  { label: "Gallery", href: "/gallery" },
-  { label: "Special Offers", href: "/offers" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
-];
+import { Menu, X, ChevronDown, Phone, Sparkles } from "lucide-react";
+import { BUSINESS, NAV_LINKS } from "@/lib/data";
+import { cn } from "@/lib/utils";
 
 export function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const pathname = usePathname();
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setServicesOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, []);
+
   return (
     <>
-      {/* Top Bar */}
-      <div className="bg-[#2B2B2B] text-white text-xs py-2 hidden md:block">
-        <div className="container-custom flex justify-between items-center">
-          <span style={{ fontFamily: "var(--font-body)", letterSpacing: "0.05em" }}>
-            5 Woodgate, Leicester LE3 5GH
-          </span>
-          <div className="flex items-center gap-6">
-            <a
-              href={BUSINESS.phoneHref}
-              className="flex items-center gap-1.5 hover:text-[#E84C8B] transition-colors"
-            >
-              <Phone size={12} />
-              {BUSINESS.phone}
-            </a>
-            <a
-              href={BUSINESS.instagramUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-[#E84C8B] transition-colors"
-            >
-              @_getheglow
-            </a>
-          </div>
-        </div>
-      </div>
-
-      {/* Main Navbar */}
-      <nav
-        className={`sticky top-0 z-50 transition-all duration-300 ${
-          isScrolled
-            ? "glass shadow-[0_4px_24px_rgba(232,76,139,0.08)] border-b border-[rgba(240,214,227,0.4)]"
-            : "bg-white/95 backdrop-blur-sm border-b border-[rgba(240,214,227,0.3)]"
-        }`}
+      <header
+        className={cn(
+          "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
+          scrolled
+            ? "glass shadow-sm border-b border-white/20 py-3"
+            : "bg-transparent py-5"
+        )}
       >
-        <div className="container-custom">
-          <div className="flex items-center justify-between h-16 md:h-18">
+        <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-3 group">
-              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#E84C8B] to-[#C93A76] flex items-center justify-center flex-shrink-0 shadow-[0_4px_12px_rgba(232,76,139,0.4)]">
-                <span className="text-white font-bold text-sm">G</span>
-              </div>
-              <div>
-                <div
-                  className="text-[#2B2B2B] font-bold text-lg leading-tight"
-                  style={{ fontFamily: "var(--font-heading)" }}
-                >
-                  Get The Glow
-                </div>
-                <div
-                  className="text-[#E84C8B] text-[10px] tracking-[0.2em] uppercase leading-tight"
-                  style={{ fontFamily: "var(--font-body)" }}
-                >
-                  Leicester
-                </div>
-              </div>
+            <Link href="/" className="group flex flex-col leading-none">
+              <span
+                className={cn(
+                  "font-display font-bold transition-colors duration-300",
+                  scrolled ? "text-dark" : "text-white",
+                  "text-xl sm:text-2xl tracking-tight"
+                )}
+              >
+                Get The Glow
+              </span>
+              <span
+                className={cn(
+                  "text-[10px] uppercase tracking-[0.2em] font-sans transition-colors duration-300",
+                  scrolled ? "text-primary" : "text-soft-pink"
+                )}
+              >
+                Leicester
+              </span>
             </Link>
 
-            {/* Desktop Nav */}
+            {/* Desktop nav */}
             <div className="hidden lg:flex items-center gap-1">
-              {NAV_LINKS.map((link) => (
-                <div
-                  key={link.label}
-                  className="relative"
-                  onMouseEnter={() => link.children && setOpenDropdown(link.label)}
-                  onMouseLeave={() => setOpenDropdown(null)}
-                >
-                  <Link
-                    href={link.href}
-                    className="flex items-center gap-1 px-3 py-2 text-[14px] font-medium text-[#2B2B2B] hover:text-[#E84C8B] transition-colors rounded-lg hover:bg-[rgba(232,76,139,0.05)]"
-                    style={{ fontFamily: "var(--font-body)" }}
-                  >
-                    {link.label}
-                    {link.children && <ChevronDown size={13} className="opacity-60" />}
-                  </Link>
-
-                  {/* Dropdown */}
-                  {link.children && (
-                    <AnimatePresence>
-                      {openDropdown === link.label && (
-                        <motion.div
-                          initial={{ opacity: 0, y: 8 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: 8 }}
-                          transition={{ duration: 0.18 }}
-                          className="absolute top-full left-0 pt-2 z-50"
-                        >
-                          <div className="card-premium bg-white rounded-2xl py-2 min-w-[180px] shadow-xl">
+              {NAV_LINKS.map((link) => {
+                if (link.label === "Services" && link.children) {
+                  return (
+                    <div key={link.label} className="relative" ref={dropdownRef}>
+                      <button
+                        onClick={() => setServicesOpen(!servicesOpen)}
+                        className={cn(
+                          "flex items-center gap-1 px-3 py-2 rounded-full text-sm font-sans font-medium transition-all duration-200",
+                          scrolled
+                            ? "text-dark hover:text-primary hover:bg-soft-pink/30"
+                            : "text-white/90 hover:text-white hover:bg-white/10"
+                        )}
+                      >
+                        Services
+                        <ChevronDown
+                          size={14}
+                          className={cn(
+                            "transition-transform duration-200",
+                            servicesOpen && "rotate-180"
+                          )}
+                        />
+                      </button>
+                      <AnimatePresence>
+                        {servicesOpen && (
+                          <motion.div
+                            initial={{ opacity: 0, y: 8, scale: 0.97 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: 8, scale: 0.97 }}
+                            transition={{ duration: 0.18 }}
+                            className="absolute top-full left-0 mt-2 w-52 glass rounded-2xl shadow-xl border border-white/30 py-2 z-50"
+                          >
+                            <Link
+                              href="/services"
+                              className="block px-4 py-2 text-sm text-dark font-medium hover:text-primary hover:bg-soft-pink/30 transition-colors"
+                            >
+                              All Services
+                            </Link>
+                            <div className="divider-pink mx-4 my-1" />
                             {link.children.map((child) => (
                               <Link
-                                key={child.label}
+                                key={child.href}
                                 href={child.href}
-                                className="block px-4 py-2.5 text-[13px] text-[#2B2B2B] hover:text-[#E84C8B] hover:bg-[rgba(232,76,139,0.04)] transition-colors"
-                                style={{ fontFamily: "var(--font-body)" }}
+                                className={cn(
+                                  "block px-4 py-2 text-sm transition-colors hover:text-primary hover:bg-soft-pink/30",
+                                  pathname === child.href
+                                    ? "text-primary font-medium"
+                                    : "text-dark/80"
+                                )}
                               >
                                 {child.label}
                               </Link>
                             ))}
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  )}
-                </div>
-              ))}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  );
+                }
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={cn(
+                      "px-3 py-2 rounded-full text-sm font-sans font-medium transition-all duration-200",
+                      pathname === link.href
+                        ? scrolled
+                          ? "text-primary bg-soft-pink/40"
+                          : "text-white bg-white/15"
+                        : scrolled
+                        ? "text-dark hover:text-primary hover:bg-soft-pink/30"
+                        : "text-white/90 hover:text-white hover:bg-white/10"
+                    )}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
             </div>
 
-            {/* CTA + Mobile Toggle */}
+            {/* CTA + Hamburger */}
             <div className="flex items-center gap-3">
-              <Link
-                href={BUSINESS.whatsappHref}
+              <a
+                href={BUSINESS.phoneHref}
+                className={cn(
+                  "hidden md:flex items-center gap-2 text-sm font-medium transition-colors duration-200",
+                  scrolled ? "text-dark hover:text-primary" : "text-white/90 hover:text-white"
+                )}
+              >
+                <Phone size={14} />
+                <span className="hidden xl:inline">{BUSINESS.phone}</span>
+              </a>
+              <a
+                href={BUSINESS.bookingUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hidden md:inline-flex btn-primary text-sm py-2.5 px-5"
+                className="hidden md:flex items-center gap-2 gradient-primary text-white text-sm font-medium px-5 py-2.5 rounded-full hover:opacity-90 transition-opacity shadow-md"
               >
+                <Sparkles size={13} />
                 Book Now
-              </Link>
+              </a>
               <button
-                onClick={() => setIsMobileOpen(!isMobileOpen)}
-                className="lg:hidden w-10 h-10 flex items-center justify-center rounded-xl bg-[rgba(232,76,139,0.06)] text-[#E84C8B] transition-colors hover:bg-[rgba(232,76,139,0.12)]"
+                onClick={() => setOpen(!open)}
+                className={cn(
+                  "lg:hidden p-2 rounded-xl transition-colors",
+                  scrolled
+                    ? "text-dark hover:bg-soft-pink/30"
+                    : "text-white hover:bg-white/10"
+                )}
                 aria-label="Toggle menu"
               >
-                {isMobileOpen ? <X size={20} /> : <Menu size={20} />}
+                {open ? <X size={22} /> : <Menu size={22} />}
               </button>
             </div>
           </div>
-        </div>
+        </nav>
+      </header>
 
-        {/* Mobile Menu */}
-        <AnimatePresence>
-          {isMobileOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.25 }}
-              className="lg:hidden border-t border-[rgba(240,214,227,0.5)] bg-white overflow-hidden"
-            >
-              <div className="container-custom py-4 space-y-1">
-                {NAV_LINKS.map((link) => (
-                  <div key={link.label}>
-                    <Link
-                      href={link.href}
-                      onClick={() => setIsMobileOpen(false)}
-                      className="block py-2.5 px-3 text-[15px] font-medium text-[#2B2B2B] hover:text-[#E84C8B] rounded-lg hover:bg-[rgba(232,76,139,0.04)] transition-colors"
-                      style={{ fontFamily: "var(--font-body)" }}
-                    >
-                      {link.label}
-                    </Link>
-                    {link.children && (
-                      <div className="ml-4 mt-1 space-y-0.5">
+      {/* Mobile menu */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.25 }}
+            className="fixed inset-x-0 top-0 z-40 pt-20 pb-6 px-4 glass shadow-xl border-b border-white/20 lg:hidden"
+          >
+            <nav className="flex flex-col gap-1">
+              {NAV_LINKS.map((link) => {
+                if (link.label === "Services" && link.children) {
+                  return (
+                    <div key={link.label}>
+                      <Link
+                        href="/services"
+                        className="block px-4 py-3 rounded-xl text-dark font-medium hover:bg-soft-pink/30 hover:text-primary transition-colors"
+                      >
+                        Services
+                      </Link>
+                      <div className="pl-4 flex flex-col gap-0.5">
                         {link.children.map((child) => (
                           <Link
-                            key={child.label}
+                            key={child.href}
                             href={child.href}
-                            onClick={() => setIsMobileOpen(false)}
-                            className="block py-2 px-3 text-[13px] text-[#7A7A7A] hover:text-[#E84C8B] rounded-lg hover:bg-[rgba(232,76,139,0.04)] transition-colors"
-                            style={{ fontFamily: "var(--font-body)" }}
+                            className="block px-4 py-2 rounded-xl text-sm text-muted hover:text-primary hover:bg-soft-pink/30 transition-colors"
                           >
                             {child.label}
                           </Link>
                         ))}
                       </div>
+                    </div>
+                  );
+                }
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={cn(
+                      "block px-4 py-3 rounded-xl font-medium transition-colors",
+                      pathname === link.href
+                        ? "text-primary bg-soft-pink/40"
+                        : "text-dark hover:text-primary hover:bg-soft-pink/30"
                     )}
-                  </div>
-                ))}
-                <div className="pt-3 pb-1 flex flex-col gap-2">
-                  <a href={BUSINESS.phoneHref} className="btn-secondary text-center text-sm py-3">
-                    📞 Call {BUSINESS.phone}
-                  </a>
-                  <a
-                    href={BUSINESS.whatsappHref}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-primary text-center text-sm py-3"
                   >
-                    💬 WhatsApp Us
-                  </a>
-                </div>
+                    {link.label}
+                  </Link>
+                );
+              })}
+              <div className="mt-3 flex flex-col gap-2">
+                <a
+                  href={BUSINESS.bookingUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full text-center gradient-primary text-white font-medium py-3 rounded-2xl"
+                >
+                  Book Now
+                </a>
+                <a
+                  href={BUSINESS.phoneHref}
+                  className="w-full text-center border border-primary text-primary font-medium py-3 rounded-2xl hover:bg-soft-pink/30 transition-colors"
+                >
+                  Call {BUSINESS.phone}
+                </a>
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </nav>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

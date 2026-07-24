@@ -1,237 +1,240 @@
 import Link from "next/link";
-import { Phone, Mail, MapPin, Clock, ExternalLink } from "lucide-react";
-import { BUSINESS, HOURS } from "@/lib/constants";
+import { Phone, MessageCircle, MapPin, Clock, Camera, Mail, Sparkles, ArrowRight } from "lucide-react";
+import { BUSINESS, HOURS, NAV_LINKS } from "@/lib/data";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
+  const servicesNav = NAV_LINKS.find((l) => l.label === "Services");
+  const otherNav = NAV_LINKS.filter(
+    (l) => l.label !== "Services" && l.label !== "Home"
+  );
+
   return (
-    <footer className="bg-[#2B2B2B] text-white">
-      {/* Top CTA Strip */}
-      <div
-        className="py-10"
-        style={{
-          background: "linear-gradient(135deg, #E84C8B 0%, #C93A76 50%, #D96A98 100%)",
-        }}
-      >
-        <div className="container-custom text-center">
-          <h2
-            className="text-2xl md:text-3xl font-bold text-white mb-3"
-            style={{ fontFamily: "var(--font-heading)" }}
-          >
+    <footer className="bg-dark text-white/80 pt-16 pb-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Top CTA strip */}
+        <div className="glass-pink rounded-3xl p-8 mb-16 text-center">
+          <p className="font-display text-2xl sm:text-3xl font-bold text-white mb-2">
             Ready to Glow?
-          </h2>
-          <p className="text-white/85 mb-6 text-[15px]" style={{ fontFamily: "var(--font-body)" }}>
-            Book your luxury beauty appointment today — Walk-ins welcome.
           </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+          <p className="text-white/70 mb-6 text-sm">
+            Book your appointment today — online, by phone or on WhatsApp.
+          </p>
+          <div className="flex flex-wrap gap-3 justify-center">
+            <a
+              href={BUSINESS.bookingUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 gradient-primary text-white font-medium px-6 py-3 rounded-full hover:opacity-90 transition-opacity text-sm"
+            >
+              <Sparkles size={14} />
+              Book Now
+            </a>
+            <a
+              href={BUSINESS.phoneHref}
+              className="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-medium px-6 py-3 rounded-full transition-colors text-sm"
+            >
+              <Phone size={14} />
+              {BUSINESS.phone}
+            </a>
             <a
               href={BUSINESS.whatsappHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-8 py-3 bg-white text-[#E84C8B] font-semibold rounded-full text-[15px] hover:bg-[#FFF8F8] transition-colors"
-              style={{ fontFamily: "var(--font-body)" }}
+              className="flex items-center gap-2 bg-[#25D366]/20 hover:bg-[#25D366]/30 text-white font-medium px-6 py-3 rounded-full transition-colors text-sm"
             >
-              💬 WhatsApp to Book
-            </a>
-            <a
-              href={BUSINESS.phoneHref}
-              className="inline-flex items-center justify-center gap-2 px-8 py-3 bg-white/15 text-white font-semibold rounded-full text-[15px] border border-white/30 hover:bg-white/25 transition-colors"
-              style={{ fontFamily: "var(--font-body)" }}
-            >
-              📞 {BUSINESS.phone}
+              <MessageCircle size={14} />
+              WhatsApp
             </a>
           </div>
         </div>
-      </div>
 
-      {/* Main Footer */}
-      <div className="py-16">
-        <div className="container-custom">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-            {/* Brand */}
-            <div>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#E84C8B] to-[#C93A76] flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">G</span>
-                </div>
-                <div>
-                  <div
-                    className="text-white font-bold text-lg leading-tight"
-                    style={{ fontFamily: "var(--font-heading)" }}
-                  >
-                    Get The Glow
-                  </div>
-                  <div
-                    className="text-[#E84C8B] text-[10px] tracking-[0.2em] uppercase"
-                    style={{ fontFamily: "var(--font-body)" }}
-                  >
-                    Leicester
-                  </div>
-                </div>
-              </div>
-              <p
-                className="text-white/65 text-[13px] leading-relaxed mb-5"
-                style={{ fontFamily: "var(--font-body)" }}
-              >
-                Leicester&apos;s premium beauty destination. Expert hair, nails, facials, massage and
-                so much more at 5 Woodgate, Leicester.
-              </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+          {/* Brand column */}
+          <div className="lg:col-span-1">
+            <Link href="/" className="block mb-4">
+              <span className="font-display font-bold text-white text-2xl">
+                Get The Glow
+              </span>
+              <span className="block text-[10px] uppercase tracking-[0.2em] text-primary mt-0.5">
+                Leicester
+              </span>
+            </Link>
+            <p className="text-white/60 text-sm leading-relaxed mb-6">
+              Leicester's premium luxury beauty salon. Expert hair, nails, facials, massage, waxing & more.
+            </p>
+            {/* Social */}
+            <div className="flex gap-3">
               <a
-                href={BUSINESS.instagramUrl}
+                href={BUSINESS.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-[#E84C8B] hover:text-[#F07AB0] transition-colors text-[13px]"
-                style={{ fontFamily: "var(--font-body)" }}
+                className="w-10 h-10 rounded-full bg-white/10 hover:bg-primary/30 flex items-center justify-center transition-colors"
+                aria-label="Instagram"
               >
-                <ExternalLink size={14} />
-                {BUSINESS.instagram}
+                <Camera size={16} />
+              </a>
+              <a
+                href={BUSINESS.whatsappHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-white/10 hover:bg-[#25D366]/30 flex items-center justify-center transition-colors"
+                aria-label="WhatsApp"
+              >
+                <MessageCircle size={16} />
+              </a>
+              <a
+                href={BUSINESS.phoneHref}
+                className="w-10 h-10 rounded-full bg-white/10 hover:bg-primary/30 flex items-center justify-center transition-colors"
+                aria-label="Phone"
+              >
+                <Phone size={16} />
               </a>
             </div>
+          </div>
 
-            {/* Services */}
-            <div>
-              <h3
-                className="text-white font-semibold text-[14px] mb-4 tracking-wide uppercase"
-                style={{ fontFamily: "var(--font-body)", letterSpacing: "0.1em" }}
-              >
-                Services
-              </h3>
-              <ul className="space-y-2">
-                {[
-                  ["Hair", "/services/hair"],
-                  ["Nails & Builder Gel", "/services/nails"],
-                  ["Facials", "/services/facials"],
-                  ["Massage", "/services/massage"],
-                  ["Waxing", "/services/waxing"],
-                  ["Threading", "/services/threading"],
-                  ["Lashes & Brows", "/services/beauty"],
-                  ["Special Offers", "/offers"],
-                ].map(([label, href]) => (
-                  <li key={label}>
-                    <Link
-                      href={href}
-                      className="text-white/60 hover:text-[#E84C8B] transition-colors text-[13px]"
-                      style={{ fontFamily: "var(--font-body)" }}
-                    >
-                      {label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          {/* Services */}
+          <div>
+            <h3 className="font-display font-semibold text-white text-sm uppercase tracking-widest mb-5">
+              Services
+            </h3>
+            <ul className="space-y-2">
+              {servicesNav?.children?.map((child) => (
+                <li key={child.href}>
+                  <Link
+                    href={child.href}
+                    className="text-sm text-white/60 hover:text-primary transition-colors flex items-center gap-1 group"
+                  >
+                    <ArrowRight
+                      size={12}
+                      className="opacity-0 group-hover:opacity-100 transition-opacity text-primary"
+                    />
+                    {child.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-            {/* Opening Hours */}
-            <div>
-              <h3
-                className="text-white font-semibold text-[14px] mb-4 tracking-wide uppercase"
-                style={{ fontFamily: "var(--font-body)", letterSpacing: "0.1em" }}
-              >
-                Opening Hours
-              </h3>
-              <ul className="space-y-2">
-                {HOURS.map((h) => (
-                  <li key={h.day} className="flex justify-between gap-3">
-                    <span
-                      className="text-white/60 text-[13px]"
-                      style={{ fontFamily: "var(--font-body)" }}
-                    >
-                      {h.day}
-                    </span>
-                    <span
-                      className={`text-[13px] font-medium ${
-                        h.open ? "text-white/85" : "text-white/35"
-                      }`}
-                      style={{ fontFamily: "var(--font-body)" }}
-                    >
-                      {h.hours}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          {/* Company */}
+          <div>
+            <h3 className="font-display font-semibold text-white text-sm uppercase tracking-widest mb-5">
+              Company
+            </h3>
+            <ul className="space-y-2">
+              {otherNav.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-white/60 hover:text-primary transition-colors flex items-center gap-1 group"
+                  >
+                    <ArrowRight
+                      size={12}
+                      className="opacity-0 group-hover:opacity-100 transition-opacity text-primary"
+                    />
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link
+                  href="/privacy"
+                  className="text-sm text-white/60 hover:text-primary transition-colors flex items-center gap-1 group"
+                >
+                  <ArrowRight
+                    size={12}
+                    className="opacity-0 group-hover:opacity-100 transition-opacity text-primary"
+                  />
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/terms"
+                  className="text-sm text-white/60 hover:text-primary transition-colors flex items-center gap-1 group"
+                >
+                  <ArrowRight
+                    size={12}
+                    className="opacity-0 group-hover:opacity-100 transition-opacity text-primary"
+                  />
+                  Terms & Conditions
+                </Link>
+              </li>
+            </ul>
+          </div>
 
-            {/* Contact */}
-            <div>
-              <h3
-                className="text-white font-semibold text-[14px] mb-4 tracking-wide uppercase"
-                style={{ fontFamily: "var(--font-body)", letterSpacing: "0.1em" }}
-              >
-                Find Us
-              </h3>
-              <ul className="space-y-3">
-                <li>
-                  <a
-                    href={BUSINESS.googleMaps}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-start gap-2.5 text-white/60 hover:text-white/85 transition-colors"
-                    style={{ fontFamily: "var(--font-body)" }}
-                  >
-                    <MapPin size={14} className="mt-0.5 flex-shrink-0 text-[#E84C8B]" />
-                    <span className="text-[13px] leading-snug">
-                      5 Woodgate<br />Leicester LE3 5GH
-                    </span>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={BUSINESS.phoneHref}
-                    className="flex items-center gap-2.5 text-white/60 hover:text-white/85 transition-colors"
-                    style={{ fontFamily: "var(--font-body)" }}
-                  >
-                    <Phone size={14} className="flex-shrink-0 text-[#E84C8B]" />
-                    <span className="text-[13px]">{BUSINESS.phone}</span>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={BUSINESS.emailHref}
-                    className="flex items-center gap-2.5 text-white/60 hover:text-white/85 transition-colors"
-                    style={{ fontFamily: "var(--font-body)" }}
-                  >
-                    <Mail size={14} className="flex-shrink-0 text-[#E84C8B]" />
-                    <span className="text-[13px]">{BUSINESS.email}</span>
-                  </a>
-                </li>
-                <li>
-                  <div className="flex items-center gap-2.5">
-                    <Clock size={14} className="flex-shrink-0 text-[#E84C8B]" />
-                    <span className="text-[13px] text-white/60" style={{ fontFamily: "var(--font-body)" }}>
-                      Walk-ins welcome
-                    </span>
-                  </div>
-                </li>
-              </ul>
-            </div>
+          {/* Contact */}
+          <div>
+            <h3 className="font-display font-semibold text-white text-sm uppercase tracking-widest mb-5">
+              Contact
+            </h3>
+            <ul className="space-y-4">
+              <li className="flex gap-3">
+                <MapPin size={15} className="text-primary mt-0.5 flex-shrink-0" />
+                <a
+                  href={BUSINESS.googleMaps}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-white/60 hover:text-primary transition-colors"
+                >
+                  {BUSINESS.address.street}<br />
+                  {BUSINESS.address.city}, {BUSINESS.address.postcode}
+                </a>
+              </li>
+              <li className="flex gap-3">
+                <Phone size={15} className="text-primary mt-0.5 flex-shrink-0" />
+                <a
+                  href={BUSINESS.phoneHref}
+                  className="text-sm text-white/60 hover:text-primary transition-colors"
+                >
+                  {BUSINESS.phone}
+                </a>
+              </li>
+              <li className="flex gap-3">
+                <Mail size={15} className="text-primary mt-0.5 flex-shrink-0" />
+                <a
+                  href={`mailto:${BUSINESS.email}`}
+                  className="text-sm text-white/60 hover:text-primary transition-colors break-all"
+                >
+                  {BUSINESS.email}
+                </a>
+              </li>
+              <li className="flex gap-3">
+                <Clock size={15} className="text-primary mt-0.5 flex-shrink-0" />
+                <div className="text-sm text-white/60">
+                  {HOURS.filter((h) => h.open)
+                    .slice(0, 3)
+                    .map((h) => (
+                      <div key={h.day}>
+                        <span className="text-white/80">{h.day}:</span>{" "}
+                        {h.hours}
+                      </div>
+                    ))}
+                  <Link href="/contact" className="text-primary hover:underline mt-1 inline-block">
+                    View all hours →
+                  </Link>
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
-      </div>
 
-      {/* Bottom Bar */}
-      <div className="border-t border-white/10 py-5">
-        <div className="container-custom flex flex-col md:flex-row justify-between items-center gap-3">
-          <p
-            className="text-white/40 text-[12px]"
-            style={{ fontFamily: "var(--font-body)" }}
-          >
-            © {currentYear} Get The Glow. All rights reserved.
-          </p>
-          <div className="flex items-center gap-5">
-            {[
-              ["Privacy Policy", "/privacy"],
-              ["Terms", "/terms"],
-              ["Contact", "/contact"],
-            ].map(([label, href]) => (
-              <Link
-                key={label}
-                href={href}
-                className="text-white/40 hover:text-white/65 transition-colors text-[12px]"
-                style={{ fontFamily: "var(--font-body)" }}
-              >
-                {label}
-              </Link>
-            ))}
+        <div className="divider-gold mb-8" />
+
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/40">
+          <p>© {currentYear} Get The Glow. All rights reserved.</p>
+          <p>5 Woodgate, Leicester LE3 5GH, United Kingdom</p>
+          <div className="flex gap-4">
+            <Link href="/privacy" className="hover:text-primary transition-colors">
+              Privacy
+            </Link>
+            <Link href="/terms" className="hover:text-primary transition-colors">
+              Terms
+            </Link>
+            <Link href="/contact" className="hover:text-primary transition-colors">
+              Contact
+            </Link>
           </div>
         </div>
       </div>

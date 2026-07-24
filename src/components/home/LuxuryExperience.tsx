@@ -1,123 +1,140 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Sparkles, Shield, Clock, Star } from "lucide-react";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import { CheckCircle2, Sparkles, Heart, Shield, Clock } from "lucide-react";
 
-const FEATURES = [
-  {
-    icon: Star,
-    title: "5-Star Rated",
-    description: "Consistently rated 5 stars on Google by our happy Leicester clients.",
-  },
+const PILLARS = [
   {
     icon: Sparkles,
-    title: "Premium Products",
-    description: "We only use professional-grade products for every treatment.",
+    title: "Expert Craftsmanship",
+    desc: "Our skilled team brings years of expertise to every treatment, ensuring flawless, long-lasting results.",
+  },
+  {
+    icon: Heart,
+    title: "You Are Our Priority",
+    desc: "Every client receives personalised attention, tailored treatments, and genuine care from the moment you walk in.",
   },
   {
     icon: Shield,
-    title: "Expert Therapists",
-    description: "Qualified, experienced therapists who genuinely care about results.",
+    title: "Premium Products Only",
+    desc: "We use only professional-grade, high-quality products across every service for the best possible results.",
   },
   {
     icon: Clock,
-    title: "Walk-ins Welcome",
-    description: "Book in advance or simply walk in — we&apos;re always ready to welcome you.",
+    title: "Efficient & Relaxing",
+    desc: "We respect your time while ensuring you never feel rushed. Every visit is a moment of calm.",
   },
 ];
 
+const WHY_US = [
+  "Highly trained, experienced beauty professionals",
+  "Calm, clean, luxury environment",
+  "Competitive pricing — no hidden costs",
+  "Full range of treatments under one roof",
+  "Flexible appointments including weekends",
+  "Trusted by 1,000+ Leicester clients",
+];
+
 export function LuxuryExperience() {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
   return (
-    <section
-      className="section-padding"
-      style={{
-        background: "linear-gradient(135deg, #2B2B2B 0%, #1a1a1a 100%)",
-      }}
-    >
-      <div className="container-custom">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left */}
+    <section className="section-padding bg-white overflow-hidden" ref={ref}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          {/* Left: visual */}
           <motion.div
-            initial={{ opacity: 0, x: -24 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, x: -40 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="relative"
           >
-            <span className="section-label mb-4 block text-[#E84C8B]">The Glow Experience</span>
-            <h2
-              className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight"
-              style={{ fontFamily: "var(--font-heading)" }}
-            >
-              Beauty That&apos;s More Than
-              <br />
-              <span
+            {/* Main card */}
+            <div className="relative rounded-3xl overflow-hidden aspect-[4/5] max-w-md mx-auto lg:mx-0">
+              <div
+                className="absolute inset-0"
                 style={{
-                  background: "linear-gradient(135deg, #E84C8B, #D96A98)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
+                  background: "linear-gradient(135deg, #F7D6E3 0%, #E84C8B 40%, #D96A98 70%, #2B2B2B 100%)",
                 }}
-              >
-                Skin Deep
-              </span>
-            </h2>
-            <p
-              className="text-white/70 text-[16px] leading-relaxed mb-8"
-              style={{ fontFamily: "var(--font-body)" }}
-            >
-              At Get The Glow, we believe every client deserves to leave feeling
-              truly beautiful. Our Leicester salon combines expert technique with a
-              warm, welcoming atmosphere and premium products for results that speak
-              for themselves.
-            </p>
-            <div
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-[13px] font-medium text-white"
-              style={{
-                background: "rgba(232, 76, 139, 0.15)",
-                border: "1px solid rgba(232, 76, 139, 0.3)",
-              }}
-            >
-              <Sparkles size={14} className="text-[#E84C8B]" />
-              Leicester&apos;s Most Loved Beauty Salon
+              />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <p className="font-display italic text-white/90 text-3xl sm:text-4xl text-center px-8 leading-snug">
+                  "Where every<br />detail matters."
+                </p>
+              </div>
+            </div>
+            {/* Floating badge */}
+            <div className="absolute -bottom-4 -right-4 sm:bottom-6 sm:right-6 glass shadow-xl border border-white/40 rounded-3xl p-5">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full gradient-primary flex items-center justify-center">
+                  <Sparkles size={16} className="text-white" />
+                </div>
+                <div>
+                  <p className="font-display font-bold text-dark text-sm">5.0 Stars</p>
+                  <p className="text-muted text-xs">127+ Google Reviews</p>
+                </div>
+              </div>
             </div>
           </motion.div>
 
-          {/* Right — Feature Cards */}
-          <div className="grid grid-cols-2 gap-4">
-            {FEATURES.map((feature, i) => (
-              <motion.div
-                key={feature.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="p-5 rounded-2xl"
-                style={{
-                  background: "rgba(255, 255, 255, 0.05)",
-                  border: "1px solid rgba(255, 255, 255, 0.08)",
-                }}
-              >
-                <div
-                  className="w-10 h-10 rounded-xl flex items-center justify-center mb-3"
-                  style={{ background: "rgba(232, 76, 139, 0.15)" }}
+          {/* Right: content */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <p className="text-xs uppercase tracking-[0.3em] text-primary font-sans font-medium mb-3">
+              The Get The Glow Experience
+            </p>
+            <h2 className="font-display font-bold text-4xl sm:text-5xl text-dark mb-6 leading-tight">
+              Leicester's Most Loved<br />
+              <span className="text-gradient-primary">Beauty Salon</span>
+            </h2>
+            <p className="text-muted leading-relaxed mb-8">
+              Get The Glow is more than a beauty salon — it's a sanctuary. We combine expert technique with a genuinely warm, welcoming atmosphere to give you an experience that goes far beyond your expectations.
+            </p>
+
+            {/* Pillar grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+              {PILLARS.map((pillar, i) => (
+                <motion.div
+                  key={pillar.title}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={inView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.5, delay: 0.3 + i * 0.1 }}
+                  className="flex gap-3"
                 >
-                  <feature.icon size={18} className="text-[#E84C8B]" />
-                </div>
-                <h3
-                  className="font-semibold text-white text-[15px] mb-1.5"
-                  style={{ fontFamily: "var(--font-heading)" }}
+                  <div className="w-9 h-9 rounded-xl bg-soft-pink/60 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <pillar.icon size={16} className="text-primary" />
+                  </div>
+                  <div>
+                    <p className="font-display font-semibold text-dark text-sm mb-0.5">
+                      {pillar.title}
+                    </p>
+                    <p className="text-xs text-muted leading-relaxed">{pillar.desc}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Why us checklist */}
+            <div className="space-y-2">
+              {WHY_US.map((item, i) => (
+                <motion.div
+                  key={item}
+                  initial={{ opacity: 0, x: 16 }}
+                  animate={inView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ duration: 0.4, delay: 0.55 + i * 0.07 }}
+                  className="flex items-center gap-3 text-sm text-dark/80"
                 >
-                  {feature.title}
-                </h3>
-                <p
-                  className="text-white/55 text-[12px] leading-relaxed"
-                  style={{ fontFamily: "var(--font-body)" }}
-                >
-                  {feature.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
+                  <CheckCircle2 size={15} className="text-primary flex-shrink-0" />
+                  {item}
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
