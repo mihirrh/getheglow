@@ -152,7 +152,7 @@ export default function ContactPage() {
       <div className="h-[400px] bg-soft-pink/20">
         <iframe
           title="Get The Glow Location"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2417.9568569580755!2d-1.147!3d52.634!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTLCsDM4JzAyLjQiTiAxwrAwOCc0OS4yIlc!5e0!3m2!1sen!2suk!4v1700000000000!5m2!1sen!2suk"
+          src="https://maps.google.com/maps?q=5+Woodgate+Leicester+LE3+5GH&output=embed&z=17"
           className="w-full h-full"
           style={{ border: 0 }}
           allowFullScreen
