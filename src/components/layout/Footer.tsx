@@ -202,18 +202,13 @@ export function Footer() {
               </li>
               <li className="flex gap-3">
                 <Clock size={15} className="text-primary mt-0.5 flex-shrink-0" />
-                <div className="text-sm text-white/60">
-                  {HOURS.filter((h) => h.open)
-                    .slice(0, 3)
-                    .map((h) => (
-                      <div key={h.day}>
-                        <span className="text-white/80">{h.day}:</span>{" "}
-                        {h.hours}
-                      </div>
-                    ))}
-                  <Link href="/contact" className="text-primary hover:underline mt-1 inline-block">
-                    View all hours →
-                  </Link>
+                <div className="text-sm text-white/60 space-y-1">
+                  {HOURS.filter((h) => h.open).map((h) => (
+                    <div key={h.day} className="flex justify-between gap-4">
+                      <span className="text-white/80">{h.day}</span>
+                      <span>{h.hours}</span>
+                    </div>
+                  ))}
                 </div>
               </li>
             </ul>
