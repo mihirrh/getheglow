@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronDown, Phone, Sparkles } from "lucide-react";
+import { Menu, X, ChevronDown, Phone, Sparkles, MapPin, Clock } from "lucide-react";
 import { BUSINESS, NAV_LINKS } from "@/lib/data";
 import { cn } from "@/lib/utils";
 
@@ -170,88 +170,171 @@ export function Navbar() {
               <button
                 onClick={() => setOpen(!open)}
                 className={cn(
-                  "lg:hidden p-2 rounded-xl transition-colors",
-                  scrolled
-                    ? "text-dark hover:bg-soft-pink/30"
-                    : "text-white hover:bg-white/10"
+                  "lg:hidden w-10 h-10 rounded-2xl flex items-center justify-center transition-all duration-200",
+                  open
+                    ? "bg-primary text-white shadow-lg shadow-primary/30"
+                    : scrolled
+                    ? "bg-dark/8 text-dark hover:bg-soft-pink/40"
+                    : "bg-white/15 text-white hover:bg-white/25 backdrop-blur-sm border border-white/20"
                 )}
                 aria-label="Toggle menu"
               >
-                {open ? <X size={22} /> : <Menu size={22} />}
+                <motion.div
+                  animate={{ rotate: open ? 90 : 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {open ? <X size={20} /> : <Menu size={20} />}
+                </motion.div>
               </button>
             </div>
           </div>
         </nav>
       </header>
 
-      {/* Mobile menu */}
+      {/* Mobile menu — liquid glass slide-in from right */}
       <AnimatePresence>
         {open && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.25 }}
-            className="fixed inset-x-0 top-0 z-40 pt-20 pb-6 px-4 glass shadow-xl border-b border-white/20 lg:hidden"
-          >
-            <nav className="flex flex-col gap-1">
-              {NAV_LINKS.map((link) => {
-                if (link.label === "Services" && link.children) {
-                  return (
-                    <div key={link.label}>
-                      <Link
-                        href="/services"
-                        className="block px-4 py-3 rounded-xl text-dark font-medium hover:bg-soft-pink/30 hover:text-primary transition-colors"
-                      >
-                        Services
-                      </Link>
-                      <div className="pl-4 flex flex-col gap-0.5">
-                        {link.children.map((child) => (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              className="fixed inset-0 z-40 lg:hidden"
+              style={{ background: "rgba(43,43,43,0.35)", backdropFilter: "blur(4px)" }}
+              onClick={() => setOpen(false)}
+            />
+
+            {/* Panel */}
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", stiffness: 320, damping: 32 }}
+              className="fixed top-0 right-0 bottom-0 z-50 w-[85vw] max-w-[340px] lg:hidden flex flex-col"
+              style={{
+                background: "rgba(255, 252, 254, 0.92)",
+                backdropFilter: "blur(40px) saturate(180%)",
+                WebkitBackdropFilter: "blur(40px) saturate(180%)",
+                borderLeft: "1px solid rgba(232, 76, 139, 0.15)",
+                boxShadow: "-8px 0 60px rgba(43,43,43,0.18), -2px 0 12px rgba(232,76,139,0.08)",
+              }}
+            >
+              {/* Header */}
+              <div className="flex items-center justify-between px-6 pt-14 pb-6 border-b border-[rgba(232,76,139,0.1)]">
+                <div>
+                  <p className="font-display font-bold text-dark text-lg leading-none">Get The Glow</p>
+                  <p className="text-[10px] uppercase tracking-[0.2em] text-primary mt-0.5 font-sans">Leicester</p>
+                </div>
+                <button
+                  onClick={() => setOpen(false)}
+                  className="w-9 h-9 rounded-2xl bg-dark/6 flex items-center justify-center text-dark hover:bg-soft-pink/50 transition-colors"
+                  aria-label="Close menu"
+                >
+                  <X size={18} />
+                </button>
+              </div>
+
+              {/* Nav links */}
+              <nav className="flex-1 overflow-y-auto px-4 py-4">
+                <div className="flex flex-col gap-1">
+                  {NAV_LINKS.map((link) => {
+                    if (link.label === "Services" && link.children) {
+                      return (
+                        <div key={link.label}>
                           <Link
-                            key={child.href}
-                            href={child.href}
-                            className="block px-4 py-2 rounded-xl text-sm text-muted hover:text-primary hover:bg-soft-pink/30 transition-colors"
+                            href="/services"
+                            onClick={() => setOpen(false)}
+                            className={cn(
+                              "flex items-center justify-between px-4 py-3 rounded-2xl font-sans font-semibold text-[15px] transition-colors",
+                              pathname === "/services"
+                                ? "text-primary bg-soft-pink/40"
+                                : "text-dark hover:text-primary hover:bg-soft-pink/25"
+                            )}
                           >
-                            {child.label}
+                            Services
                           </Link>
-                        ))}
-                      </div>
-                    </div>
-                  );
-                }
-                return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className={cn(
-                      "block px-4 py-3 rounded-xl font-medium transition-colors",
-                      pathname === link.href
-                        ? "text-primary bg-soft-pink/40"
-                        : "text-dark hover:text-primary hover:bg-soft-pink/30"
-                    )}
-                  >
-                    {link.label}
-                  </Link>
-                );
-              })}
-              <div className="mt-3 flex flex-col gap-2">
+                          <div className="pl-3 flex flex-col gap-0.5 mb-1">
+                            {link.children.map((child) => (
+                              <Link
+                                key={child.href}
+                                href={child.href}
+                                onClick={() => setOpen(false)}
+                                className={cn(
+                                  "flex items-center gap-2 px-4 py-2.5 rounded-xl text-[13px] font-sans transition-colors",
+                                  pathname === child.href
+                                    ? "text-primary font-medium bg-soft-pink/30"
+                                    : "text-muted hover:text-primary hover:bg-soft-pink/20"
+                                )}
+                              >
+                                <span
+                                  className="w-1 h-1 rounded-full bg-primary/40 flex-shrink-0"
+                                />
+                                {child.label}
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+                      );
+                    }
+                    return (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        onClick={() => setOpen(false)}
+                        className={cn(
+                          "block px-4 py-3 rounded-2xl font-sans font-semibold text-[15px] transition-colors",
+                          pathname === link.href
+                            ? "text-primary bg-soft-pink/40"
+                            : "text-dark hover:text-primary hover:bg-soft-pink/25"
+                        )}
+                      >
+                        {link.label}
+                      </Link>
+                    );
+                  })}
+                </div>
+
+                {/* Divider */}
+                <div className="my-4 h-px bg-gradient-to-r from-transparent via-[rgba(232,76,139,0.2)] to-transparent" />
+
+                {/* Info strip */}
+                <div className="px-4 space-y-2.5 mb-4">
+                  <div className="flex items-center gap-2.5 text-[12px] text-muted">
+                    <MapPin size={13} className="text-primary flex-shrink-0" />
+                    5 Woodgate, Leicester LE3 5GH
+                  </div>
+                  <div className="flex items-center gap-2.5 text-[12px] text-muted">
+                    <Clock size={13} className="text-primary flex-shrink-0" />
+                    Tue–Sat 11am–5pm · Sun 11am–3pm
+                  </div>
+                </div>
+              </nav>
+
+              {/* CTA buttons pinned to bottom */}
+              <div className="px-5 pb-10 pt-4 flex flex-col gap-2.5 border-t border-[rgba(232,76,139,0.1)]">
                 <a
                   href={BUSINESS.bookingUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full text-center gradient-primary text-white font-medium py-3 rounded-2xl"
+                  className="w-full flex items-center justify-center gap-2 gradient-primary text-white font-semibold text-[14px] py-3.5 rounded-2xl shadow-lg shadow-primary/25 hover:opacity-90 transition-opacity"
+                  onClick={() => setOpen(false)}
                 >
-                  Book Now
+                  <Sparkles size={15} />
+                  Book Appointment
                 </a>
                 <a
                   href={BUSINESS.phoneHref}
-                  className="w-full text-center border border-primary text-primary font-medium py-3 rounded-2xl hover:bg-soft-pink/30 transition-colors"
+                  className="w-full flex items-center justify-center gap-2 bg-dark/6 text-dark font-semibold text-[14px] py-3.5 rounded-2xl border border-dark/10 hover:bg-soft-pink/30 hover:text-primary hover:border-primary/30 transition-all"
+                  onClick={() => setOpen(false)}
                 >
-                  Call {BUSINESS.phone}
+                  <Phone size={15} />
+                  {BUSINESS.phone}
                 </a>
               </div>
-            </nav>
-          </motion.div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </>
