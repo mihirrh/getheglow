@@ -57,7 +57,7 @@ export function Navbar() {
               </span>
               <span
                 className={cn(
-                  "text-[10px] uppercase tracking-[0.2em] font-sans transition-colors duration-300",
+                  "hidden xs:block text-[10px] uppercase tracking-[0.2em] font-sans transition-colors duration-300",
                   scrolled ? "text-primary" : "text-soft-pink"
                 )}
               >
