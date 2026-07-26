@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PRICING, BUSINESS } from "@/lib/data";
+import { FadeUp, StaggerGrid, StaggerItem, PageHero } from "@/components/ui/Animate";
 import { PriceTable } from "@/components/ui/PriceTable";
 
 export const metadata: Metadata = {
@@ -18,15 +19,17 @@ export default function PricingPage() {
         style={{ background: "linear-gradient(135deg, #2B2B2B 0%, #1a0a10 50%, #D96A98 100%)" }}
       >
         <div className="max-w-3xl mx-auto px-4 relative z-10">
-          <p className="text-xs uppercase tracking-[0.3em] text-soft-pink font-sans font-medium mb-4">
-            Transparent Pricing
-          </p>
-          <h1 className="font-display font-bold text-5xl sm:text-6xl text-white mb-6">
-            Price List
-          </h1>
-          <p className="text-white/75 text-lg max-w-xl mx-auto">
-            Luxury treatments at honest, transparent prices. No hidden costs — just great value beauty in Leicester.
-          </p>
+          <PageHero>
+            <p className="text-xs uppercase tracking-[0.3em] text-soft-pink font-sans font-medium mb-4">
+              Transparent Pricing
+            </p>
+            <h1 className="font-display font-bold text-5xl sm:text-6xl text-white mb-6">
+              Price List
+            </h1>
+            <p className="text-white/75 text-lg max-w-xl mx-auto">
+              Luxury treatments at honest, transparent prices. No hidden costs — just great value beauty in Leicester.
+            </p>
+          </PageHero>
         </div>
         <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-primary/20 blur-[120px] pointer-events-none" />
       </div>
@@ -34,21 +37,25 @@ export default function PricingPage() {
       {/* Prices */}
       <section className="section-padding bg-cream">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-center text-sm text-muted mb-12">
-            All prices are inclusive of VAT. Prices are subject to change — please confirm at time of booking.
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <FadeUp className="text-center mb-12">
+            <p className="text-sm text-muted">
+              All prices are inclusive of VAT. Prices are subject to change — please confirm at time of booking.
+            </p>
+          </FadeUp>
+
+          <StaggerGrid
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+            staggerDelay={0.06}
+          >
             {Object.values(PRICING).map((section) => (
-              <PriceTable
-                key={section.label}
-                label={section.label}
-                items={section.items}
-              />
+              <StaggerItem key={section.label} variant="up">
+                <PriceTable label={section.label} items={section.items} />
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerGrid>
 
           {/* Book CTA */}
-          <div className="text-center mt-16">
+          <FadeUp delay={0.2} className="text-center mt-16">
             <p className="font-display font-semibold text-dark text-xl mb-4">
               Ready to Book?
             </p>
@@ -68,7 +75,7 @@ export default function PricingPage() {
                 {BUSINESS.phone}
               </a>
             </div>
-          </div>
+          </FadeUp>
         </div>
       </section>
     </>

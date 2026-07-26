@@ -157,17 +157,15 @@ body {
 }
 .animate-fade-up { animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
 
-/* ── Performance — promote animated elements to their own compositor layer.
-   Applied globally to all motion elements so transitions stay on the GPU. ── */
-[style*="transform"],
-[style*="opacity"] {
+/* ── Performance — targeted compositor hints only on motion wrappers ── */
+.motion-safe {
   will-change: transform, opacity;
 }
 
-/* ── Prevent flash of invisible content on mobile ──
-   Before JS hydrates, Framer Motion leaves elements at opacity:0.
-   This makes everything visible immediately (no blank screen).
-   Once JS loads (.js-ready on <html>), Framer takes over normally. */
+/* ── Prevent flash of invisible content before JS hydrates ──
+   Framer leaves elements at opacity:0 via inline style until JS runs.
+   This rule shows everything immediately; once .js-ready fires on <html>
+   the class is added and Framer takes control normally. */
 :not(.js-ready) [style*="opacity: 0"],
 :not(.js-ready) [style*="opacity:0"] {
   opacity: 1 !important;
