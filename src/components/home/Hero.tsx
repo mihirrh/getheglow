@@ -84,7 +84,7 @@ export function Hero() {
                 Elevate
               </span>
             </motion.h1>
-            <motion.div variants={item} className="mb-2">
+            <motion.div variants={item} className="mb-10">
               <span className="block font-display font-bold italic text-[clamp(3.2rem,8vw,6.5rem)] leading-[0.95] tracking-tight"
                 style={{
                   background: "linear-gradient(100deg, #E84C8B 0%, #f09ec0 55%, #D6B15A 100%)",
@@ -94,11 +94,6 @@ export function Hero() {
                 }}
               >
                 Your Beauty
-              </span>
-            </motion.div>
-            <motion.div variants={item} className="mb-10">
-              <span className="block font-display font-bold text-[clamp(3.2rem,8vw,6.5rem)] text-white/20 leading-[0.95] tracking-tight">
-                In Leicester.
               </span>
             </motion.div>
 
