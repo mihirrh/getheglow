@@ -150,6 +150,21 @@ body {
   );
 }
 
+/* ── Hero orb pulse (CSS — no JS required, mobile-safe) ── */
+@keyframes orbPulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50%       { opacity: 0.9; transform: scale(1.08); }
+}
+@keyframes orbPulseGold {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50%       { opacity: 0.7; transform: scale(1.12); }
+}
+/* Only animate on desktop where the GPU has budget */
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  .orb-pink { animation: orbPulse 7s ease-in-out infinite; }
+  .orb-gold { animation: orbPulseGold 9s ease-in-out infinite 2s; }
+}
+
 /* ── Animate fade-up (for non-framer fallback) ── */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(24px); }
@@ -162,10 +177,20 @@ body {
   will-change: transform, opacity;
 }
 
-/* ── No FOIC override needed ──
-   LazyMotion with domMax defers feature loading, so elements are not
-   left at opacity:0 before hydration. The inline opacity:0 is applied
-   by Framer only after the JS bundle runs, never during SSR. */
+/* ── Pre-hydration visibility fallback ────────────────────────────────────────
+   Framer Motion sets `opacity:0` via inline style as soon as JS runs (before
+   the animation plays). On slow mobile connections the JS bundle can take 1–3s
+   to parse, leaving the whole page blank.
+   Fix: while `html.js-ready` is absent, force any Framer-initial element back
+   to visible so users always see content immediately.
+   Once MotionProvider runs and adds `.js-ready`, this rule is removed from the
+   cascade and Framer's own animations take over cleanly.
+────────────────────────────────────────────────────────────────────────────── */
+html:not(.js-ready) [style*="opacity: 0"],
+html:not(.js-ready) [style*="opacity:0"] {
+  opacity: 1 !important;
+  transform: none !important;
+}
 
 /* ── Card premium (alias used in some sections) ── */
 .card-premium {

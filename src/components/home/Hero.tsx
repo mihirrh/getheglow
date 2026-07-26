@@ -53,18 +53,14 @@ export function Hero() {
               "linear-gradient(135deg, #1a0a10 0%, #2d1020 25%, #E84C8B 60%, #D96A98 80%, #FFF8F8 100%)",
           }}
         />
-        {/* Soft ambient orbs */}
-        <motion.div
-          className="absolute top-1/4 right-1/4 w-[700px] h-[700px] rounded-full blur-[130px]"
+        {/* Soft ambient orbs — CSS animation so they render without JS */}
+        <div
+          className="orb-pink absolute top-1/4 right-1/4 w-[700px] h-[700px] rounded-full blur-[130px]"
           style={{ background: "rgba(232,76,139,0.18)" }}
-          animate={{ scale: [1, 1.08, 1], opacity: [0.6, 0.9, 0.6] }}
-          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
         />
-        <motion.div
-          className="absolute bottom-1/4 left-1/4 w-[500px] h-[500px] rounded-full blur-[110px]"
+        <div
+          className="orb-gold absolute bottom-1/4 left-1/4 w-[500px] h-[500px] rounded-full blur-[110px]"
           style={{ background: "rgba(214,177,90,0.12)" }}
-          animate={{ scale: [1, 1.12, 1], opacity: [0.4, 0.7, 0.4] }}
-          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 2 }}
         />
       </motion.div>
 
