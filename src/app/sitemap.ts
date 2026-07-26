@@ -1,6 +1,7 @@
-import { BUSINESS } from "@/lib/constants";
-import { SERVICES } from "@/lib/services";
 import type { MetadataRoute } from "next";
+import { BUSINESS, SERVICES } from "@/lib/data";
+
+export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();

@@ -1,5 +1,7 @@
 import type { MetadataRoute } from "next";
-import { BUSINESS } from "@/lib/constants";
+import { BUSINESS } from "@/lib/data";
+
+export const dynamic = "force-static";
 
 export default function robots(): MetadataRoute.Robots {
   return {
