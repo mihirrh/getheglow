@@ -4,6 +4,7 @@ import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { StickyCTAs } from "@/components/layout/StickyCTAs";
+import { MotionProvider } from "@/components/MotionProvider";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -96,10 +97,12 @@ export default function RootLayout({
       className={`${playfair.variable} ${cormorant.variable} ${inter.variable} ${dmSans.variable}`}
     >
       <body className="font-body antialiased bg-white text-dark">
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
-        <StickyCTAs />
+        <MotionProvider>
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+          <StickyCTAs />
+        </MotionProvider>
       </body>
     </html>
   );
