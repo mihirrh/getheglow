@@ -19,7 +19,7 @@ export const BUSINESS = {
   instagramHandle: "@getheglow",
   googleMaps: "https://maps.app.goo.gl/4j5JSzA7xpiMQsMg6",
   googleReview:
-    "https://search.google.com/local/writereview?placeid=ChIJXX",
+    "https://www.google.com/maps/search/?api=1&query=Get+The+Glow+5+Woodgate+Leicester+LE3+5GH",
   bookingUrl: "https://wa.me/447778698550?text=Hi%2C%20I%27d%20like%20to%20book%20an%20appointment",
   url: "https://gettheglow.co.uk",
 } as const;
