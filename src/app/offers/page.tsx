@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { SPECIAL_OFFERS, BUSINESS } from "@/lib/data";
 import { Sparkles, Tag } from "lucide-react";
-import { FadeUp, StaggerGrid, StaggerItem, PageHero } from "@/components/ui/Animate";
+import { FadeUp, StaggerGrid, StaggerItem, PageHero, PageHeroItem } from "@/components/ui/Animate";
 
 export const metadata: Metadata = {
   title: "Special Offers – Beauty Bundles & Packages Leicester",
@@ -20,15 +20,15 @@ export default function OffersPage() {
       >
         <div className="max-w-3xl mx-auto px-4 relative z-10">
           <PageHero>
-            <p className="text-xs uppercase tracking-[0.3em] text-soft-pink font-sans font-medium mb-4">
-              Limited Bundles
-            </p>
-            <h1 className="font-display font-bold text-5xl sm:text-6xl text-white mb-6">
-              Special Offers
-            </h1>
-            <p className="text-white/75 text-lg">
-              Incredible value packages on our most popular treatments. Book now before they sell out.
-            </p>
+            <PageHeroItem>
+              <p className="text-xs uppercase tracking-[0.3em] text-soft-pink font-sans font-medium">Limited Bundles</p>
+            </PageHeroItem>
+            <PageHeroItem>
+              <h1 className="font-display font-bold text-5xl sm:text-6xl text-white mt-2 mb-3">Special Offers</h1>
+            </PageHeroItem>
+            <PageHeroItem>
+              <p className="text-white/75 text-lg">Incredible value packages on our most popular treatments. Book now before they sell out.</p>
+            </PageHeroItem>
           </PageHero>
         </div>
         <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-gold/20 blur-[120px] pointer-events-none" />

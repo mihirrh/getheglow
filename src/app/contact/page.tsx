@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { MapPin, Phone, Mail, Clock, MessageCircle, Camera } from "lucide-react";
 import { BUSINESS, HOURS } from "@/lib/data";
 import { ContactForm } from "@/components/contact/ContactForm";
-import { FadeUp, SlideIn, StaggerGrid, StaggerItem, PageHero } from "@/components/ui/Animate";
+import { FadeUp, SlideIn, StaggerGrid, StaggerItem, PageHero, PageHeroItem } from "@/components/ui/Animate";
 
 export const metadata: Metadata = {
   title: "Contact Get The Glow – Book a Beauty Appointment in Leicester",
@@ -64,15 +64,15 @@ export default function ContactPage() {
       >
         <div className="max-w-3xl mx-auto px-4 relative z-10">
           <PageHero>
-            <p className="text-xs uppercase tracking-[0.3em] text-soft-pink font-sans font-medium mb-4">
-              Get In Touch
-            </p>
-            <h1 className="font-display font-bold text-5xl sm:text-6xl text-white mb-6">
-              Contact Us
-            </h1>
-            <p className="text-white/75 text-lg">
-              We'd love to hear from you. Book an appointment, ask a question, or just say hello.
-            </p>
+            <PageHeroItem>
+              <p className="text-xs uppercase tracking-[0.3em] text-soft-pink font-sans font-medium">Get In Touch</p>
+            </PageHeroItem>
+            <PageHeroItem>
+              <h1 className="font-display font-bold text-5xl sm:text-6xl text-white mt-2 mb-3">Contact Us</h1>
+            </PageHeroItem>
+            <PageHeroItem>
+              <p className="text-white/75 text-lg">We'd love to hear from you. Book an appointment, ask a question, or just say hello.</p>
+            </PageHeroItem>
           </PageHero>
         </div>
         <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-rose/20 blur-[120px] pointer-events-none" />

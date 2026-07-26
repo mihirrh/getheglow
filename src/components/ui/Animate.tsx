@@ -1,42 +1,34 @@
 "use client";
 
 /**
- * Lightweight animation primitives used across every page.
- *
- * <FadeUp>          — fades + slides up on scroll (headings, paragraphs)
- * <FadeIn>          — pure fade, no movement (backgrounds, overlays)
- * <SlideIn>         — slides from left or right
- * <StaggerGrid>     — wraps a grid; children stagger in one by one
- * <StaggerItem>     — individual item inside StaggerGrid
- * <ScaleIn>         — scales up from 0.92 (cards, badges)
- * <PageHero>        — entrance animation for page hero sections (runs on mount)
- * <CountUp>         — animates a number from 0 to target
+ * Animation primitives for Get The Glow.
+ * All use whileInView (never the broken animate={inView ? … : {}} pattern).
+ * Easing: [0.22, 1, 0.36, 1] — Apple's spring-like deceleration curve.
  */
 
 import { useRef, useState, useEffect } from "react";
 import { motion, useInView, type Variants } from "framer-motion";
 
-const EASE = [0.22, 1, 0.36, 1] as const;
+export const EASE = [0.22, 1, 0.36, 1] as const;
 
-// ─── FadeUp ──────────────────────────────────────────────────────────────────
-interface FadeUpProps {
+// ─────────────────────────────────────────────────────────────────────────────
+// Shared prop interface
+// ─────────────────────────────────────────────────────────────────────────────
+interface BaseProps {
   children: React.ReactNode;
   delay?: number;
   duration?: number;
   className?: string;
 }
 
-export function FadeUp({
-  children,
-  delay = 0,
-  duration = 0.7,
-  className,
-}: FadeUpProps) {
+// ─── FadeUp ──────────────────────────────────────────────────────────────────
+// The workhorse. Fades + lifts up when scrolled into view.
+export function FadeUp({ children, delay = 0, duration = 0.7, className }: BaseProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 28 }}
+      initial={{ opacity: 0, y: 32 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
+      viewport={{ once: true, amount: 0.15 }}
       transition={{ duration, delay, ease: EASE }}
       className={className}
     >
@@ -46,18 +38,14 @@ export function FadeUp({
 }
 
 // ─── FadeIn ──────────────────────────────────────────────────────────────────
-export function FadeIn({
-  children,
-  delay = 0,
-  duration = 0.6,
-  className,
-}: FadeUpProps) {
+// Pure opacity — no movement. For backgrounds, badges, subtle reveals.
+export function FadeIn({ children, delay = 0, duration = 0.6, className }: BaseProps) {
   return (
     <motion.div
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration, delay, ease: "easeOut" }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration, delay, ease: EASE }}
       className={className}
     >
       {children}
@@ -66,23 +54,19 @@ export function FadeIn({
 }
 
 // ─── SlideIn ─────────────────────────────────────────────────────────────────
-interface SlideInProps extends FadeUpProps {
-  from?: "left" | "right";
+// Side entrance for split-screen layouts.
+interface SlideInProps extends BaseProps {
+  from?: "left" | "right" | "bottom";
 }
 
-export function SlideIn({
-  children,
-  from = "left",
-  delay = 0,
-  duration = 0.8,
-  className,
-}: SlideInProps) {
-  const x = from === "left" ? -40 : 40;
+export function SlideIn({ children, from = "left", delay = 0, duration = 0.8, className }: SlideInProps) {
+  const x = from === "left" ? -48 : from === "right" ? 48 : 0;
+  const y = from === "bottom" ? 40 : 0;
   return (
     <motion.div
-      initial={{ opacity: 0, x }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
+      initial={{ opacity: 0, x, y }}
+      whileInView={{ opacity: 1, x: 0, y: 0 }}
+      viewport={{ once: true, amount: 0.1 }}
       transition={{ duration, delay, ease: EASE }}
       className={className}
     >
@@ -92,17 +76,13 @@ export function SlideIn({
 }
 
 // ─── ScaleIn ─────────────────────────────────────────────────────────────────
-export function ScaleIn({
-  children,
-  delay = 0,
-  duration = 0.6,
-  className,
-}: FadeUpProps) {
+// Scale up from slightly smaller — for cards, badges, images.
+export function ScaleIn({ children, delay = 0, duration = 0.6, className }: BaseProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.88 }}
+      initial={{ opacity: 0, scale: 0.9 }}
       whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true, margin: "-40px" }}
+      viewport={{ once: true, amount: 0.15 }}
       transition={{ duration, delay, ease: EASE }}
       className={className}
     >
@@ -112,34 +92,37 @@ export function ScaleIn({
 }
 
 // ─── StaggerGrid ─────────────────────────────────────────────────────────────
+// Wraps a grid. When it enters the viewport every direct child staggers in.
 interface StaggerGridProps {
   children: React.ReactNode;
   className?: string;
-  staggerDelay?: number;
+  staggerDelay?: number;      // seconds between each child
+  childDelay?: number;        // initial delay before first child fires
 }
-
-const staggerContainer = {
-  hidden: {},
-  show: (staggerDelay: number) => ({
-    transition: { staggerChildren: staggerDelay },
-  }),
-};
 
 export function StaggerGrid({
   children,
   className,
   staggerDelay = 0.08,
+  childDelay = 0,
 }: StaggerGridProps) {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
+  const container: Variants = {
+    hidden:  { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        delayChildren: childDelay,
+        staggerChildren: staggerDelay,
+      },
+    },
+  };
 
   return (
     <motion.div
-      ref={ref}
-      variants={staggerContainer}
-      custom={staggerDelay}
+      variants={container}
       initial="hidden"
-      animate={inView ? "show" : "hidden"}
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.1 }}
       className={className}
     >
       {children}
@@ -148,32 +131,37 @@ export function StaggerGrid({
 }
 
 // ─── StaggerItem ─────────────────────────────────────────────────────────────
+// Must be a direct child of StaggerGrid.
 interface StaggerItemProps {
   children: React.ReactNode;
   className?: string;
-  variant?: "up" | "scale" | "fade";
+  variant?: "up" | "scale" | "fade" | "left" | "right";
 }
 
 const itemVariants: Record<string, Variants> = {
   up: {
-    hidden: { opacity: 0, y: 32 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } },
+    hidden:  { opacity: 0, y: 36 },
+    visible: { opacity: 1, y: 0,   transition: { duration: 0.65, ease: EASE } },
   },
   scale: {
-    hidden: { opacity: 0, scale: 0.9 },
-    show: { opacity: 1, scale: 1, transition: { duration: 0.55, ease: EASE } },
+    hidden:  { opacity: 0, scale: 0.88 },
+    visible: { opacity: 1, scale: 1,    transition: { duration: 0.55, ease: EASE } },
   },
   fade: {
-    hidden: { opacity: 0 },
-    show: { opacity: 1, transition: { duration: 0.5, ease: [0, 0, 0.2, 1] } },
+    hidden:  { opacity: 0 },
+    visible: { opacity: 1,              transition: { duration: 0.5,  ease: EASE } },
+  },
+  left: {
+    hidden:  { opacity: 0, x: -28 },
+    visible: { opacity: 1, x: 0,       transition: { duration: 0.6,  ease: EASE } },
+  },
+  right: {
+    hidden:  { opacity: 0, x: 28 },
+    visible: { opacity: 1, x: 0,       transition: { duration: 0.6,  ease: EASE } },
   },
 };
 
-export function StaggerItem({
-  children,
-  className,
-  variant = "up",
-}: StaggerItemProps) {
+export function StaggerItem({ children, className, variant = "up" }: StaggerItemProps) {
   return (
     <motion.div variants={itemVariants[variant]} className={className}>
       {children}
@@ -182,18 +170,36 @@ export function StaggerItem({
 }
 
 // ─── PageHero ────────────────────────────────────────────────────────────────
-// Runs animate on mount (not scroll) because it's always above the fold
-interface PageHeroProps {
-  children: React.ReactNode;
-  className?: string;
-}
-
-export function PageHero({ children, className }: PageHeroProps) {
+// Wraps inner-page hero content. Animates on MOUNT (not scroll — it's above fold).
+// Children should each be wrapped in <motion.div> with their own delays for stagger.
+export function PageHero({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, ease: EASE }}
+      initial="hidden"
+      animate="visible"
+      variants={{
+        hidden:  { opacity: 0 },
+        visible: {
+          opacity: 1,
+          transition: { delayChildren: 0.1, staggerChildren: 0.12 },
+        },
+      }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+// ─── PageHeroItem ────────────────────────────────────────────────────────────
+// Direct child of PageHero. Staggers automatically.
+export function PageHeroItem({ children, className }: { children: React.ReactNode; className?: string }) {
+  return (
+    <motion.div
+      variants={{
+        hidden:  { opacity: 0, y: 24 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } },
+      }}
       className={className}
     >
       {children}
@@ -202,6 +208,7 @@ export function PageHero({ children, className }: PageHeroProps) {
 }
 
 // ─── CountUp ─────────────────────────────────────────────────────────────────
+// Counts a number from 0 to `to` when scrolled into view.
 interface CountUpProps {
   to: number;
   suffix?: string;
@@ -210,33 +217,43 @@ interface CountUpProps {
   className?: string;
 }
 
-export function CountUp({
-  to,
-  suffix = "",
-  prefix = "",
-  duration = 1.8,
-  className,
-}: CountUpProps) {
+export function CountUp({ to, suffix = "", prefix = "", duration = 1.6, className }: CountUpProps) {
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-40px" });
+  const inView = useInView(ref, { once: true, amount: 0.5 });
   const [value, setValue] = useState(0);
 
   useEffect(() => {
     if (!inView) return;
     const start = performance.now();
-    const step = (now: number) => {
-      const progress = Math.min((now - start) / (duration * 1000), 1);
-      // ease-out cubic
-      const eased = 1 - Math.pow(1 - progress, 3);
+    const tick = (now: number) => {
+      const t = Math.min((now - start) / (duration * 1000), 1);
+      const eased = 1 - Math.pow(1 - t, 3); // ease-out cubic
       setValue(Math.round(eased * to));
-      if (progress < 1) requestAnimationFrame(step);
+      if (t < 1) requestAnimationFrame(tick);
     };
-    requestAnimationFrame(step);
+    requestAnimationFrame(tick);
   }, [inView, to, duration]);
 
   return (
     <span ref={ref} className={className}>
       {prefix}{value.toLocaleString()}{suffix}
     </span>
+  );
+}
+
+// ─── RevealText ──────────────────────────────────────────────────────────────
+// Reveals a block of text with a sliding mask — like Apple product pages.
+export function RevealText({ children, delay = 0, className }: BaseProps) {
+  return (
+    <div className={`overflow-hidden ${className ?? ""}`}>
+      <motion.div
+        initial={{ y: "100%" }}
+        whileInView={{ y: "0%" }}
+        viewport={{ once: true, amount: 0.8 }}
+        transition={{ duration: 0.75, delay, ease: EASE }}
+      >
+        {children}
+      </motion.div>
+    </div>
   );
 }

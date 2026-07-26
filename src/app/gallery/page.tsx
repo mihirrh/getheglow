@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { BUSINESS } from "@/lib/data";
 import { GalleryGrid } from "@/components/gallery/GalleryGrid";
-import { FadeUp, PageHero } from "@/components/ui/Animate";
+import { FadeUp, PageHero, PageHeroItem } from "@/components/ui/Animate";
 
 export const metadata: Metadata = {
   title: "Gallery – Beauty Transformations in Leicester",
@@ -19,15 +19,15 @@ export default function GalleryPage() {
       >
         <div className="max-w-3xl mx-auto px-4 relative z-10">
           <PageHero>
-            <p className="text-xs uppercase tracking-[0.3em] text-soft-pink font-sans font-medium mb-4">
-              Our Work
-            </p>
-            <h1 className="font-display font-bold text-5xl sm:text-6xl text-white mb-6">
-              Gallery
-            </h1>
-            <p className="text-white/75 text-lg">
-              Real results from real clients. Browse our portfolio of beauty transformations.
-            </p>
+            <PageHeroItem>
+              <p className="text-xs uppercase tracking-[0.3em] text-soft-pink font-sans font-medium">Our Work</p>
+            </PageHeroItem>
+            <PageHeroItem>
+              <h1 className="font-display font-bold text-5xl sm:text-6xl text-white mt-2 mb-3">Gallery</h1>
+            </PageHeroItem>
+            <PageHeroItem>
+              <p className="text-white/75 text-lg">Real results from real clients. Browse our portfolio of beauty transformations.</p>
+            </PageHeroItem>
           </PageHero>
         </div>
         <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-primary/20 blur-[120px] pointer-events-none" />

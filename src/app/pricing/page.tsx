@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { PRICING, BUSINESS } from "@/lib/data";
-import { FadeUp, StaggerGrid, StaggerItem, PageHero } from "@/components/ui/Animate";
+import { FadeUp, StaggerGrid, StaggerItem, PageHero, PageHeroItem } from "@/components/ui/Animate";
 import { PriceTable } from "@/components/ui/PriceTable";
 
 export const metadata: Metadata = {
@@ -20,15 +20,21 @@ export default function PricingPage() {
       >
         <div className="max-w-3xl mx-auto px-4 relative z-10">
           <PageHero>
-            <p className="text-xs uppercase tracking-[0.3em] text-soft-pink font-sans font-medium mb-4">
-              Transparent Pricing
-            </p>
-            <h1 className="font-display font-bold text-5xl sm:text-6xl text-white mb-6">
-              Price List
-            </h1>
-            <p className="text-white/75 text-lg max-w-xl mx-auto">
-              Luxury treatments at honest, transparent prices. No hidden costs — just great value beauty in Leicester.
-            </p>
+            <PageHeroItem>
+              <p className="text-xs uppercase tracking-[0.3em] text-soft-pink font-sans font-medium">
+                Transparent Pricing
+              </p>
+            </PageHeroItem>
+            <PageHeroItem>
+              <h1 className="font-display font-bold text-5xl sm:text-6xl text-white mt-2 mb-3">
+                Price List
+              </h1>
+            </PageHeroItem>
+            <PageHeroItem>
+              <p className="text-white/75 text-lg max-w-xl mx-auto">
+                Luxury treatments at honest, transparent prices. No hidden costs — just great value beauty in Leicester.
+              </p>
+            </PageHeroItem>
           </PageHero>
         </div>
         <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-primary/20 blur-[120px] pointer-events-none" />

@@ -8,6 +8,7 @@ import {
   StaggerGrid,
   StaggerItem,
   PageHero,
+  PageHeroItem,
   CountUp,
 } from "@/components/ui/Animate";
 
@@ -51,18 +52,20 @@ export default function AboutPage() {
       >
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <PageHero>
-            <p className="text-xs uppercase tracking-[0.3em] text-soft-pink font-sans font-medium mb-4">
-              Our Story
-            </p>
-            <h1 className="font-display font-bold text-5xl sm:text-7xl text-white mb-6 leading-tight">
-              About<br />
-              <span style={{ background: "linear-gradient(135deg, #F7D6E3, #E84C8B, #D6B15A)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
-                Get The Glow
-              </span>
-            </h1>
-            <p className="text-white/75 text-lg sm:text-xl max-w-2xl mx-auto">
-              Leicester's most-loved luxury beauty salon — where every detail matters and every client matters more.
-            </p>
+            <PageHeroItem>
+              <p className="text-xs uppercase tracking-[0.3em] text-soft-pink font-sans font-medium">Our Story</p>
+            </PageHeroItem>
+            <PageHeroItem>
+              <h1 className="font-display font-bold text-5xl sm:text-7xl text-white mt-2 mb-4 leading-tight">
+                About<br />
+                <span style={{ background: "linear-gradient(135deg, #F7D6E3, #E84C8B, #D6B15A)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
+                  Get The Glow
+                </span>
+              </h1>
+            </PageHeroItem>
+            <PageHeroItem>
+              <p className="text-white/75 text-lg sm:text-xl max-w-2xl mx-auto">Leicester's most-loved luxury beauty salon — where every detail matters and every client matters more.</p>
+            </PageHeroItem>
           </PageHero>
         </div>
         <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-primary/20 blur-[120px] pointer-events-none" />

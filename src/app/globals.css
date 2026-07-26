@@ -162,15 +162,10 @@ body {
   will-change: transform, opacity;
 }
 
-/* ── Prevent flash of invisible content before JS hydrates ──
-   Framer leaves elements at opacity:0 via inline style until JS runs.
-   This rule shows everything immediately; once .js-ready fires on <html>
-   the class is added and Framer takes control normally. */
-:not(.js-ready) [style*="opacity: 0"],
-:not(.js-ready) [style*="opacity:0"] {
-  opacity: 1 !important;
-  transform: none !important;
-}
+/* ── No FOIC override needed ──
+   LazyMotion with domMax defers feature loading, so elements are not
+   left at opacity:0 before hydration. The inline opacity:0 is applied
+   by Framer only after the JS bundle runs, never during SSR. */
 
 /* ── Card premium (alias used in some sections) ── */
 .card-premium {

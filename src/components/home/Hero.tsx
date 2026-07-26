@@ -2,22 +2,50 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Phone, MessageCircle, Sparkles, ChevronDown } from "lucide-react";
+import { Phone, MessageCircle, Sparkles, ChevronDown, ArrowRight } from "lucide-react";
 import { BUSINESS } from "@/lib/data";
+import { EASE } from "@/components/ui/Animate";
+
+const STATS = [
+  { value: "1,000+", label: "Happy Clients" },
+  { value: "5.0 ★",  label: "Google Rating" },
+  { value: "50+",    label: "Services" },
+  { value: "5+",     label: "Years in Leicester" },
+];
 
 export function Hero() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const bgY     = useTransform(scrollYProgress, [0, 1], ["0%", "28%"]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+  const contentY       = useTransform(scrollYProgress, [0, 0.6], ["0%", "-8%"]);
+
+  // Shared stagger container that fires on mount (hero is always above fold)
+  const container = {
+    hidden:  { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { delayChildren: 0.15, staggerChildren: 0.13 },
+    },
+  };
+
+  const itemUp = {
+    hidden:  { opacity: 0, y: 28 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.75, ease: EASE } },
+  };
+
+  const itemScale = {
+    hidden:  { opacity: 0, scale: 0.85, y: 12 },
+    visible: { opacity: 1, scale: 1,    y: 0,  transition: { duration: 0.6,  ease: EASE } },
+  };
 
   return (
     <section
       ref={ref}
-      className="relative h-[100svh] min-h-[600px] flex items-center justify-center overflow-hidden"
+      className="relative h-[100svh] min-h-[640px] flex items-center justify-center overflow-hidden"
     >
-      {/* Background — gradient when no real image */}
-      <motion.div style={{ y }} className="absolute inset-0 z-0">
+      {/* ── Parallax background ───────────────────────────────────────── */}
+      <motion.div style={{ y: bgY }} className="absolute inset-0 z-0">
         <div
           className="absolute inset-0"
           style={{
@@ -25,132 +53,181 @@ export function Hero() {
               "linear-gradient(135deg, #1a0a10 0%, #2d1020 25%, #E84C8B 60%, #D96A98 80%, #FFF8F8 100%)",
           }}
         />
-        {/* Decorative orbs */}
-        <div className="absolute top-1/4 right-1/4 w-[600px] h-[600px] rounded-full bg-primary/20 blur-[120px]" />
-        <div className="absolute bottom-1/4 left-1/4 w-[400px] h-[400px] rounded-full bg-rose/15 blur-[100px]" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-dark/40 blur-[80px]" />
+        {/* Soft ambient orbs */}
+        <motion.div
+          className="absolute top-1/4 right-1/4 w-[700px] h-[700px] rounded-full blur-[130px]"
+          style={{ background: "rgba(232,76,139,0.18)" }}
+          animate={{ scale: [1, 1.08, 1], opacity: [0.6, 0.9, 0.6] }}
+          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute bottom-1/4 left-1/4 w-[500px] h-[500px] rounded-full blur-[110px]"
+          style={{ background: "rgba(214,177,90,0.12)" }}
+          animate={{ scale: [1, 1.12, 1], opacity: [0.4, 0.7, 0.4] }}
+          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        />
       </motion.div>
 
-      {/* Overlay */}
-      <div className="absolute inset-0 z-10" style={{ background: "linear-gradient(180deg, rgba(43,43,43,0.3) 0%, rgba(43,43,43,0.2) 50%, rgba(43,43,43,0.7) 100%)" }} />
+      {/* ── Dark overlay ──────────────────────────────────────────────── */}
+      <div
+        className="absolute inset-0 z-10"
+        style={{ background: "linear-gradient(180deg, rgba(20,5,12,0.45) 0%, rgba(20,5,12,0.15) 50%, rgba(20,5,12,0.65) 100%)" }}
+      />
 
-      {/* Content */}
+      {/* ── Content — fades + lifts as you scroll ─────────────────────── */}
       <motion.div
-        style={{ opacity }}
-        className="relative z-20 text-center text-white px-4 max-w-5xl mx-auto"
+        style={{ opacity: contentOpacity, y: contentY }}
+        className="relative z-20 text-center text-white px-4 max-w-5xl mx-auto w-full"
       >
-        {/* Pre-heading */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="inline-flex items-center gap-2 glass-pink px-5 py-2 rounded-full text-xs uppercase tracking-[0.3em] text-soft-pink mb-8"
+          variants={container}
+          initial="hidden"
+          animate="visible"
+          className="flex flex-col items-center"
         >
-          <Sparkles size={11} />
-          Premium Beauty · Leicester
-        </motion.div>
-
-        {/* Main heading */}
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="font-display font-bold leading-[1.1] mb-6"
-        >
-          <span className="block text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white">
-            Elevate Your
-          </span>
-          <span
-            className="block text-5xl sm:text-6xl md:text-7xl lg:text-8xl italic"
+          {/* Badge */}
+          <motion.div
+            variants={itemScale}
+            className="inline-flex items-center gap-2 mb-8 px-5 py-2.5 rounded-full text-xs uppercase tracking-[0.3em] text-soft-pink font-sans font-medium"
             style={{
-              background: "linear-gradient(135deg, #F7D6E3, #E84C8B, #D6B15A)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
+              background: "rgba(247,214,227,0.15)",
+              border: "1px solid rgba(247,214,227,0.3)",
+              backdropFilter: "blur(16px)",
             }}
           >
-            Natural Beauty
-          </span>
-        </motion.h1>
+            <Sparkles size={11} className="text-primary" />
+            Premium Beauty · Leicester
+          </motion.div>
 
-        {/* Sub-heading */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.65 }}
-          className="text-white/80 text-lg sm:text-xl max-w-2xl mx-auto mb-10 font-body font-light"
-        >
-          Leicester's luxury beauty salon — hair, nails, facials, massage, waxing & more. 
-          Experience the difference.
-        </motion.p>
+          {/* Headline line 1 */}
+          <motion.div variants={itemUp} className="overflow-hidden">
+            <span className="block font-display font-bold text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] text-white leading-[1.05]">
+              Elevate Your
+            </span>
+          </motion.div>
 
-        {/* CTAs */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.85 }}
-          className="flex flex-wrap gap-4 justify-center"
-        >
-          <a
-            href={BUSINESS.bookingUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 gradient-primary px-8 py-4 rounded-full text-white font-medium shadow-xl hover:opacity-90 transition-all hover:-translate-y-0.5 text-sm sm:text-base"
-          >
-            <Sparkles size={16} />
-            Book Your Appointment
-          </a>
-          <a
-            href={BUSINESS.phoneHref}
-            className="flex items-center gap-2 glass border border-white/30 px-8 py-4 rounded-full text-white font-medium hover:bg-white/20 transition-all text-sm sm:text-base"
-          >
-            <Phone size={16} />
-            {BUSINESS.phone}
-          </a>
-          <a
-            href={BUSINESS.whatsappHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 bg-[#25D366]/25 hover:bg-[#25D366]/40 border border-[#25D366]/40 px-8 py-4 rounded-full text-white font-medium transition-all text-sm sm:text-base"
-          >
-            <MessageCircle size={16} />
-            WhatsApp Us
-          </a>
-        </motion.div>
+          {/* Headline line 2 — gradient */}
+          <motion.div variants={itemUp} className="overflow-hidden mb-6">
+            <span
+              className="block font-display font-bold italic text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] leading-[1.05]"
+              style={{
+                background: "linear-gradient(135deg, #F7D6E3 0%, #E84C8B 45%, #D6B15A 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              Natural Beauty
+            </span>
+          </motion.div>
 
-        {/* Stats bar */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 1.1 }}
-          className="mt-16 flex flex-wrap gap-6 justify-center"
-        >
-          {[
-            { label: "Happy Clients", value: "1,000+" },
-            { label: "Google Rating", value: "5.0 ★" },
-            { label: "Services", value: "50+" },
-            { label: "Years in Leicester", value: "5+" },
-          ].map((stat) => (
-            <div key={stat.label} className="text-center">
-              <div className="font-display font-bold text-2xl text-white">{stat.value}</div>
-              <div className="text-xs text-white/60 uppercase tracking-widest mt-0.5">{stat.label}</div>
-            </div>
-          ))}
+          {/* Subheading */}
+          <motion.p
+            variants={itemUp}
+            className="text-white/75 text-lg sm:text-xl max-w-2xl mx-auto mb-10 font-body font-light leading-relaxed"
+          >
+            Leicester's luxury beauty salon — hair, nails, facials, massage, waxing &amp; more.{" "}
+            <span className="text-soft-pink">Experience the difference.</span>
+          </motion.p>
+
+          {/* CTA buttons */}
+          <motion.div
+            variants={itemUp}
+            className="flex flex-wrap gap-3 justify-center mb-16"
+          >
+            <motion.a
+              href={BUSINESS.bookingUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 gradient-primary text-white font-semibold px-7 py-3.5 rounded-full shadow-2xl text-sm sm:text-base"
+              whileHover={{ scale: 1.04, y: -2 }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ duration: 0.2, ease: EASE }}
+            >
+              <Sparkles size={15} />
+              Book Your Appointment
+              <ArrowRight size={14} />
+            </motion.a>
+
+            <motion.a
+              href={BUSINESS.phoneHref}
+              className="inline-flex items-center gap-2 text-white font-medium px-7 py-3.5 rounded-full text-sm sm:text-base"
+              style={{
+                background: "rgba(255,255,255,0.12)",
+                border: "1px solid rgba(255,255,255,0.28)",
+                backdropFilter: "blur(20px)",
+              }}
+              whileHover={{ scale: 1.04, y: -2, background: "rgba(255,255,255,0.2)" }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ duration: 0.2, ease: EASE }}
+            >
+              <Phone size={15} />
+              {BUSINESS.phone}
+            </motion.a>
+
+            <motion.a
+              href={BUSINESS.whatsappHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-white font-medium px-7 py-3.5 rounded-full text-sm sm:text-base"
+              style={{
+                background: "rgba(37,211,102,0.18)",
+                border: "1px solid rgba(37,211,102,0.35)",
+                backdropFilter: "blur(20px)",
+              }}
+              whileHover={{ scale: 1.04, y: -2, background: "rgba(37,211,102,0.28)" }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ duration: 0.2, ease: EASE }}
+            >
+              <MessageCircle size={15} />
+              WhatsApp Us
+            </motion.a>
+          </motion.div>
+
+          {/* Stats — each one staggers in */}
+          <motion.div
+            variants={{
+              hidden:  { opacity: 0 },
+              visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.1 } },
+            }}
+            className="flex flex-wrap gap-8 justify-center"
+          >
+            {STATS.map((stat) => (
+              <motion.div
+                key={stat.label}
+                variants={{
+                  hidden:  { opacity: 0, y: 20, scale: 0.9 },
+                  visible: { opacity: 1, y: 0,  scale: 1,  transition: { duration: 0.5, ease: EASE } },
+                }}
+                className="text-center"
+              >
+                <div className="font-display font-bold text-2xl sm:text-3xl text-white mb-0.5">
+                  {stat.value}
+                </div>
+                <div
+                  className="text-[10px] uppercase tracking-[0.2em] font-sans"
+                  style={{ color: "rgba(255,255,255,0.5)" }}
+                >
+                  {stat.label}
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
         </motion.div>
       </motion.div>
 
-      {/* Scroll indicator */}
+      {/* ── Scroll indicator ──────────────────────────────────────────── */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 0.8 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
+        transition={{ delay: 2.2, duration: 1 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1"
       >
         <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+          animate={{ y: [0, 7, 0] }}
+          transition={{ repeat: Infinity, duration: 2.2, ease: "easeInOut" }}
         >
-          <ChevronDown size={28} className="text-white/50" />
+          <ChevronDown size={24} style={{ color: "rgba(255,255,255,0.4)" }} />
         </motion.div>
       </motion.div>
     </section>
