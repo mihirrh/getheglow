@@ -203,6 +203,7 @@ export const PRICING = {
       { name: "Hair Curling", price: "£15" },
       { name: "Hair Mask", price: "£10" },
     ],
+    note: "Prices for these treatments may vary depending on hair length (above / below shoulder).",
   },
   colouring: {
     label: "Hair Colouring",
@@ -214,6 +215,7 @@ export const PRICING = {
       { name: "Balayage", price: "From £120" },
       { name: "Toner", price: "£35" },
     ],
+    note: "Patch test required for all colouring services. Please contact us at least 48 hours before your appointment.",
   },
 } as const;
 

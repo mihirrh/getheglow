@@ -55,7 +55,11 @@ export default function PricingPage() {
           >
             {Object.values(PRICING).map((section) => (
               <StaggerItem key={section.label} variant="up">
-                <PriceTable label={section.label} items={section.items} />
+                <PriceTable
+                  label={section.label}
+                  items={section.items}
+                  note={"note" in section ? (section as { note?: string }).note : undefined}
+                />
               </StaggerItem>
             ))}
           </StaggerGrid>
