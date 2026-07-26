@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { SERVICES, BUSINESS } from "@/lib/data";
 import { FadeUp, StaggerGrid, StaggerItem, PageHero, PageHeroItem } from "@/components/ui/Animate";
+import { ServiceIcon } from "@/components/ui/ServiceIcon";
 
 export const metadata: Metadata = {
   title: "Beauty Services Leicester – Hair, Nails, Facials, Waxing & More",
@@ -48,7 +49,9 @@ export default function ServicesPage() {
                   href={`/services/${service.slug}`}
                   className="card-luxury group block p-7 border border-border/50 hover:border-primary/30 transition-colors h-full"
                 >
-                  <div className="text-4xl mb-5">{service.icon}</div>
+                  <div className="w-12 h-12 rounded-2xl bg-soft-pink/60 flex items-center justify-center mb-5 group-hover:bg-primary/10 transition-colors">
+                    <ServiceIcon slug={service.slug} size={22} className="text-primary" />
+                  </div>
                   <h2 className="font-display font-bold text-xl text-dark mb-2">
                     {service.name} Leicester
                   </h2>

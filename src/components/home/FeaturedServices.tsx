@@ -5,6 +5,7 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { SERVICES } from "@/lib/data";
 import { EASE } from "@/components/ui/Animate";
+import { ServiceIcon } from "@/components/ui/ServiceIcon";
 
 // Signature (large) cards — first 2 services shown side-by-side in a big editorial strip
 const SIGNATURE = SERVICES.slice(0, 2);
@@ -63,13 +64,12 @@ export function FeaturedServices() {
                   border: "1px solid rgba(232,76,139,0.1)",
                 }}
               >
-                {/* Large emoji watermark */}
-                <span
-                  className="absolute top-5 right-6 text-[4.5rem] leading-none pointer-events-none select-none transition-transform duration-500 group-hover:scale-110 group-hover:rotate-[-6deg]"
-                  style={{ filter: "drop-shadow(0 4px 24px rgba(0,0,0,0.3))" }}
+                {/* Large icon watermark */}
+                <div
+                  className="absolute top-5 right-6 pointer-events-none select-none transition-transform duration-500 group-hover:scale-110 group-hover:rotate-[-6deg] opacity-20"
                 >
-                  {svc.icon}
-                </span>
+                  <ServiceIcon slug={svc.slug} size={80} className="text-white" />
+                </div>
 
                 {/* Content */}
                 <div className="relative z-10 p-6">
@@ -109,9 +109,9 @@ export function FeaturedServices() {
                 className="group flex flex-col items-start p-4 rounded-xl h-full transition-all duration-200 hover:bg-white hover:shadow-sm"
                 style={{ border: "1px solid rgba(240,217,229,0.5)" }}
               >
-                <span className="text-2xl mb-3 block transition-transform duration-300 group-hover:scale-110">
-                  {svc.icon}
-                </span>
+                <div className="mb-3 transition-transform duration-300 group-hover:scale-110">
+                  <ServiceIcon slug={svc.slug} size={20} className="text-primary" />
+                </div>
                 <p className="font-sans font-semibold text-[13px] text-dark mb-1 leading-tight">
                   {svc.name}
                 </p>

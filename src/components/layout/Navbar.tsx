@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown, Phone, MapPin, Clock, ArrowUpRight } from "lucide-react";
 import { BUSINESS, NAV_LINKS, SERVICES } from "@/lib/data";
 import { cn } from "@/lib/utils";
+import { ServiceIcon } from "@/components/ui/ServiceIcon";
 
 // Map slug → short descriptor shown in dropdown grid
 const SERVICE_SUBTITLES: Record<string, string> = {
@@ -163,9 +164,9 @@ export function Navbar() {
                                         : "hover:bg-white/6"
                                     )}
                                   >
-                                    <span className="text-lg leading-none flex-shrink-0 w-7 text-center">
-                                      {svc.icon}
-                                    </span>
+                                    <div className="flex-shrink-0 w-7 flex items-center justify-center">
+                                      <ServiceIcon slug={svc.slug} size={16} className="text-white/60 group-hover:text-primary transition-colors" />
+                                    </div>
                                     <div className="min-w-0">
                                       <p className={cn(
                                         "text-[13px] font-sans font-semibold leading-tight truncate transition-colors",

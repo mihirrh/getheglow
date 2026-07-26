@@ -3,13 +3,13 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { ServiceIcon } from "@/components/ui/ServiceIcon";
 
 const FEATURED_SERVICES = [
   {
     id: "hair",
     title: "Hair",
     description: "Precision cuts, colour, balayage & blowdrys by expert stylists.",
-    icon: "✂",
     priceFrom: "£5",
     href: "/services/hair",
     bg: "from-[#FFF0F6] to-[#FDD8EC]",
@@ -18,7 +18,6 @@ const FEATURED_SERVICES = [
     id: "nails",
     title: "Nails & Builder Gel",
     description: "Gel polish, builder gel, extensions and stunning nail art.",
-    icon: "✦",
     priceFrom: "£10",
     href: "/services/nails",
     bg: "from-[#FFF8F0] to-[#FDE8D0]",
@@ -27,7 +26,6 @@ const FEATURED_SERVICES = [
     id: "facials",
     title: "Facials",
     description: "Luxury facials designed to restore your natural radiant glow.",
-    icon: "◈",
     priceFrom: "£22",
     href: "/services/facials",
     bg: "from-[#F0FBF8] to-[#D0F0E8]",
@@ -36,7 +34,6 @@ const FEATURED_SERVICES = [
     id: "massage",
     title: "Massage",
     description: "Hot stone, full body & Indian head massage for total relaxation.",
-    icon: "◎",
     priceFrom: "£30",
     href: "/services/massage",
     bg: "from-[#F5F0FD] to-[#E0D0F8]",
@@ -45,7 +42,6 @@ const FEATURED_SERVICES = [
     id: "waxing",
     title: "Waxing",
     description: "Smooth, precise waxing using premium tea tree & hot wax.",
-    icon: "◇",
     priceFrom: "£3",
     href: "/services/waxing",
     bg: "from-[#FFF8F0] to-[#FDE8D0]",
@@ -54,7 +50,6 @@ const FEATURED_SERVICES = [
     id: "threading",
     title: "Threading",
     description: "Expertly shaped brows and flawless face threading.",
-    icon: "⊹",
     priceFrom: "£2.50",
     href: "/services/threading",
     bg: "from-[#FFF0F6] to-[#FDD8EC]",
@@ -63,7 +58,6 @@ const FEATURED_SERVICES = [
     id: "beauty",
     title: "Lashes & Brows",
     description: "Lash lift, brow lamination, tinting & luxury beauty combos.",
-    icon: "◉",
     priceFrom: "£8",
     href: "/services/beauty",
     bg: "from-[#F0F8FF] to-[#D0E8F8]",
@@ -72,7 +66,6 @@ const FEATURED_SERVICES = [
     id: "all",
     title: "View All Services",
     description: "Explore our full menu of premium beauty treatments.",
-    icon: "→",
     priceFrom: "",
     href: "/services",
     bg: "from-[#2B2B2B] to-[#1a1a1a]",
@@ -129,12 +122,12 @@ export function ServicesGrid() {
                 }}
               >
                 <div className="flex flex-col h-full">
-                  <div
-                    className={`text-2xl mb-3 ${
-                      (service as { isDark?: boolean }).isDark ? "text-white" : "text-[#E84C8B]"
-                    }`}
-                  >
-                    {service.icon}
+                  <div className="mb-3">
+                    <ServiceIcon
+                      slug={service.id}
+                      size={20}
+                      className={(service as { isDark?: boolean }).isDark ? "text-white/70" : "text-[#E84C8B]"}
+                    />
                   </div>
                   <h3
                     className={`font-semibold text-[15px] leading-tight mb-2 ${

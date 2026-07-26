@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { Phone, MessageCircle, ArrowRight, Star } from "lucide-react";
 import { BUSINESS } from "@/lib/data";
 import { EASE } from "@/components/ui/Animate";
+import { ServiceIcon } from "@/components/ui/ServiceIcon";
 
 export function Hero() {
   const ref = useRef<HTMLDivElement>(null);
@@ -194,8 +195,10 @@ export function Hero() {
               }}
             >
               {/* Placeholder — swap for real <Image> */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 p-8">
-                <span className="text-5xl">💅</span>
+              <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 p-8">
+                <div className="w-16 h-16 rounded-2xl bg-white/8 flex items-center justify-center">
+                  <ServiceIcon slug="nails" size={32} className="text-white/60" />
+                </div>
                 <p className="text-white/30 text-xs uppercase tracking-[0.25em] font-sans text-center">
                   Nails · Gel · Builder
                 </p>
@@ -218,8 +221,10 @@ export function Hero() {
                 border: "1px solid rgba(214,177,90,0.18)",
               }}
             >
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 p-6">
-                <span className="text-4xl">✂️</span>
+              <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 p-6">
+                <div className="w-14 h-14 rounded-2xl bg-white/8 flex items-center justify-center">
+                  <ServiceIcon slug="hair" size={28} className="text-white/60" />
+                </div>
                 <p className="text-white/30 text-xs uppercase tracking-[0.25em] font-sans text-center">
                   Hair · Colour · Style
                 </p>
