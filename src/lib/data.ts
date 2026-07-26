@@ -1,3 +1,18 @@
+/**
+ * @file data.ts — single source of truth for all site content.
+ *
+ * ┌─────────────────────────────────────────────────────────────┐
+ * │  HOW TO UPDATE PRICES                                       │
+ * │  Find the relevant key inside PRICING below (e.g. "nails"), │
+ * │  then change the `price` string on any item.               │
+ * │  Categories are rendered automatically on /pricing.         │
+ * ├─────────────────────────────────────────────────────────────┤
+ * │  HOW TO UPDATE HOURS / CONTACT DETAILS                      │
+ * │  Edit HOURS or BUSINESS below.  Everything on the site      │
+ * │  (footer, contact page, schema, sitemaps) pulls from here.  │
+ * └─────────────────────────────────────────────────────────────┘
+ */
+
 // ─── Business Information ────────────────────────────────────────────────────
 export const BUSINESS = {
   name: "Get The Glow",
@@ -36,6 +51,14 @@ export const HOURS = [
 ] as const;
 
 // ─── Pricing ─────────────────────────────────────────────────────────────────
+/**
+ * PRICING is a keyed object.  Each key maps to a category displayed on /pricing
+ * and on each service's detail page.
+ *
+ * To add a new treatment: add a new key with a `label` and `items` array.
+ * To remove a treatment: delete its key.
+ * Items: { name: string; price: string }  — price is displayed as-is (e.g. "£10" or "From £38").
+ */
 export const PRICING = {
   threading: {
     label: "Threading",
@@ -239,6 +262,14 @@ export const SPECIAL_OFFERS = [
 ] as const;
 
 // ─── Services (for navigation + pages) ───────────────────────────────────────
+/**
+ * SERVICES drives the /services listing page, service detail pages, and the
+ * Navbar dropdown.  Each service slug must be unique and URL-safe.
+ *
+ * `pricingKeys` — array of keys from PRICING whose tables appear on that service's page.
+ * `benefits`    — bullet points shown in the "Why Choose Us" section.
+ * `faqs`        — FAQ accordion on the service page. Add as many as needed.
+ */
 export const SERVICES = [
   {
     slug: "hair",
@@ -491,6 +522,12 @@ export const SERVICES = [
 ] as const;
 
 // ─── Mock Reviews ─────────────────────────────────────────────────────────────
+/**
+ * MOCK_REVIEWS are shown in the GoogleReviews section on the homepage.
+ * Replace these with real reviews fetched from Google Business Profile API
+ * (the component already reads from this array, so a live API just needs to
+ * write back here or pass data as props).
+ */
 export const MOCK_REVIEWS = [
   {
     id: "1",
@@ -543,6 +580,7 @@ export const MOCK_REVIEWS = [
 ] as const;
 
 // ─── Nav Links ────────────────────────────────────────────────────────────────
+/** NAV_LINKS drives the desktop nav and mobile slide-in menu. */
 export const NAV_LINKS = [
   { label: "Home", href: "/" },
   {

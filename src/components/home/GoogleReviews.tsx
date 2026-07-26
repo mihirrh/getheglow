@@ -1,60 +1,38 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
-import { Star, Quote, ExternalLink, ChevronLeft, ChevronRight } from "lucide-react";
+import { useRef } from "react";
+import { useInView } from "framer-motion";
+import { Star, Quote, ExternalLink } from "lucide-react";
 import { MOCK_REVIEWS, BUSINESS } from "@/lib/data";
-
-interface Review {
-  id: string;
-  author: string;
-  rating: number;
-  date: string;
-  text: string;
-  avatar?: string;
-}
-
-interface GoogleReviewsProps {
-  reviews?: Review[];
-  averageRating?: number;
-  totalReviews?: number;
-}
 
 function StarRating({ rating }: { rating: number }) {
   return (
-    <div className="flex gap-0.5">
+    <div className="flex gap-0.5" aria-label={`${rating} out of 5 stars`}>
       {Array.from({ length: 5 }).map((_, i) => (
         <Star
           key={i}
           size={14}
-          className={i < rating ? "fill-gold text-gold" : "text-gray-200 fill-gray-200"}
+          className={i < rating ? "fill-gold text-gold" : "fill-white/20 text-white/20"}
         />
       ))}
     </div>
   );
 }
 
-export function GoogleReviews({
-  reviews = MOCK_REVIEWS as unknown as Review[],
-  averageRating = 5.0,
-  totalReviews = 127,
-}: GoogleReviewsProps) {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-  const [activeIdx, setActiveIdx] = useState(0);
-
-  const prev = () => setActiveIdx((i) => (i - 1 + reviews.length) % reviews.length);
-  const next = () => setActiveIdx((i) => (i + 1) % reviews.length);
+export function GoogleReviews() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const inView = useInView(sectionRef, { once: true, margin: "-80px" });
 
   return (
-    <section className="section-padding bg-dark text-white overflow-hidden" ref={ref}>
+    <section
+      ref={sectionRef}
+      className="section-padding bg-dark text-white overflow-hidden"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Heading */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7 }}
-          className="text-center mb-16"
+        <div
+          className="text-center mb-12 transition-all duration-700"
+          style={{ opacity: inView ? 1 : 0, transform: inView ? "none" : "translateY(24px)" }}
         >
           <p className="text-xs uppercase tracking-[0.3em] text-gold font-sans font-medium mb-3">
             Client Reviews
@@ -62,13 +40,12 @@ export function GoogleReviews({
           <h2 className="font-display font-bold text-4xl sm:text-5xl text-white mb-6">
             What Our Clients Say
           </h2>
-          {/* Rating summary */}
+
+          {/* Rating summary badge */}
           <div className="inline-flex items-center gap-4 glass-pink px-8 py-4 rounded-2xl">
             <div>
-              <div className="font-display font-bold text-4xl text-white">
-                {averageRating.toFixed(1)}
-              </div>
-              <div className="flex gap-0.5 mt-1">
+              <div className="font-display font-bold text-4xl text-white">5.0</div>
+              <div className="flex gap-0.5 mt-1 justify-center">
                 {Array.from({ length: 5 }).map((_, i) => (
                   <Star key={i} size={16} className="fill-gold text-gold" />
                 ))}
@@ -76,27 +53,40 @@ export function GoogleReviews({
             </div>
             <div className="w-px h-12 bg-white/20" />
             <div className="text-left">
-              <div className="font-semibold text-white text-lg">{totalReviews}+ Reviews</div>
+              <div className="font-semibold text-white text-lg">127+ Reviews</div>
               <div className="text-white/60 text-sm">on Google</div>
             </div>
           </div>
-        </motion.div>
+        </div>
 
-        {/* Desktop grid */}
-        <div className="hidden md:grid grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
-          {reviews.map((review, i) => (
-            <motion.div
+        {/*
+         * Scroll-snap carousel — works on all screen sizes.
+         * On ≥md it shows 3 cards side by side; on mobile it scrolls one at a time.
+         * Native browser touch/swipe is handled automatically — no JS needed.
+         */}
+        <div
+          className="flex gap-5 overflow-x-auto snap-x snap-mandatory pb-4 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:mx-0 lg:px-0 lg:grid lg:grid-cols-3 lg:overflow-visible"
+          style={{ scrollbarWidth: "none" }}
+        >
+          {MOCK_REVIEWS.map((review, i) => (
+            <div
               key={review.id}
-              initial={{ opacity: 0, y: 24 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: i * 0.1 }}
-              className="bg-white/5 hover:bg-white/8 border border-white/10 rounded-2xl p-6 transition-colors"
+              className="
+                snap-start flex-none w-[82vw] sm:w-[60vw] lg:w-auto
+                bg-white/5 hover:bg-white/8 border border-white/10 rounded-2xl p-6
+                transition-all duration-700
+              "
+              style={{
+                opacity: inView ? 1 : 0,
+                transform: inView ? "none" : "translateY(24px)",
+                transitionDelay: `${i * 80}ms`,
+              }}
             >
-              <Quote size={24} className="text-primary/50 mb-3" />
-              <p className="text-white/80 text-sm leading-relaxed mb-5 line-clamp-4">
+              <Quote size={22} className="text-primary/50 mb-3" />
+              <p className="text-white/80 text-sm leading-relaxed mb-5 line-clamp-5">
                 {review.text}
               </p>
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between gap-2 mt-auto">
                 <div>
                   <p className="font-medium text-white text-sm">{review.author}</p>
                   <p className="text-white/40 text-xs mt-0.5">
@@ -108,63 +98,18 @@ export function GoogleReviews({
                 </div>
                 <StarRating rating={review.rating} />
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 
-        {/* Mobile carousel */}
-        <div className="md:hidden mb-10">
-          <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
-            <Quote size={24} className="text-primary/50 mb-3" />
-            <p className="text-white/80 text-sm leading-relaxed mb-5">
-              {reviews[activeIdx].text}
-            </p>
-            <div className="flex items-center justify-between mb-4">
-              <div>
-                <p className="font-medium text-white text-sm">{reviews[activeIdx].author}</p>
-                <p className="text-white/40 text-xs mt-0.5">
-                  {new Date(reviews[activeIdx].date).toLocaleDateString("en-GB", {
-                    month: "long",
-                    year: "numeric",
-                  })}
-                </p>
-              </div>
-              <StarRating rating={reviews[activeIdx].rating} />
-            </div>
-            <div className="flex items-center gap-3">
-              <button
-                onClick={prev}
-                className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
-              >
-                <ChevronLeft size={16} className="text-white" />
-              </button>
-              <div className="flex-1 flex justify-center gap-1.5">
-                {reviews.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setActiveIdx(i)}
-                    className={`h-1.5 rounded-full transition-all ${
-                      i === activeIdx ? "bg-primary w-5" : "bg-white/20 w-1.5"
-                    }`}
-                  />
-                ))}
-              </div>
-              <button
-                onClick={next}
-                className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
-              >
-                <ChevronRight size={16} className="text-white" />
-              </button>
-            </div>
-          </div>
-        </div>
-
         {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="text-center"
+        <div
+          className="text-center mt-10 transition-all duration-700"
+          style={{
+            opacity: inView ? 1 : 0,
+            transform: inView ? "none" : "translateY(16px)",
+            transitionDelay: "480ms",
+          }}
         >
           <a
             href={BUSINESS.googleReview}
@@ -177,9 +122,9 @@ export function GoogleReviews({
             <ExternalLink size={12} />
           </a>
           <p className="text-white/40 text-xs mt-3">
-            * Reviews shown are representative. Component is API-ready for live Google Business reviews.
+            Reviews shown are representative. Component is API-ready for live Google Business reviews.
           </p>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
