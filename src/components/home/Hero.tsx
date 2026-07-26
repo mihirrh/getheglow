@@ -70,11 +70,22 @@ export function Hero() {
             animate="visible"
             className="flex flex-col"
           >
-            {/* City line */}
-            <motion.div variants={item} className="flex items-center gap-3 mb-8">
-              <div className="w-6 h-px bg-primary" />
-              <span className="text-[10px] uppercase tracking-[0.35em] text-white/45 font-sans">
-                Leicester, LE3 5GH
+            {/* City line + walk-in badge */}
+            <motion.div variants={item} className="flex flex-wrap items-center gap-3 mb-8">
+              <div className="flex items-center gap-3">
+                <div className="w-6 h-px bg-primary" />
+                <span className="text-[10px] uppercase tracking-[0.35em] text-white/45 font-sans">
+                  Leicester, LE3 5GH
+                </span>
+              </div>
+              <span
+                className="text-[10px] uppercase tracking-[0.25em] text-white font-sans font-medium px-3 py-1 rounded-full"
+                style={{
+                  background: "rgba(232,76,139,0.25)",
+                  border: "1px solid rgba(232,76,139,0.35)",
+                }}
+              >
+                No Booking Needed · Walk-ins Welcome
               </span>
             </motion.div>
 
