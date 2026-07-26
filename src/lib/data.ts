@@ -523,59 +523,59 @@ export const SERVICES = [
 
 // ─── Mock Reviews ─────────────────────────────────────────────────────────────
 /**
- * MOCK_REVIEWS are shown in the GoogleReviews section on the homepage.
- * Replace these with real reviews fetched from Google Business Profile API
- * (the component already reads from this array, so a live API just needs to
- * write back here or pass data as props).
+ * MOCK_REVIEWS — shown newest-first in the Reviews section on the homepage.
+ *
+ * HOW TO ADD A NEW REVIEW:
+ *   1. Add a new object at the TOP of this array (so it shows first).
+ *   2. Set rating: 5 — only 5★ reviews are displayed.
+ *   3. Use ISO date format: "YYYY-MM-DD"
+ *
+ * To connect real Google reviews, replace this array with a live fetch from
+ * the Google Business Profile API and pass the data as props to <GoogleReviews>.
  */
 export const MOCK_REVIEWS = [
+  // ── Newest first ──────────────────────────────────────────────────────────
   {
     id: "1",
-    author: "Sophie Williams",
+    author: "Zara H.",
     rating: 5,
-    date: "2024-11-15",
-    text: "Absolutely love this salon! Had the Get The Glow facial and my skin has never looked better. The atmosphere is so calm and luxurious. Will definitely be back!",
-    avatar: "/images/avatars/avatar-1.jpg",
+    date: "2025-06-10",
+    text: "Just had my brow lamination and lash lift done — absolutely obsessed! They last ages and look so natural. The salon is so clean and relaxing. 100% coming back.",
   },
   {
     id: "2",
-    author: "Priya Patel",
+    author: "Amelia T.",
     rating: 5,
-    date: "2024-11-08",
-    text: "Had my eyebrows threaded and tinted here — the best brows I've ever had! So precise and perfectly shaped. Super friendly staff, very professional.",
-    avatar: "/images/avatars/avatar-2.jpg",
+    date: "2025-05-28",
+    text: "Get The Glow is my go-to for everything. Had my builder gels done last week and they're still perfect. The nail tech takes her time and the finish is flawless.",
   },
   {
     id: "3",
-    author: "Emma Clarke",
+    author: "Riya K.",
     rating: 5,
-    date: "2024-10-30",
-    text: "Treated myself to the hot stone massage. Absolutely blissful — I felt like a new person afterwards. Very reasonably priced for the quality you receive.",
-    avatar: "/images/avatars/avatar-3.jpg",
+    date: "2025-05-14",
+    text: "Best threading in Leicester, hands down. My eyebrows have never looked this good. Quick, painless and so precise. Will not go anywhere else!",
   },
   {
     id: "4",
-    author: "Aisha Mahmood",
+    author: "Jessica M.",
     rating: 5,
-    date: "2024-10-22",
-    text: "Builder gel nails came out beautifully! The nail technician was meticulous and the design is exactly what I asked for. So happy with the result.",
-    avatar: "/images/avatars/avatar-4.jpg",
+    date: "2025-04-30",
+    text: "Treated myself to the Get The Glow Facial and wow — my skin felt incredible for weeks. So relaxing too. The atmosphere is pure luxury for the price. Highly recommend.",
   },
   {
     id: "5",
-    author: "Charlotte Hughes",
+    author: "Fatima A.",
     rating: 5,
-    date: "2024-10-14",
-    text: "First time visiting for a Hollywood wax and I'll never go anywhere else. So gentle and professional. The hot wax package deal is excellent value.",
-    avatar: "/images/avatars/avatar-5.jpg",
+    date: "2025-04-12",
+    text: "Had a Hollywood wax and the hot wax package — genuinely the best experience. So professional and gentle. The results were amazing. Will definitely be booking again.",
   },
   {
     id: "6",
-    author: "Neha Sharma",
+    author: "Chloe B.",
     rating: 5,
-    date: "2024-10-05",
-    text: "Had the lash lift and tint done — absolutely transformed my eyes! Everyone has been asking what mascara I use. Highly recommend!",
-    avatar: "/images/avatars/avatar-6.jpg",
+    date: "2025-03-22",
+    text: "Had my hair done here — balayage and blowdry. Came out absolutely stunning. The stylist really listened to what I wanted and delivered perfectly. Love it!",
   },
 ] as const;
 

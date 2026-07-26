@@ -19,6 +19,8 @@ function StarRating({ rating }: { rating: number }) {
   );
 }
 
+const FIVE_STAR = MOCK_REVIEWS.filter((r) => r.rating === 5);
+
 export function GoogleReviews() {
   return (
     <section className="section-padding bg-dark text-white overflow-hidden">
@@ -71,7 +73,7 @@ export function GoogleReviews() {
             className="grid grid-cols-3 gap-5 mb-10"
             staggerDelay={0.1}
           >
-            {MOCK_REVIEWS.map((review) => (
+            {FIVE_STAR.map((review) => (
               <StaggerItem key={review.id} variant="up">
                 <div className="h-full rounded-2xl p-6 flex flex-col"
                   style={{
@@ -104,7 +106,7 @@ export function GoogleReviews() {
             className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-3"
             style={{ scrollbarWidth: "none" }}
           >
-            {MOCK_REVIEWS.map((review, i) => (
+            {FIVE_STAR.map((review, i) => (
               <motion.div
                 key={review.id}
                 initial={{ opacity: 0, x: 24 }}
