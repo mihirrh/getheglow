@@ -5,9 +5,9 @@ import { ContactForm } from "@/components/contact/ContactForm";
 import { FadeUp, SlideIn, StaggerGrid, StaggerItem, PageHero, PageHeroItem } from "@/components/ui/Animate";
 
 export const metadata: Metadata = {
-  title: "Contact Get The Glow – Book a Beauty Appointment in Leicester",
+  title: "Book a Beauty Appointment in Leicester | Get The Glow",
   description:
-    "Contact Get The Glow beauty salon in Leicester. Book an appointment, ask about services, or find us at 5 Woodgate, Leicester LE3 5GH. Call 07778 698550.",
+    "Book nails, hair, waxing, facials or any beauty treatment in Leicester. Call 07778 698550 or WhatsApp us. Find us at 5 Woodgate, Leicester LE3 5GH.",
   alternates: { canonical: `${BUSINESS.url}/contact` },
 };
 

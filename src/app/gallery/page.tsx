@@ -4,9 +4,9 @@ import { GalleryGrid } from "@/components/gallery/GalleryGrid";
 import { FadeUp, PageHero, PageHeroItem } from "@/components/ui/Animate";
 
 export const metadata: Metadata = {
-  title: "Gallery – Beauty Transformations in Leicester",
+  title: "Gallery – Nails, Hair & Beauty Results | Get The Glow Leicester",
   description:
-    "Browse our gallery of beauty transformations at Get The Glow Leicester: nails, hair, facials, brows, lashes, massage and more.",
+    "See real results from our clients in Leicester: gel nails, acrylic nails, lash lifts, brow lamination, hair colour, facials and more. Book your appointment.",
   alternates: { canonical: `${BUSINESS.url}/gallery` },
 };
 

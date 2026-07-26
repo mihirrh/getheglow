@@ -13,9 +13,9 @@ import {
 } from "@/components/ui/Animate";
 
 export const metadata: Metadata = {
-  title: "About Get The Glow – Leicester's Luxury Beauty Salon",
+  title: "About Get The Glow – Beauty Salon in Leicester LE3",
   description:
-    "Learn about Get The Glow — Leicester's premier beauty salon at 5 Woodgate. Expert team, luxury treatments, and genuine care for every client.",
+    "Get The Glow is Leicester's trusted beauty salon at 5 Woodgate LE3 5GH. Expert therapists offering nails, hair, waxing, threading, lash lifts & facials.",
   alternates: { canonical: `${BUSINESS.url}/about` },
 };
 

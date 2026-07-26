@@ -5,9 +5,9 @@ import { SERVICES, BUSINESS } from "@/lib/data";
 import { FadeUp, StaggerGrid, StaggerItem, PageHero, PageHeroItem } from "@/components/ui/Animate";
 
 export const metadata: Metadata = {
-  title: "All Beauty Services in Leicester – Hair, Nails, Facials & More",
+  title: "Beauty Services Leicester – Hair, Nails, Facials, Waxing & More",
   description:
-    "Explore the full range of luxury beauty services at Get The Glow Leicester: hair styling, nails, facials, massage, waxing, threading, eyebrows & more.",
+    "Browse all treatments at Get The Glow Leicester: gel nails, hair styling, facials, massage, Hollywood wax, eyebrow threading, lash lifts & more. Book now.",
   alternates: { canonical: `${BUSINESS.url}/services` },
 };
 

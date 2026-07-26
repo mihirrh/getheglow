@@ -4,9 +4,9 @@ import { Sparkles, Tag } from "lucide-react";
 import { FadeUp, StaggerGrid, StaggerItem, PageHero, PageHeroItem } from "@/components/ui/Animate";
 
 export const metadata: Metadata = {
-  title: "Special Offers – Beauty Bundles & Packages Leicester",
+  title: "Beauty Deals & Offers in Leicester | Get The Glow",
   description:
-    "Save on beauty treatments with our exclusive bundle packages at Get The Glow Leicester. Waxing bundles, Hollywood packages & more.",
+    "Save money on nails, waxing, lash lifts and more with our beauty bundles at Get The Glow Leicester. Exclusive packages — limited availability.",
   alternates: { canonical: `${BUSINESS.url}/offers` },
 };
 

@@ -73,7 +73,7 @@ export function Hero() {
       {/* ── Content — fades + lifts as you scroll ─────────────────────── */}
       <motion.div
         style={{ opacity: contentOpacity, y: contentY }}
-        className="relative z-20 text-center text-white px-4 max-w-5xl mx-auto w-full"
+        className="relative z-20 text-center text-white px-4 max-w-5xl mx-auto w-full pt-20 sm:pt-24"
       >
         <motion.div
           variants={container}

@@ -4,9 +4,9 @@ import { FadeUp, StaggerGrid, StaggerItem, PageHero, PageHeroItem } from "@/comp
 import { PriceTable } from "@/components/ui/PriceTable";
 
 export const metadata: Metadata = {
-  title: "Full Price List – Beauty Salon Leicester",
+  title: "Prices – Beauty Salon Leicester | Nails, Hair, Waxing & More",
   description:
-    "Complete pricing for all services at Get The Glow Leicester: threading, waxing, nails, facials, massage, hair and more. Transparent, honest pricing.",
+    "See prices for all treatments at Get The Glow Leicester: gel nails, threading, waxing, lash lift, facials, massage & hair. Honest, affordable pricing.",
   alternates: { canonical: `${BUSINESS.url}/pricing` },
 };
 
