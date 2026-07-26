@@ -80,16 +80,19 @@ export default function AboutPage() {
                 Who We Are
               </p>
               <h2 className="font-display font-bold text-4xl sm:text-5xl text-dark mb-6 leading-tight">
-                Leicester's Premium<br />Beauty Destination
+                A Small Business<br />Built on Big Care
               </h2>
               <p className="text-muted leading-relaxed mb-5">
-                Get The Glow was founded with a single vision: to bring a truly premium beauty experience to the heart of Leicester. We believe that feeling beautiful shouldn't come at the cost of feeling rushed, overlooked, or undervalued.
+                Get The Glow is an independent, family-run beauty salon right in the heart of Leicester. We are not a chain. We are not a franchise. We are a small business — and that means every single client matters to us personally.
               </p>
               <p className="text-muted leading-relaxed mb-5">
-                Based at 5 Woodgate, Leicester, our salon is a calm, beautiful space where skilled professionals deliver exceptional results — from the first consultation to the final finish.
+                We started with a simple but heartfelt belief: that everyone deserves to feel genuinely beautiful — not rushed through a conveyor belt, but truly seen, heard and cared for. That belief is baked into everything we do, from the warm welcome at the door to the final look in the mirror before you leave.
+              </p>
+              <p className="text-muted leading-relaxed mb-5">
+                Our little salon at 5 Woodgate has become something we are incredibly proud of — a space where people come not just for a treatment, but for how it makes them feel. Confident. Refreshed. Themselves again.
               </p>
               <p className="text-muted leading-relaxed mb-8">
-                Whether you're here for a quick threading appointment, a special-occasion glam session, or a full day of pampering, you'll always leave feeling your absolute best.
+                When you choose Get The Glow, you are choosing a team that genuinely loves what they do and genuinely cares about you. That is the difference a small business makes — and it is one we will never take for granted.
               </p>
 
               <div className="grid grid-cols-3 gap-6">
@@ -117,9 +120,9 @@ export default function AboutPage() {
                     background: "linear-gradient(135deg, #F7D6E3 0%, #E84C8B 40%, #D96A98 70%, #2B2B2B 100%)",
                   }}
                 />
-                <FadeUp delay={0.4} className="absolute -bottom-6 -right-6 glass shadow-xl border border-white/40 rounded-3xl p-5 max-w-[200px]">
+                <FadeUp delay={0.4} className="absolute -bottom-6 -right-6 glass shadow-xl border border-white/40 rounded-3xl p-5 max-w-[220px]">
                   <p className="font-display italic text-dark text-sm leading-snug">
-                    "Every client deserves to feel their best."
+                    "You are not just a booking — you are the reason we do this."
                   </p>
                 </FadeUp>
               </div>
