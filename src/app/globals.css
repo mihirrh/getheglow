@@ -66,24 +66,27 @@ body {
   background-clip: text;
 }
 
-/* ── Glassmorphism ── */
+/* ── Glassmorphism ─────────────────────────────────────────────────────────────
+   Liquid glass — matches Apple's design language.
+   All GPU-composited (backdrop-filter uses the GPU, no main-thread paint cost).
+──────────────────────────────────────────────────────────────────────────────── */
 .glass {
-  background: rgba(255, 255, 255, 0.65);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.45);
 }
 .glass-dark {
-  background: rgba(43, 43, 43, 0.7);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(30, 10, 18, 0.68);
+  backdrop-filter: blur(28px) saturate(160%);
+  -webkit-backdrop-filter: blur(28px) saturate(160%);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 .glass-pink {
-  background: rgba(247, 214, 227, 0.45);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(232, 76, 139, 0.2);
+  background: rgba(247, 214, 227, 0.5);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(232, 76, 139, 0.25);
 }
 
 /* ── Luxury card ── */
@@ -91,11 +94,13 @@ body {
   background: #ffffff;
   border-radius: 1.5rem;
   box-shadow: 0 2px 8px rgba(232, 76, 139, 0.06), 0 8px 40px rgba(43, 43, 43, 0.07);
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  transition: box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
 }
 .card-luxury:hover {
-  box-shadow: 0 4px 20px rgba(232, 76, 139, 0.12), 0 16px 60px rgba(43, 43, 43, 0.1);
-  transform: translateY(-2px);
+  box-shadow: 0 4px 24px rgba(232, 76, 139, 0.14), 0 16px 60px rgba(43, 43, 43, 0.1);
+  transform: translateY(-3px);
 }
 
 /* ── Section spacing ── */
@@ -150,7 +155,14 @@ body {
   from { opacity: 0; transform: translateY(24px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-.animate-fade-up { animation: fadeUp 0.7s ease forwards; }
+.animate-fade-up { animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+
+/* ── Performance — promote animated elements to their own compositor layer.
+   Applied globally to all motion elements so transitions stay on the GPU. ── */
+[style*="transform"],
+[style*="opacity"] {
+  will-change: transform, opacity;
+}
 
 /* ── Prevent flash of invisible content on mobile ──
    Before JS hydrates, Framer Motion leaves elements at opacity:0.
@@ -160,4 +172,87 @@ body {
 :not(.js-ready) [style*="opacity:0"] {
   opacity: 1 !important;
   transform: none !important;
+}
+
+/* ── Card premium (alias used in some sections) ── */
+.card-premium {
+  background: #ffffff;
+  border-radius: 1.5rem;
+  border: 1px solid rgba(240, 214, 227, 0.5);
+  box-shadow: 0 2px 8px rgba(232, 76, 139, 0.05), 0 6px 24px rgba(43, 43, 43, 0.06);
+  transition: box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+.card-premium:hover {
+  box-shadow: 0 4px 20px rgba(232, 76, 139, 0.1), 0 12px 40px rgba(43, 43, 43, 0.08);
+  transform: translateY(-2px);
+}
+
+/* ── Smooth scroll on section-padding children ── */
+.section-padding-sm { padding-top: 3rem; padding-bottom: 3rem; }
+@media (min-width: 768px) { .section-padding-sm { padding-top: 4.5rem; padding-bottom: 4.5rem; } }
+
+/* ── Container utility ── */
+.container-custom {
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+@media (min-width: 640px) {
+  .container-custom { padding-left: 1.5rem; padding-right: 1.5rem; }
+}
+@media (min-width: 1024px) {
+  .container-custom { padding-left: 2rem; padding-right: 2rem; }
+}
+
+/* ── Section label utility ── */
+.section-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: #E84C8B;
+  font-family: var(--font-sans);
+  font-weight: 500;
+}
+
+/* ── Button utilities ── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #E84C8B 0%, #D96A98 50%, #c93a75 100%);
+  color: white;
+  font-weight: 600;
+  padding: 0.875rem 2rem;
+  border-radius: 9999px;
+  font-size: 0.9rem;
+  transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 4px 20px rgba(232, 76, 139, 0.35);
+  will-change: transform;
+}
+.btn-primary:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: white;
+  color: #2B2B2B;
+  font-weight: 600;
+  padding: 0.875rem 2rem;
+  border-radius: 9999px;
+  font-size: 0.9rem;
+  border: 1px solid rgba(240, 214, 227, 0.8);
+  transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+.btn-secondary:hover {
+  border-color: #E84C8B;
+  color: #E84C8B;
+  transform: translateY(-1px);
 }

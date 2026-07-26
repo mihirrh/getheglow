@@ -1,6 +1,6 @@
 "use client";
 
-import { LazyMotion, domAnimation } from "framer-motion";
+import { LazyMotion, domMax } from "framer-motion";
 import { useEffect } from "react";
 
 export function MotionProvider({ children }: { children: React.ReactNode }) {
@@ -9,5 +9,7 @@ export function MotionProvider({ children }: { children: React.ReactNode }) {
     document.documentElement.classList.add("js-ready");
   }, []);
 
-  return <LazyMotion features={domAnimation}>{children}</LazyMotion>;
+  // domMax is required for useScroll / useTransform / drag / layout animations.
+  // domAnimation is a subset that silently breaks those features.
+  return <LazyMotion features={domMax}>{children}</LazyMotion>;
 }

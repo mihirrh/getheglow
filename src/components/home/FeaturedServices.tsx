@@ -1,34 +1,21 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView, type Variants } from "framer-motion";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { SERVICES } from "@/lib/data";
 
-const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 32 },
-  show: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, delay: i * 0.09, ease: "easeOut" },
-  }),
-};
-
 export function FeaturedServices() {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-
   return (
     <section className="section-padding bg-cream">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           className="text-center mb-16"
-          ref={ref}
         >
           <p className="text-xs uppercase tracking-[0.3em] text-primary font-sans font-medium mb-3">
             What We Offer
@@ -46,18 +33,16 @@ export function FeaturedServices() {
           {SERVICES.map((service, i) => (
             <motion.div
               key={service.slug}
-              custom={i}
-              initial="hidden"
-              animate={inView ? "show" : "hidden"}
-              variants={fadeUp}
+              initial={{ opacity: 0, y: 32 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.55, delay: i * 0.07, ease: [0.22, 1, 0.36, 1] }}
             >
               <Link
                 href={`/services/${service.slug}`}
                 className="card-luxury group block p-6 sm:p-8 h-full border border-border/50 hover:border-primary/30 transition-colors"
               >
-                <div
-                  className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl mb-5 bg-soft-pink/60 group-hover:bg-primary/10 transition-colors"
-                >
+                <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl mb-5 bg-soft-pink/60 group-hover:bg-primary/10 transition-colors">
                   {service.icon}
                 </div>
                 <h3 className="font-display font-bold text-lg text-dark mb-2">
@@ -66,7 +51,7 @@ export function FeaturedServices() {
                 <p className="text-sm text-muted leading-relaxed mb-4">
                   {service.shortDesc}
                 </p>
-                <span className="inline-flex items-center gap-1 text-xs font-medium text-primary group-hover:gap-2 transition-all">
+                <span className="inline-flex items-center gap-1 text-xs font-medium text-primary group-hover:gap-2 transition-all duration-200">
                   Learn more
                   <ArrowRight size={12} />
                 </span>
@@ -77,8 +62,9 @@ export function FeaturedServices() {
 
         <motion.div
           initial={{ opacity: 0, y: 16 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.6 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
           className="text-center mt-12"
         >
           <Link

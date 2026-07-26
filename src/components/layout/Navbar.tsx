@@ -92,28 +92,37 @@ export function Navbar() {
                       <AnimatePresence>
                         {servicesOpen && (
                           <motion.div
-                            initial={{ opacity: 0, y: 8, scale: 0.97 }}
+                            initial={{ opacity: 0, y: 10, scale: 0.96 }}
                             animate={{ opacity: 1, y: 0, scale: 1 }}
-                            exit={{ opacity: 0, y: 8, scale: 0.97 }}
-                            transition={{ duration: 0.18 }}
-                            className="absolute top-full left-0 mt-2 w-52 glass rounded-2xl shadow-xl border border-white/30 py-2 z-50"
+                            exit={{ opacity: 0, y: 10, scale: 0.96 }}
+                            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                            className="absolute top-full left-0 mt-2.5 w-56 rounded-2xl py-2 z-50 overflow-hidden"
+                            style={{
+                              background: "rgba(255, 252, 254, 0.96)",
+                              backdropFilter: "blur(40px) saturate(180%)",
+                              WebkitBackdropFilter: "blur(40px) saturate(180%)",
+                              boxShadow: "0 8px 40px rgba(43,43,43,0.18), 0 2px 12px rgba(232,76,139,0.1)",
+                              border: "1px solid rgba(232,76,139,0.12)",
+                            }}
                           >
                             <Link
                               href="/services"
-                              className="block px-4 py-2 text-sm text-dark font-medium hover:text-primary hover:bg-soft-pink/30 transition-colors"
+                              onClick={() => setServicesOpen(false)}
+                              className="block px-4 py-2.5 text-sm text-dark font-semibold hover:text-primary hover:bg-soft-pink/40 transition-colors rounded-xl mx-1"
                             >
                               All Services
                             </Link>
-                            <div className="divider-pink mx-4 my-1" />
+                            <div className="divider-pink mx-4 my-1.5" />
                             {link.children.map((child) => (
                               <Link
                                 key={child.href}
                                 href={child.href}
+                                onClick={() => setServicesOpen(false)}
                                 className={cn(
-                                  "block px-4 py-2 text-sm transition-colors hover:text-primary hover:bg-soft-pink/30",
+                                  "block px-4 py-2 text-sm transition-colors hover:text-primary hover:bg-soft-pink/30 rounded-xl mx-1",
                                   pathname === child.href
-                                    ? "text-primary font-medium"
-                                    : "text-dark/80"
+                                    ? "text-primary font-semibold bg-soft-pink/20"
+                                    : "text-dark"
                                 )}
                               >
                                 {child.label}

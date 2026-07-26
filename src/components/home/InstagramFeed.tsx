@@ -1,7 +1,6 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import { Camera, ExternalLink, Heart } from "lucide-react";
 import { BUSINESS } from "@/lib/data";
 
@@ -70,16 +69,14 @@ const MOCK_POSTS = [
 ];
 
 export function InstagramFeed() {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-
   return (
-    <section className="section-padding bg-cream" ref={ref}>
+    <section className="section-padding bg-cream">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           className="text-center mb-14"
         >
           <p className="text-xs uppercase tracking-[0.3em] text-primary font-sans font-medium mb-3">
@@ -110,9 +107,10 @@ export function InstagramFeed() {
               href={post.link}
               target="_blank"
               rel="noopener noreferrer"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={inView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
+              initial={{ opacity: 0, scale: 0.92 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.5, delay: i * 0.07, ease: [0.22, 1, 0.36, 1] }}
               className="group relative aspect-square rounded-2xl overflow-hidden cursor-pointer"
               style={{ backgroundColor: post.bgColor }}
             >
@@ -140,8 +138,9 @@ export function InstagramFeed() {
 
         <motion.p
           initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ delay: 0.7, duration: 0.5 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3, duration: 0.5, ease: "easeOut" }}
           className="text-center text-xs text-muted/60 mt-6"
         >
           * Feed shown with placeholder content. Connect your Instagram Graph API token in{" "}
