@@ -333,12 +333,12 @@ export function Hero() {
               </div>
             </motion.div>
 
-            {/* ── 5-star social proof strip ── */}
+            {/* ── 5-star social proof strip — floats top-right, above nails card ── */}
             <motion.div
-              initial={{ opacity: 0, x: -12 }}
+              initial={{ opacity: 0, x: 12 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.7, delay: 1.15, ease: EASE }}
-              className="absolute top-[8%] left-[3%] z-20 flex items-center gap-2 px-3 py-2 rounded-xl"
+              className="absolute top-[4%] right-[4%] z-20 flex items-center gap-2 px-3 py-2 rounded-xl"
               style={{
                 background: "rgba(14, 4, 10, 0.75)",
                 backdropFilter: "blur(20px)",
