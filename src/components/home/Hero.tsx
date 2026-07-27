@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Phone, MessageCircle, ArrowRight, Star } from "lucide-react";
+import Image from "next/image";
 import { BUSINESS } from "@/lib/data";
 import { EASE } from "@/components/ui/Animate";
 import { ServiceIcon } from "@/components/ui/ServiceIcon";
@@ -183,55 +184,54 @@ export function Hero() {
           {/* ── Right: editorial card collage ── */}
           <div className="relative hidden lg:block h-[540px] xl:h-[600px]">
 
-            {/* Card 1 — large, behind */}
+            {/* Card 1 — Nails, large, behind */}
             <motion.div
               initial={{ opacity: 0, y: 32, rotate: 2 }}
               animate={{ opacity: 1, y: 0, rotate: 2 }}
               transition={{ duration: 1, delay: 0.4, ease: EASE }}
               className="absolute top-0 right-0 w-[68%] h-[72%] rounded-2xl overflow-hidden"
-              style={{
-                background: "linear-gradient(145deg, rgba(232,76,139,0.25) 0%, rgba(43,43,43,0.6) 100%)",
-                border: "1px solid rgba(232,76,139,0.2)",
-              }}
+              style={{ border: "1px solid rgba(232,76,139,0.2)" }}
             >
-              {/* Placeholder — swap for real <Image> */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 p-8">
-                <div className="w-16 h-16 rounded-2xl bg-white/8 flex items-center justify-center">
-                  <ServiceIcon slug="nails" size={32} className="text-white/60" />
-                </div>
-                <p className="text-white/30 text-xs uppercase tracking-[0.25em] font-sans text-center">
-                  Nails · Gel · Builder
-                </p>
-              </div>
+              {/* Real photo */}
+              <Image
+                src="/images/nail_front-page.jpg"
+                alt="Gel nails at Get The Glow Leicester"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1280px) 45vw, 380px"
+                priority
+              />
+              {/* Dark scrim so the label is always legible */}
+              <div className="absolute inset-0 bg-gradient-to-t from-dark/60 via-transparent to-transparent" />
               {/* Corner label */}
               <div className="absolute bottom-4 left-4 px-3 py-1.5 rounded-lg"
-                style={{ background: "rgba(232,76,139,0.25)", backdropFilter: "blur(12px)" }}>
-                <p className="text-[10px] uppercase tracking-[0.2em] text-white/70 font-sans">From £18</p>
+                style={{ background: "rgba(232,76,139,0.35)", backdropFilter: "blur(12px)" }}>
+                <p className="text-[10px] uppercase tracking-[0.2em] text-white font-sans font-medium">Nails · From £18</p>
               </div>
             </motion.div>
 
-            {/* Card 2 — small, foreground left */}
+            {/* Card 2 — Hair, foreground left */}
             <motion.div
               initial={{ opacity: 0, y: 48, rotate: -3 }}
               animate={{ opacity: 1, y: 0, rotate: -3 }}
               transition={{ duration: 1, delay: 0.6, ease: EASE }}
               className="absolute bottom-16 left-0 w-[52%] h-[50%] rounded-2xl overflow-hidden"
-              style={{
-                background: "linear-gradient(145deg, rgba(214,177,90,0.2) 0%, rgba(43,43,43,0.65) 100%)",
-                border: "1px solid rgba(214,177,90,0.18)",
-              }}
+              style={{ border: "1px solid rgba(214,177,90,0.2)" }}
             >
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 p-6">
-                <div className="w-14 h-14 rounded-2xl bg-white/8 flex items-center justify-center">
-                  <ServiceIcon slug="hair" size={28} className="text-white/60" />
-                </div>
-                <p className="text-white/30 text-xs uppercase tracking-[0.25em] font-sans text-center">
-                  Hair · Colour · Style
-                </p>
-              </div>
+              {/* Real photo */}
+              <Image
+                src="/images/hair_front-page.jpg"
+                alt="Hair styling at Get The Glow Leicester"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1280px) 35vw, 280px"
+              />
+              {/* Dark scrim */}
+              <div className="absolute inset-0 bg-gradient-to-t from-dark/60 via-transparent to-transparent" />
+              {/* Corner label */}
               <div className="absolute bottom-3 left-3 px-2.5 py-1 rounded-lg"
-                style={{ background: "rgba(214,177,90,0.22)", backdropFilter: "blur(12px)" }}>
-                <p className="text-[10px] uppercase tracking-[0.2em] text-white/70 font-sans">From £35</p>
+                style={{ background: "rgba(214,177,90,0.35)", backdropFilter: "blur(12px)" }}>
+                <p className="text-[10px] uppercase tracking-[0.2em] text-white font-sans font-medium">Hair · From £35</p>
               </div>
             </motion.div>
 
