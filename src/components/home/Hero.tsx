@@ -184,7 +184,7 @@ export function Hero() {
           {/* ── Right: editorial card collage ── */}
           <div className="relative hidden lg:block h-[540px] xl:h-[600px]">
 
-            {/* ── Photo card 1 — Nails (large, top-right, slight clockwise tilt) ── */}
+            {/* ── Photo card 1 — Nails (large, top-right) ── */}
             <motion.div
               initial={{ opacity: 0, y: 32, rotate: 2 }}
               animate={{ opacity: 1, y: 0, rotate: 2 }}
@@ -200,36 +200,36 @@ export function Hero() {
                 sizes="(max-width: 1280px) 45vw, 380px"
                 priority
               />
-              {/* Bottom scrim — dark fade */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+              {/* Top-to-bottom scrim — dark at both ends */}
+              <div className="absolute inset-0"
+                style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, transparent 40%, rgba(0,0,0,0.65) 100%)" }}
+              />
 
-              {/* ── Inline editorial overlay — sits inside the photo ── */}
-              <div className="absolute bottom-0 left-0 right-0 p-4 flex items-end justify-between gap-2">
-                {/* Service name + price badge */}
-                <div>
-                  <p className="text-white/50 text-[9px] uppercase tracking-[0.3em] font-sans mb-0.5">
-                    Nails
-                  </p>
-                  <p className="text-white font-display font-bold text-[1.6rem] leading-none">
-                    From £18
-                  </p>
-                </div>
-                {/* Tag — treatment types */}
-                <div className="flex flex-col gap-1 items-end">
-                  {["Gel Polish", "Builder Gel", "Nail Art"].map((t) => (
-                    <span
-                      key={t}
-                      className="text-[9px] font-sans font-medium text-white/60 uppercase tracking-[0.15em] px-2 py-0.5 rounded-full"
-                      style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.1)" }}
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
+              {/* ── Top-left label — clear of the lash lift card ── */}
+              <div className="absolute top-4 left-4">
+                <p className="text-white/50 text-[9px] uppercase tracking-[0.3em] font-sans mb-0.5">
+                  Nails
+                </p>
+                <p className="text-white font-display font-bold text-[1.6rem] leading-none">
+                  From £18
+                </p>
+              </div>
+
+              {/* ── Treatment tags — top-right ── */}
+              <div className="absolute top-4 right-4 flex flex-col gap-1 items-end">
+                {["Gel Polish", "Builder Gel", "Nail Art"].map((t) => (
+                  <span
+                    key={t}
+                    className="text-[9px] font-sans font-medium text-white/70 uppercase tracking-[0.15em] px-2 py-0.5 rounded-full"
+                    style={{ background: "rgba(0,0,0,0.35)", border: "1px solid rgba(255,255,255,0.12)" }}
+                  >
+                    {t}
+                  </span>
+                ))}
               </div>
             </motion.div>
 
-            {/* ── Photo card 2 — Hair (smaller, bottom-left, counter-tilt) ── */}
+            {/* ── Photo card 2 — Hair (smaller, bottom-left) ── */}
             <motion.div
               initial={{ opacity: 0, y: 48, rotate: -3 }}
               animate={{ opacity: 1, y: 0, rotate: -3 }}
@@ -244,87 +244,81 @@ export function Hero() {
                 className="object-cover"
                 sizes="(max-width: 1280px) 35vw, 280px"
               />
-              {/* Bottom scrim */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+              <div className="absolute inset-0"
+                style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, transparent 40%, rgba(0,0,0,0.65) 100%)" }}
+              />
 
-              {/* ── Inline editorial overlay ── */}
-              <div className="absolute bottom-0 left-0 right-0 p-4 flex items-end justify-between gap-2">
-                <div>
-                  <p className="text-white/50 text-[9px] uppercase tracking-[0.3em] font-sans mb-0.5">
-                    Hair
-                  </p>
-                  <p className="text-white font-display font-bold text-[1.4rem] leading-none">
-                    From £35
-                  </p>
-                </div>
-                <div className="flex flex-col gap-1 items-end">
-                  {["Cuts", "Colour", "Balayage"].map((t) => (
-                    <span
-                      key={t}
-                      className="text-[9px] font-sans font-medium text-white/60 uppercase tracking-[0.15em] px-2 py-0.5 rounded-full"
-                      style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.1)" }}
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
+              {/* ── Top-left label ── */}
+              <div className="absolute top-3 left-4">
+                <p className="text-white/50 text-[9px] uppercase tracking-[0.3em] font-sans mb-0.5">
+                  Hair
+                </p>
+                <p className="text-white font-display font-bold text-[1.3rem] leading-none">
+                  From £35
+                </p>
+              </div>
+
+              {/* ── Treatment tags — top-right ── */}
+              <div className="absolute top-3 right-3 flex flex-col gap-1 items-end">
+                {["Cuts", "Colour", "Balayage"].map((t) => (
+                  <span
+                    key={t}
+                    className="text-[9px] font-sans font-medium text-white/70 uppercase tracking-[0.15em] px-2 py-0.5 rounded-full"
+                    style={{ background: "rgba(0,0,0,0.35)", border: "1px solid rgba(255,255,255,0.12)" }}
+                  >
+                    {t}
+                  </span>
+                ))}
               </div>
             </motion.div>
 
-            {/* ── Floating treatment card — sits between the two photos ── */}
+            {/* ── Lash lift card — anchored bottom-right, below the nails photo ── */}
             <motion.div
               initial={{ opacity: 0, y: 16, scale: 0.92 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.95, ease: EASE }}
-              className="absolute top-[54%] right-[4%] z-20 w-[44%] rounded-2xl overflow-hidden"
+              className="absolute bottom-0 right-0 z-10 w-[60%] rounded-2xl overflow-hidden"
               style={{
-                background: "rgba(14, 4, 10, 0.82)",
+                background: "rgba(14, 4, 10, 0.88)",
                 backdropFilter: "blur(32px) saturate(160%)",
                 border: "1px solid rgba(232,76,139,0.2)",
                 boxShadow: "0 8px 40px rgba(0,0,0,0.5), 0 2px 8px rgba(232,76,139,0.1)",
               }}
             >
-              {/* Top accent bar */}
               <div className="h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
-
-              <div className="p-4">
-                {/* Header row */}
-                <div className="flex items-center justify-between mb-3">
-                  <p className="text-[9px] uppercase tracking-[0.3em] text-white/30 font-sans">
-                    Popular Treatment
+              <div className="p-4 flex items-center justify-between gap-4">
+                {/* Left: name + subtext */}
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2 mb-1">
+                    <p className="text-[9px] uppercase tracking-[0.25em] text-white/30 font-sans">
+                      Popular
+                    </p>
+                    <div className="flex items-center gap-1">
+                      <motion.div
+                        className="w-1.5 h-1.5 rounded-full bg-[#25D366] flex-shrink-0"
+                        animate={{ opacity: [1, 0.3, 1] }}
+                        transition={{ repeat: Infinity, duration: 2.4, ease: "easeInOut" }}
+                      />
+                      <span className="text-[8px] text-white/30 font-sans uppercase tracking-[0.2em]">
+                        Book now
+                      </span>
+                    </div>
+                  </div>
+                  <p className="text-white font-display font-bold text-base leading-tight">
+                    Lash Lift &amp; Tint
                   </p>
-                  {/* Live indicator */}
-                  <div className="flex items-center gap-1.5">
-                    <motion.div
-                      className="w-1.5 h-1.5 rounded-full bg-[#25D366]"
-                      animate={{ opacity: [1, 0.3, 1] }}
-                      transition={{ repeat: Infinity, duration: 2.4, ease: "easeInOut" }}
-                    />
-                    <span className="text-[8px] text-white/30 font-sans uppercase tracking-[0.2em]">
-                      Book now
-                    </span>
-                  </div>
+                  <p className="text-white/40 text-[10px] font-sans mt-0.5">
+                    Open eyes · No mascara needed
+                  </p>
                 </div>
-
-                {/* Treatment name */}
-                <p className="text-white font-display font-bold text-[1.1rem] leading-tight mb-0.5">
-                  Lash Lift &amp; Tint
-                </p>
-                <p className="text-white/40 text-[10px] font-sans mb-3">
-                  Open eyes · No mascara needed
-                </p>
-
-                {/* Price row */}
-                <div className="flex items-center justify-between">
-                  <div>
-                    <span className="text-primary font-display font-bold text-2xl leading-none">£48</span>
-                  </div>
-                  {/* CTA button */}
+                {/* Right: price + CTA */}
+                <div className="flex flex-col items-end gap-2 flex-shrink-0">
+                  <span className="text-primary font-display font-bold text-2xl leading-none">£48</span>
                   <a
                     href="https://wa.me/447778698550?text=Hi%2C%20I%27d%20like%20to%20book%20a%20Lash%20Lift%20%26%20Tint"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 bg-primary text-white text-[10px] font-sans font-semibold px-3 py-1.5 rounded-lg hover:bg-primary-dark transition-colors"
+                    className="flex items-center gap-1 bg-primary text-white text-[10px] font-sans font-semibold px-3 py-1.5 rounded-lg hover:bg-primary-dark transition-colors"
                   >
                     Book
                     <ArrowRight size={9} />
