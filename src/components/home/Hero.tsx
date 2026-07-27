@@ -333,26 +333,6 @@ export function Hero() {
               </div>
             </motion.div>
 
-            {/* ── 5-star social proof strip — floats top-right, above nails card ── */}
-            <motion.div
-              initial={{ opacity: 0, x: 12 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.7, delay: 1.15, ease: EASE }}
-              className="absolute top-[4%] right-[4%] z-20 flex items-center gap-2 px-3 py-2 rounded-xl"
-              style={{
-                background: "rgba(14, 4, 10, 0.75)",
-                backdropFilter: "blur(20px)",
-                border: "1px solid rgba(255,255,255,0.07)",
-              }}
-            >
-              <div className="flex gap-0.5">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} size={10} className="fill-gold text-gold" />
-                ))}
-              </div>
-              <span className="text-[10px] text-white/50 font-sans">5.0 · 127+ reviews</span>
-            </motion.div>
-
             {/* ── Thin vertical divider line ── */}
             <motion.div
               initial={{ scaleY: 0 }}
