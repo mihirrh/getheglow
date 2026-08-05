@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { SERVICES, PRICING, BUSINESS } from "@/lib/data";
 import { PriceTable } from "@/components/ui/PriceTable";
+import { ServiceIcon } from "@/components/ui/ServiceIcon";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, Phone, MessageCircle, Sparkles } from "lucide-react";
@@ -93,7 +94,9 @@ export default async function ServicePage({ params }: Props) {
             className="mb-8 text-white/60 [&_a]:text-white/60 [&_a:hover]:text-primary"
           />
           <div className="max-w-3xl">
-            <div className="text-4xl mb-4">{service.icon}</div>
+            <div className="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center mb-4">
+              <ServiceIcon slug={service.slug} size={26} className="text-white" />
+            </div>
             <h1 className="font-display font-bold text-5xl sm:text-6xl text-white mb-6 leading-tight">
               {service.name}{" "}
               <span style={{ background: "linear-gradient(135deg, #F7D6E3, #E84C8B)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
@@ -245,7 +248,9 @@ export default async function ServicePage({ params }: Props) {
                 href={`/services/${s.slug}`}
                 className="card-luxury group p-6 text-center border border-border/50 hover:border-primary/30 transition-colors"
               >
-                <div className="text-3xl mb-3">{s.icon}</div>
+                <div className="w-10 h-10 rounded-xl bg-soft-pink/60 flex items-center justify-center mx-auto mb-3 group-hover:bg-primary/10 transition-colors">
+                  <ServiceIcon slug={s.slug} size={18} className="text-primary" />
+                </div>
                 <h3 className="font-display font-semibold text-dark text-sm mb-1">{s.name}</h3>
                 <span className="text-xs text-primary inline-flex items-center gap-1 group-hover:gap-2 transition-all">
                   View <ArrowRight size={10} />

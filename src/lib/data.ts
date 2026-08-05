@@ -280,7 +280,6 @@ export const SERVICES = [
     shortDesc: "Cuts, styling, colouring & treatments",
     longDesc:
       "From precision cuts to stunning colour transformations, our hair experts bring your vision to life using premium products and techniques.",
-    icon: "✂️",
     color: "#E84C8B",
     pricingKeys: ["hair", "colouring"],
     heroImage: "/images/services/hair-hero.jpg",
@@ -311,7 +310,6 @@ export const SERVICES = [
     shortDesc: "Gel, builder gel, extensions & nail art",
     longDesc:
       "From classic polish to luxury builder gel extensions, our nail technicians create beautiful, long-lasting results.",
-    icon: "💅",
     color: "#D96A98",
     pricingKeys: ["nails", "manicure", "pedicure"],
     heroImage: "/images/services/nails-hero.jpg",
@@ -342,7 +340,6 @@ export const SERVICES = [
     shortDesc: "Express, deep cleanse, gold & signature facials",
     longDesc:
       "Reveal your best skin with our range of facial treatments. From a 30-minute express refresh to our signature 1hr 15min Get The Glow Facial — each treatment is designed to cleanse, hydrate and restore your natural radiance.",
-    icon: "✨",
     color: "#E84C8B",
     pricingKeys: ["facials"],
     heroImage: "/images/services/facials-hero.jpg",
@@ -373,7 +370,6 @@ export const SERVICES = [
     shortDesc: "Indian head, full body, hot stone & more",
     longDesc:
       "Melt away stress and tension with our professional massage treatments. From a 30-minute Indian head massage to the ultimate 1-hour hot stone experience — each session is designed to leave you feeling completely relaxed and refreshed.",
-    icon: "🌿",
     color: "#D96A98",
     pricingKeys: ["massage"],
     heroImage: "/images/services/massage-hero.jpg",
@@ -404,7 +400,6 @@ export const SERVICES = [
     shortDesc: "Face & body waxing with tea tree and hot wax",
     longDesc:
       "Smooth, long-lasting results with our professional waxing services using both tea tree and premium hot wax options.",
-    icon: "🌸",
     color: "#E84C8B",
     pricingKeys: ["faceWaxTeaTee", "faceWaxHot", "bodyWaxing"],
     heroImage: "/images/services/waxing-hero.jpg",
@@ -435,7 +430,6 @@ export const SERVICES = [
     shortDesc: "Precision brow shaping & full face threading",
     longDesc:
       "Achieve perfectly shaped, defined brows and flawlessly smooth skin with our traditional threading technique.",
-    icon: "🎯",
     color: "#D96A98",
     pricingKeys: ["threading"],
     heroImage: "/images/services/threading-hero.jpg",
@@ -466,7 +460,6 @@ export const SERVICES = [
     shortDesc: "Tinting, lamination, lash lift & brow design",
     longDesc:
       "Frame your face beautifully with our eyelash and brow enhancement treatments — from natural tints and precise shaping to dramatic lash lifts and brow lamination.",
-    icon: "👁️",
     color: "#E84C8B",
     pricingKeys: ["lashesAndBrows"],
     heroImage: "/images/services/lashes-hero.jpg",
@@ -497,7 +490,6 @@ export const SERVICES = [
     shortDesc: "Full beauty treatments for every occasion",
     longDesc:
       "Whether you're preparing for a special occasion or treating yourself, our beauty treatments cover everything from bridal packages to everyday pampering.",
-    icon: "💄",
     color: "#D96A98",
     pricingKeys: ["facials", "massage", "lashesAndBrows"],
     heroImage: "/images/services/beauty-hero.jpg",

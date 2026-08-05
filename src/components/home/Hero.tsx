@@ -3,8 +3,10 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Phone, MessageCircle, ArrowRight, Star } from "lucide-react";
+import Image from "next/image";
 import { BUSINESS } from "@/lib/data";
 import { EASE } from "@/components/ui/Animate";
+import { ServiceIcon } from "@/components/ui/ServiceIcon";
 
 export function Hero() {
   const ref = useRef<HTMLDivElement>(null);
@@ -182,77 +184,156 @@ export function Hero() {
           {/* ── Right: editorial card collage ── */}
           <div className="relative hidden lg:block h-[540px] xl:h-[600px]">
 
-            {/* Card 1 — large, behind */}
+            {/* ── Photo card 1 — Nails (large, top-right) ── */}
             <motion.div
               initial={{ opacity: 0, y: 32, rotate: 2 }}
               animate={{ opacity: 1, y: 0, rotate: 2 }}
               transition={{ duration: 1, delay: 0.4, ease: EASE }}
               className="absolute top-0 right-0 w-[68%] h-[72%] rounded-2xl overflow-hidden"
-              style={{
-                background: "linear-gradient(145deg, rgba(232,76,139,0.25) 0%, rgba(43,43,43,0.6) 100%)",
-                border: "1px solid rgba(232,76,139,0.2)",
-              }}
+              style={{ border: "1px solid rgba(255,255,255,0.08)" }}
             >
-              {/* Placeholder — swap for real <Image> */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 p-8">
-                <span className="text-5xl">💅</span>
-                <p className="text-white/30 text-xs uppercase tracking-[0.25em] font-sans text-center">
-                  Nails · Gel · Builder
+              <Image
+                src="/images/nail_front-page.jpg"
+                alt="Gel nails at Get The Glow Leicester"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1280px) 45vw, 380px"
+                priority
+              />
+              {/* Top-to-bottom scrim — dark at both ends */}
+              <div className="absolute inset-0"
+                style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, transparent 40%, rgba(0,0,0,0.65) 100%)" }}
+              />
+
+              {/* ── Top-left label — clear of the lash lift card ── */}
+              <div className="absolute top-4 left-4">
+                <p className="text-white/50 text-[9px] uppercase tracking-[0.3em] font-sans mb-0.5">
+                  Nails
+                </p>
+                <p className="text-white font-display font-bold text-[1.6rem] leading-none">
+                  From £18
                 </p>
               </div>
-              {/* Corner label */}
-              <div className="absolute bottom-4 left-4 px-3 py-1.5 rounded-lg"
-                style={{ background: "rgba(232,76,139,0.25)", backdropFilter: "blur(12px)" }}>
-                <p className="text-[10px] uppercase tracking-[0.2em] text-white/70 font-sans">From £18</p>
+
+              {/* ── Treatment tags — top-right ── */}
+              <div className="absolute top-4 right-4 flex flex-col gap-1 items-end">
+                {["Gel Polish", "Builder Gel", "Nail Art"].map((t) => (
+                  <span
+                    key={t}
+                    className="text-[9px] font-sans font-medium text-white/70 uppercase tracking-[0.15em] px-2 py-0.5 rounded-full"
+                    style={{ background: "rgba(0,0,0,0.35)", border: "1px solid rgba(255,255,255,0.12)" }}
+                  >
+                    {t}
+                  </span>
+                ))}
               </div>
             </motion.div>
 
-            {/* Card 2 — small, foreground left */}
+            {/* ── Photo card 2 — Hair (smaller, bottom-left) ── */}
             <motion.div
               initial={{ opacity: 0, y: 48, rotate: -3 }}
               animate={{ opacity: 1, y: 0, rotate: -3 }}
               transition={{ duration: 1, delay: 0.6, ease: EASE }}
               className="absolute bottom-16 left-0 w-[52%] h-[50%] rounded-2xl overflow-hidden"
-              style={{
-                background: "linear-gradient(145deg, rgba(214,177,90,0.2) 0%, rgba(43,43,43,0.65) 100%)",
-                border: "1px solid rgba(214,177,90,0.18)",
-              }}
+              style={{ border: "1px solid rgba(255,255,255,0.08)" }}
             >
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 p-6">
-                <span className="text-4xl">✂️</span>
-                <p className="text-white/30 text-xs uppercase tracking-[0.25em] font-sans text-center">
-                  Hair · Colour · Style
+              <Image
+                src="/images/hair_front-page.jpg"
+                alt="Hair styling at Get The Glow Leicester"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1280px) 35vw, 280px"
+              />
+              <div className="absolute inset-0"
+                style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, transparent 40%, rgba(0,0,0,0.65) 100%)" }}
+              />
+
+              {/* ── Top-left label ── */}
+              <div className="absolute top-3 left-4">
+                <p className="text-white/50 text-[9px] uppercase tracking-[0.3em] font-sans mb-0.5">
+                  Hair
+                </p>
+                <p className="text-white font-display font-bold text-[1.3rem] leading-none">
+                  From £35
                 </p>
               </div>
-              <div className="absolute bottom-3 left-3 px-2.5 py-1 rounded-lg"
-                style={{ background: "rgba(214,177,90,0.22)", backdropFilter: "blur(12px)" }}>
-                <p className="text-[10px] uppercase tracking-[0.2em] text-white/70 font-sans">From £35</p>
+
+              {/* ── Treatment tags — top-right ── */}
+              <div className="absolute top-3 right-3 flex flex-col gap-1 items-end">
+                {["Cuts", "Colour", "Balayage"].map((t) => (
+                  <span
+                    key={t}
+                    className="text-[9px] font-sans font-medium text-white/70 uppercase tracking-[0.15em] px-2 py-0.5 rounded-full"
+                    style={{ background: "rgba(0,0,0,0.35)", border: "1px solid rgba(255,255,255,0.12)" }}
+                  >
+                    {t}
+                  </span>
+                ))}
               </div>
             </motion.div>
 
-            {/* Card 3 — floating accent pill */}
+            {/* ── Lash lift card — anchored bottom-right, below the nails photo ── */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.85, x: 20 }}
-              animate={{ opacity: 1, scale: 1, x: 0 }}
-              transition={{ duration: 0.7, delay: 0.85, ease: EASE }}
-              className="absolute top-[58%] right-[10%] px-4 py-3 rounded-2xl z-10"
+              initial={{ opacity: 0, y: 16, scale: 0.92 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.95, ease: EASE }}
+              className="absolute bottom-0 right-0 z-10 w-[60%] rounded-2xl overflow-hidden"
               style={{
-                background: "rgba(22, 8, 16, 0.85)",
-                backdropFilter: "blur(24px)",
-                border: "1px solid rgba(232,76,139,0.25)",
+                background: "rgba(14, 4, 10, 0.88)",
+                backdropFilter: "blur(32px) saturate(160%)",
+                border: "1px solid rgba(232,76,139,0.2)",
+                boxShadow: "0 8px 40px rgba(0,0,0,0.5), 0 2px 8px rgba(232,76,139,0.1)",
               }}
             >
-              <p className="text-[11px] text-white/50 font-sans uppercase tracking-[0.2em] mb-0.5">Lash Lift & Tint</p>
-              <p className="text-white font-display font-bold text-xl leading-none">£48</p>
+              <div className="h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
+              <div className="p-4 flex items-center justify-between gap-4">
+                {/* Left: name + subtext */}
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2 mb-1">
+                    <p className="text-[9px] uppercase tracking-[0.25em] text-white/30 font-sans">
+                      Popular
+                    </p>
+                    <div className="flex items-center gap-1">
+                      <motion.div
+                        className="w-1.5 h-1.5 rounded-full bg-[#25D366] flex-shrink-0"
+                        animate={{ opacity: [1, 0.3, 1] }}
+                        transition={{ repeat: Infinity, duration: 2.4, ease: "easeInOut" }}
+                      />
+                      <span className="text-[8px] text-white/30 font-sans uppercase tracking-[0.2em]">
+                        Book now
+                      </span>
+                    </div>
+                  </div>
+                  <p className="text-white font-display font-bold text-base leading-tight">
+                    Lash Lift &amp; Tint
+                  </p>
+                  <p className="text-white/40 text-[10px] font-sans mt-0.5">
+                    Open eyes · No mascara needed
+                  </p>
+                </div>
+                {/* Right: price + CTA */}
+                <div className="flex flex-col items-end gap-2 flex-shrink-0">
+                  <span className="text-primary font-display font-bold text-2xl leading-none">£48</span>
+                  <a
+                    href="https://wa.me/447778698550?text=Hi%2C%20I%27d%20like%20to%20book%20a%20Lash%20Lift%20%26%20Tint"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1 bg-primary text-white text-[10px] font-sans font-semibold px-3 py-1.5 rounded-lg hover:bg-primary-dark transition-colors"
+                  >
+                    Book
+                    <ArrowRight size={9} />
+                  </a>
+                </div>
+              </div>
             </motion.div>
 
-            {/* Thin vertical line — design accent */}
+            {/* ── Thin vertical divider line ── */}
             <motion.div
               initial={{ scaleY: 0 }}
               animate={{ scaleY: 1 }}
               transition={{ duration: 1.2, delay: 0.3, ease: EASE }}
-              className="absolute top-8 bottom-8 left-[52%] w-px origin-top"
-              style={{ background: "linear-gradient(to bottom, transparent, rgba(232,76,139,0.3), transparent)" }}
+              className="absolute top-8 bottom-8 left-[52%] w-px origin-top pointer-events-none"
+              style={{ background: "linear-gradient(to bottom, transparent, rgba(232,76,139,0.2), transparent)" }}
             />
           </div>
 
