@@ -173,6 +173,7 @@ export default async function ServicePage({ params }: Props) {
                     key={pricing.label}
                     label={pricing.label}
                     items={pricing.items}
+                    note={"note" in pricing ? (pricing as { note?: string }).note : undefined}
                   />
                 ))}
               </div>
